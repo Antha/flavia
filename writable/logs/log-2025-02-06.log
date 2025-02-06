@@ -1439,3 +1439,139 @@ DEBUG - 2025-02-06 07:52:23 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2025-02-06 07:52:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2025-02-06 07:52:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2025-02-06 07:52:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-02-06 08:33:47 --> Email: sendWithSmtp throwed ErrorException: stream_socket_enable_crypto(): SSL/TLS already set-up for this stream in D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php:1924
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'stream_socket_e...', 'D:\\Work\\Hendra-...', 1924)
+#1 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1924): stream_socket_enable_crypto(Resource id #132, true, 121)
+#2 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1811): CodeIgniter\Email\Email->SMTPConnect()
+#3 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1696): CodeIgniter\Email\Email->sendWithSmtp()
+#4 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1591): CodeIgniter\Email\Email->spoolEmail()
+#5 D:\Work\Hendra-Project\flavia\app\Controllers\Home.php(31): CodeIgniter\Email\Email->send()
+#6 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Home->sendEmail()
+#7 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#8 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\Work\Hendra-Project\flavia\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\rewrite.php(44): require_once('D:\\Work\\Hendra-...')
+#13 {main}
+ERROR - 2025-02-06 08:33:47 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-02-06 08:33:47 --> 220-srv100.niagahoster.com ESMTP Exim 4.98 #2 Thu, 06 Feb 2025 15:33:46 +0700 
+220-We do not authorize the use of this system to transport unsolicited, 
+220 and/or bulk e-mail.
+
+hello: 250-srv100.niagahoster.com Hello localhost [202.3.212.133]
+250-SIZE 41943040
+250-LIMITS MAILMAX=1000 RCPTMAX=20
+250-8BITMIME
+250-PIPELINING
+250-PIPECONNECT
+250-AUTH PLAIN LOGIN
+250 HELP
+
+starttls: 503 STARTTLS command used when not advertised
+
+The following SMTP error was encountered: 503 STARTTLS command used when not advertised
+
+ERROR - 2025-02-06 08:35:02 --> Email: sendWithSmtp throwed ErrorException: stream_socket_enable_crypto(): SSL/TLS already set-up for this stream in D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php:1924
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'stream_socket_e...', 'D:\\Work\\Hendra-...', 1924)
+#1 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1924): stream_socket_enable_crypto(Resource id #132, true, 121)
+#2 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1811): CodeIgniter\Email\Email->SMTPConnect()
+#3 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1696): CodeIgniter\Email\Email->sendWithSmtp()
+#4 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1591): CodeIgniter\Email\Email->spoolEmail()
+#5 D:\Work\Hendra-Project\flavia\app\Controllers\Home.php(31): CodeIgniter\Email\Email->send()
+#6 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Home->sendEmail()
+#7 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#8 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\Work\Hendra-Project\flavia\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\rewrite.php(44): require_once('D:\\Work\\Hendra-...')
+#13 {main}
+ERROR - 2025-02-06 08:35:02 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-02-06 08:35:02 --> 220-srv100.niagahoster.com ESMTP Exim 4.98 #2 Thu, 06 Feb 2025 15:35:02 +0700 
+220-We do not authorize the use of this system to transport unsolicited, 
+220 and/or bulk e-mail.
+
+hello: 250-srv100.niagahoster.com Hello localhost [202.3.212.133]
+250-SIZE 41943040
+250-LIMITS MAILMAX=1000 RCPTMAX=20
+250-8BITMIME
+250-PIPELINING
+250-PIPECONNECT
+250-AUTH PLAIN LOGIN
+250 HELP
+
+starttls: 503 STARTTLS command used when not advertised
+
+The following SMTP error was encountered: 503 STARTTLS command used when not advertised
+
+ERROR - 2025-02-06 08:36:58 --> Email: sendWithSmtp throwed ErrorException: stream_socket_enable_crypto(): SSL/TLS already set-up for this stream in D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php:1918
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'stream_socket_e...', 'D:\\Work\\Hendra-...', 1918)
+#1 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1918): stream_socket_enable_crypto(Resource id #132, true, 121)
+#2 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1805): CodeIgniter\Email\Email->SMTPConnect()
+#3 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1690): CodeIgniter\Email\Email->sendWithSmtp()
+#4 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1585): CodeIgniter\Email\Email->spoolEmail()
+#5 D:\Work\Hendra-Project\flavia\app\Controllers\Home.php(31): CodeIgniter\Email\Email->send()
+#6 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Home->sendEmail()
+#7 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#8 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\Work\Hendra-Project\flavia\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\rewrite.php(44): require_once('D:\\Work\\Hendra-...')
+#13 {main}
+ERROR - 2025-02-06 08:36:58 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-02-06 08:36:58 --> 220-srv100.niagahoster.com ESMTP Exim 4.98 #2 Thu, 06 Feb 2025 15:36:58 +0700 
+220-We do not authorize the use of this system to transport unsolicited, 
+220 and/or bulk e-mail.
+
+hello: 250-srv100.niagahoster.com Hello localhost [202.3.212.133]
+250-SIZE 41943040
+250-LIMITS MAILMAX=1000 RCPTMAX=20
+250-8BITMIME
+250-PIPELINING
+250-PIPECONNECT
+250-AUTH PLAIN LOGIN
+250 HELP
+
+starttls: 503 STARTTLS command used when not advertised
+
+The following SMTP error was encountered: 503 STARTTLS command used when not advertised
+
+ERROR - 2025-02-06 08:38:28 --> Email: sendWithSmtp throwed ErrorException: stream_socket_enable_crypto(): SSL/TLS already set-up for this stream in D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php:1918
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'stream_socket_e...', 'D:\\Work\\Hendra-...', 1918)
+#1 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1918): stream_socket_enable_crypto(Resource id #132, true, 121)
+#2 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1805): CodeIgniter\Email\Email->SMTPConnect()
+#3 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1690): CodeIgniter\Email\Email->sendWithSmtp()
+#4 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Email\Email.php(1585): CodeIgniter\Email\Email->spoolEmail()
+#5 D:\Work\Hendra-Project\flavia\app\Controllers\Home.php(31): CodeIgniter\Email\Email->send()
+#6 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Home->sendEmail()
+#7 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#8 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\Work\Hendra-Project\flavia\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 D:\Work\Hendra-Project\flavia\vendor\codeigniter4\framework\system\rewrite.php(44): require_once('D:\\Work\\Hendra-...')
+#13 {main}
+ERROR - 2025-02-06 08:38:28 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-02-06 08:38:28 --> 220-srv100.niagahoster.com ESMTP Exim 4.98 #2 Thu, 06 Feb 2025 15:38:28 +0700 
+220-We do not authorize the use of this system to transport unsolicited, 
+220 and/or bulk e-mail.
+
+hello: 250-srv100.niagahoster.com Hello localhost [202.3.212.133]
+250-SIZE 41943040
+250-LIMITS MAILMAX=1000 RCPTMAX=20
+250-8BITMIME
+250-PIPELINING
+250-PIPECONNECT
+250-AUTH PLAIN LOGIN
+250 HELP
+
+starttls: 503 STARTTLS command used when not advertised
+
+The following SMTP error was encountered: 503 STARTTLS command used when not advertised
+

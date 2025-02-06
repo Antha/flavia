@@ -77,28 +77,22 @@ class Email
      *
      * @var string
      */
-    public $SMTPHost = '';
+    public string $SMTPHost = 'mail.salesbalnus.com';
 
     /**
      * SMTP Username
-     *
-     * @var string
      */
-    public $SMTPUser = '';
+    public string $SMTPUser = 'admin@salesbalnus.com';
 
     /**
      * SMTP Password
-     *
-     * @var string
      */
-    public $SMTPPass = '';
+    public string $SMTPPass = 'Salesbalnus.123456';
 
     /**
-     * SMTP Server port
-     *
-     * @var int
+     * SMTP Port
      */
-    public $SMTPPort = 25;
+    public int $SMTPPort = 465;
 
     /**
      * SMTP connection timeout in seconds
@@ -121,7 +115,7 @@ class Email
      *             to the server. 'ssl' means implicit SSL. Connection on port
      *             465 should set this to ''.
      */
-    public $SMTPCrypto = '';
+    public $SMTPCrypto = 'ssl';
 
     /**
      * Whether to apply word-wrapping to the message body.
