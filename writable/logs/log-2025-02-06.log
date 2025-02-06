@@ -1,0 +1,1216 @@
+DEBUG - 2025-02-06 00:54:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 00:55:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 00:55:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 00:55:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 00:55:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 01:00:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 01:01:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-02-06 01:01:05 --> ErrorException: Trying to access array offset on value of type null
+[Method: POST, Route: auth/cekLogin]
+in APPPATH\Controllers\Auth.php on line 56.
+ 1 APPPATH\Controllers\Auth.php(56): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'D:\\Work\\Hendra-Project\\flavia\\app\\Controllers\\Auth.php', 56)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Auth->cekLogin()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+DEBUG - 2025-02-06 01:02:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 01:03:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 01:03:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 01:08:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 01:08:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 01:08:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 01:08:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 01:08:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 01:08:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 02:04:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 02:06:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 02:29:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 02:29:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 02:36:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 02:36:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 02:41:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 02:53:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-06 02:53:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-02-06 02:53:58 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 18.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 02:59:50 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 18.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:04:33 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:04:33 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:06:53 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:06:54 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:06:55 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:06:56 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:06:57 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:06:58 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:06:59 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:00 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:02 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:03 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:04 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:05 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:06 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:07 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:08 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:09 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:10 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:11 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:12 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:13 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:14 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:15 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:16 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:17 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:18 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:19 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:20 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:21 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:22 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:23 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:24 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:25 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:26 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:27 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:28 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:29 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:30 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:31 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:32 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:34 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:35 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:36 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:37 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:38 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:39 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:40 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:41 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:42 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:43 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:44 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:45 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:46 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:47 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:48 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:50 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:50 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:52 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:52 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:54 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:55 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:56 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:57 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:58 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:07:59 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:00 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:01 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:03 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:45 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:46 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:47 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:48 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:50 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:50 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:52 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:53 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:54 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:55 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:56 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:57 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:58 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:08:59 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:09:00 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:09:01 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:09:03 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:09:04 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:09:05 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:09:06 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:09:07 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:10:56 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:10:57 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:10:58 --> Error: Call to undefined method App\Controllers\Qris::respond()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:26 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 19.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:26 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 19.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:46 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:48 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:49 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:50 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:51 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:52 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:53 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:54 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:55 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:56 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:57 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:58 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:16:59 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:17:00 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:17:01 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:17:02 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:17:04 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:17:05 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:17:06 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:17:07 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
+CRITICAL - 2025-02-06 03:17:08 --> Error: Call to undefined method CodeIgniter\HTTP\Response::json()
+[Method: POST, Route: qris/scrape]
+in APPPATH\Controllers\Qris.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Qris->scrape()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Qris))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Work\\Hendra-Project\\flavia\\public\\index.php')
