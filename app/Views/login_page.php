@@ -21,15 +21,28 @@
                             </div>
                         </div>
                     <?php } ?>
-                    <form class="login col-10" action="<?= esc(base_url('/auth/cekLogin')); ?>"  method="POST">
+                    <?php if(session()->getFlashdata('lockout_message') != '' || session()->getFlashdata('lockout_message') != NULL){ ?>
+                        <div class="col-11 mt-4 mx-auto">
+                            <div class="alert alert-danger mb-0" role="alert">
+                                <?= session()->getFlashdata('lockout_message'); ?>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <form class="login col-10" action="<?= esc(base_url('/login/authentication')); ?>"  method="POST" novalidate>
 						<?= csrf_field() ?>
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="Username"  name="username" required>
+                            <input type="text" class="login__input" placeholder="Username" name="username" 
+                                required maxlength="30" pattern="[a-zA-Z0-9]+" 
+                                oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, '')" 
+                                autocomplete="off">
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-lock"></i>
-                            <input type="password" class="login__input" id="password_box" placeholder="Password"  name="password" required>
+                            <input type="password" class="login__input" id="password_box" placeholder="Password" 
+                                name="password" minlength="6" required 
+                                autocomplete="new-password">
                             <button type="button" class="toggle-password" onclick="togglePassword()" style="border: none; background: none; cursor: pointer;">
                                 <i class="fas fa-eye position-absolute" style="right:77px;bottom:35px;" id="toggleIcon"></i>
                             </button>

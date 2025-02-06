@@ -13,7 +13,7 @@
         <div class="home-content mt-md-5 mb-md-5 pt-md-3 mt-4 mb-4 pt-2">
             <div class="container greeting-wrapper">
                 <div class="greeting mb-4 text-end">
-                    <h5 class="font_style_mobile1"><i class="fa-solid fa-user-tie me-2"></i> Welcome, Hendra</h5>
+                    <h5 class="font_style_mobile1"><i class="fa-solid fa-user-tie me-2"></i> Welcome, <?= esc(session('username')); ?></h5>
                 </div>
             </div>
             <div class="container home-title">
@@ -76,7 +76,7 @@
                         </a>
                     </div>
                     <div class="col-3 text-center">
-                        <a class="item-menu-bottom1 d-inline-block" href="#">
+                        <a class="item-menu-bottom1 d-inline-block" href="<?= esc(base_url('/report')); ?>">
                             <div class="img-wrapper rounded-circle mx-auto">
                                 <img src="<?= esc('/img/icon_reward_white.png'); ?>" class="img-fluid" loading="lazy" alt="scan byu">
                             </div>

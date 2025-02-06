@@ -23,10 +23,10 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">POINT</a>
+                        <a class="nav-link" href="<?= esc(base_url('/report')); ?>">POINT</a>
                     </li>
                 </ul>
-                <a href="#" class="ms-auto logout-fa">
+                <a href="<?= esc(base_url('/login/logout')); ?>" class="ms-auto logout-fa">
                     <span class="pe-2">LOGOUT</span><i class="fa-solid fa-right-from-bracket"></i>
                 </a>
             </div>
