@@ -14,7 +14,7 @@
             <div class="container page-navigation-wrapper mb-2">
                 <div class="row">
                     <div class="page-navigation">
-                        <a href="<?php echo base_url()."home"?>" class="back-btn">
+                        <a href="<?php echo esc(base_url()."home"); ?>" class="back-btn">
                             <i class="fa-regular fa-circle-left float-start"></i>
                         </a>
                         <span class="page-navigation-title">
@@ -25,7 +25,7 @@
             </div>
             <div class="container greeting-wrapper">
                 <div class="greeting mb-4 text-end">
-                    <h5 class="font_style_mobile1"><i class="fa-solid fa-user-tie me-2"></i> Welcome, Hendra</h5>
+                    <h5 class="font_style_mobile1"><i class="fa-solid fa-user-tie me-2"></i> Welcome, <?= esc(session('username')); ?></h5>
                 </div>
             </div>
 
