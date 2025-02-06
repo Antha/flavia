@@ -14,4 +14,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->get('/login/logout', 'Login::logout');
     $routes->get('/home', 'Home::index');
     $routes->get('/report', 'Scan_summary::index');
+    $routes->get('/report/admin_report', 'Scan_summary::admin_report');
+    $routes->post('/report/admin_report', 'Scan_summary::admin_report');
+    $routes->get('/report/user_report', 'Scan_summary::user_report');
+    $routes->post('/report/user_report', 'Scan_summary::user_report');
 });
