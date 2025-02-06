@@ -29,36 +29,60 @@
                 </div>
             </div>
 
+            <div class="filter-wrapper mt-md-3 mt-2 mb-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-8">
+                            <form method="post" action="<?= esc(base_url('/report/user_report'));?>" enctype="multipart/form-data">
+                                <?php csrf_field() ?>
+                                <div class="row no-gutters">
+                                    <div class="form-group col-md-3 col-4 pe-2" id="col_periode_data">
+                                        <div class="input-group dropdown_input">
+                                            <input required type="text" class="monthPicker form-control pull-left txt-input-data" id="periode_data" name="periode_data_reward" value="<?= esc($periode_data_reward_display); ?>" style="font-size: 14px;"/>
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3 col-2 ps-0">			
+                                        <input type="submit" id="btn_submit_filter_reward" name="btn_submit_filter_reward" value="GO" class="submit_btn_datepicker rounded float-start">
+                                    </div>
+
+                                    <p class="flashdata_error"><?= session()->getFlashdata('table_not_exists'); ?></p> 
+                                    
+                                    <div style="clear: both;"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="reward-info-wrapper">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 col-12">
                             <div class="reward-box position-relative h-100">
-                                <h5 class="text-abs-left position-absolute p-2">REWARD</h5>
+                                <h5 class="text-abs-left position-absolute p-2">REWARD <?= "PERIODE ".esc($periode_data_reward_display); ?></h5>
                                 <div class="reward-list pt-3 ps-3 pe-3 justify-content-center">
+                                <?php if($dataIsExists == 'true'){ ?>
+                                    <?php $i=1;foreach($allRewardItem as $rows){ ?>
+                                        <div class="row reward-item pb-1 pt-1">
+                                            <div class="col-10">
+                                                <span class="reward-title">
+                                                    <?= $i; ?>. <?= esc($rows['item']); ?>
+                                                </span></div>
+                                            <div class="col-2 text-end"><?= esc($rows['point']); ?> pts</div>
+                                        </div>
+                                    <?php $i++;} ?>
+                                <?php }else{ ?>
                                     <div class="row reward-item pb-1 pt-1">
-                                        <div class="col-10">
-                                            <span class="reward-title">
-                                                1. Reward number one
-                                            </span></div>
-                                        <div class="col-2 text-end">10000 pts</div>
+                                        <div class="col-12 text-center align-middle">
+                                            <span>No Data Available</span>
+                                        </div>
                                     </div>
-                                    <div class="row reward-item pb-1 pt-1">
-                                        <div class="col-10">2. Reward number two</div>
-                                        <div class="col-2 text-end">10000 pts</div>
-                                    </div>
-                                    <div class="row reward-item pb-1 pt-1">
-                                        <div class="col-10">3. Reward number three</div>
-                                        <div class="col-2 text-end">10000 pts</div>
-                                    </div>
-                                    <div class="row reward-item pb-1 pt-1">
-                                        <div class="col-10">4. Reward number four</div>
-                                        <div class="col-2 text-end">10000 pts</div>
-                                    </div>
-                                    <div class="row reward-item pb-1 pt-1">
-                                        <div class="col-10">5. Reward number five</div>
-                                        <div class="col-2 text-end">10000 pts</div>
-                                    </div>
+                                <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -99,39 +123,10 @@
             <div class="filter-wrapper mt-md-5 mt-4">
                 <div class="container">
                     <div class="row">
-                        <div class="col-8">
-                            <form method="post" action="" enctype="multipart/form-data">
-                                <?php csrf_field() ?>
-                                <div class="row no-gutters">
-                                    <div class="form-group col-md-3 col-4 pe-2" id="col_periode_data">
-                                        <div class="input-group dropdown_input">
-                                            <input required type="text" class="monthPicker form-control pull-left txt-input-data" id="periode_data" name="periode_data_kpi_admin" value="2025" />
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-3 ps-0" id="wrap_kip_filter_branch">
-                                        <select name='kpi_filter_branch_admin' id='kpi_filter_branch_admin' class="select_filter pb-2 pt-2" title="Area Type" style="width:100%;">
-                                            <option value="" selected disabled>Branch</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-3 col-3 ps-0" id="wrap_kip_filter_cluster">
-                                        <select name='kpi_filter_cluster_admin' id='kpi_filter_cluster_admin' class="select_filter pb-2 pt-2" title="Area Type" style="width:100%;">
-                                            <option value="" selected disabled>Cluster</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3 col-2 ps-0">			
-                                        <input type="submit" id="btn_submit_periode_kip" name="btn_submit_periode_kip_admin" value="GO" class="submit_btn_datepicker rounded float-start">
-                                    </div>
-
-                                    <p class="flashdata_error"><?= session()->getFlashdata('table_not_exists'); ?></p> 
-                                    
-                                    <div style="clear: both;"></div>
-                                </div>
-                            </form>
-                        </div>
                         <div class="col-4">
+                            <span class="d-inline-block fw-bold" style="font-size: 14px;color: #e0091f;padding-top: 15px;">BRANCH <?= esc($branch); ?>, CLUSTER <?= esc($cluster); ?></span>
+                        </div> 
+                        <div class="offset-4 col-4">
                             <div class="row">
                                 <div class="col-9">
                                     <div class="input-group">
@@ -201,7 +196,18 @@
             minViewMode:1,
             autoclose: true,
             todayHighlight: true
-        }); 
+        });
+        
+        $('.table-scroll-bar').width($('#dataTable').outerWidth());
+
+        // Synchronize scrolling
+        $('.table-top-scroll').on('scroll', function () {
+            $('.table-responsive').scrollLeft($(this).scrollLeft());
+        });
+
+        $('.table-responsive').on('scroll', function () {
+            $('.table-top-scroll').scrollLeft($(this).scrollLeft());
+        });
     });
 </script>
 

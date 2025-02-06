@@ -181,6 +181,15 @@
             url: '/qris/insert', // Ganti dengan URL API Anda
             method: 'POST',
             data: { msisdn:phoneNumber },
+            beforeSend : function(){
+                Swal.fire({
+                    title: 'Please wait...',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading(); // Menampilkan loading animasi bawaan Swal
+                    }
+                });
+            },
             success: function (response) {
                 Swal.fire({
                     icon: 'success',

@@ -19,4 +19,9 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->get('/qris', 'Qris::index');
     $routes->post('/qris/scrape', 'Qris::scrape');
     $routes->post('/qris/insert', 'Qris::insertData');
+    
+    $routes->get('/report/admin_report', 'Scan_summary::admin_report');
+    $routes->post('/report/admin_report', 'Scan_summary::admin_report');
+    $routes->get('/report/user_report', 'Scan_summary::user_report');
+    $routes->post('/report/user_report', 'Scan_summary::user_report');
 });
