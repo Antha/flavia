@@ -29,11 +29,31 @@
                 </div>
             </div>
 
-            <div class="container home-title">
-                <div class="row justify-content-center">
-                    <div class="col-sm-8 col-10">
-                        <div class="home-title-periode text-center position-relative">
-                            <h1 class="font_style_mobile2">JANUARY 2025</h1>
+            <div class="filter-wrapper mt-md-3 mt-2 mb-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-8">
+                            <form method="post" action="<?= esc(base_url('/report/user_report'));?>" enctype="multipart/form-data">
+                                <?php csrf_field() ?>
+                                <div class="row no-gutters">
+                                    <div class="form-group col-md-3 col-4 pe-2" id="col_periode_data">
+                                        <div class="input-group dropdown_input">
+                                            <input required type="text" class="monthPicker form-control pull-left txt-input-data" id="periode_data" name="periode_data_reward" value="<?= esc($periode_data_reward_display); ?>" style="font-size: 14px;"/>
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3 col-2 ps-0">			
+                                        <input type="submit" id="btn_submit_filter_reward" name="btn_submit_filter_reward" value="GO" class="submit_btn_datepicker rounded float-start">
+                                    </div>
+
+                                    <p class="flashdata_error"><?= session()->getFlashdata('table_not_exists'); ?></p> 
+                                    
+                                    <div style="clear: both;"></div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -42,9 +62,33 @@
             <div class="reward-info-wrapper">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-6 col-12 mx-auto">
+                        <div class="col-md-8 col-12">
+                            <div class="reward-box position-relative h-100">
+                                <h5 class="text-abs-left position-absolute p-2">REWARD <?= "PERIODE ".esc($periode_data_reward_display); ?></h5>
+                                <div class="reward-list pt-3 ps-3 pe-3 justify-content-center">
+                                <?php if($dataIsExists == 'true'){ ?>
+                                    <?php $i=1;foreach($allRewardItem as $rows){ ?>
+                                        <div class="row reward-item pb-1 pt-1">
+                                            <div class="col-10">
+                                                <span class="reward-title">
+                                                    <?= $i; ?>. <?= esc($rows['item']); ?>
+                                                </span></div>
+                                            <div class="col-2 text-end"><?= esc($rows['point']); ?> pts</div>
+                                        </div>
+                                    <?php $i++;} ?>
+                                <?php }else{ ?>
+                                    <div class="row reward-item pb-1 pt-1">
+                                        <div class="col-12 text-center align-middle">
+                                            <span>No Data Available</span>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-12">
                             <div class="row justify-content-center">
-                                <div class="col-3 text-center menu-item ps-1 pe-1">
+                                <div class="col-4 text-center menu-item ps-1 pe-1">
                                     <div class="menu-item-wrapper h-100">
                                         <span class="menu-item-fa1 mx-auto"><i class="fa-solid fa-qrcode"></i></span>
                                         <span class="w-100 d-block menu-item-text3 mt-4">SCAN</span>
@@ -53,7 +97,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3 text-center menu-item ps-1 pe-1">
+                                <div class="col-4 text-center menu-item ps-1 pe-1">
                                     <div class="menu-item-wrapper h-100">
                                         <span class="menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
                                         <span class="w-100 d-block menu-item-text3 mt-4">SCAN</span>
@@ -62,20 +106,11 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3 text-center menu-item ps-1 pe-1">
+                                <div class="col-4 text-center menu-item ps-1 pe-1">
                                     <div class="menu-item-wrapper h-100">
                                         <span class="menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
                                         <span class="w-100 d-block menu-item-text3 mt-4">TOTAL</span>
                                         <span class="w-100 d-block menu-item-text3">SCAN</span>
-                                        <span class="w-100 d-block mt-3 mb-3 menu-item-text1">1000</span>
-                                    </div>
-                                </div>
-
-                                <div class="col-3 text-center menu-item ps-1 pe-1">
-                                    <div class="menu-item-wrapper h-100">
-                                        <span class="menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
-                                        <span class="w-100 d-block menu-item-text3 mt-4">TOTAL</span>
-                                        <span class="w-100 d-block menu-item-text3">POIN</span>
                                         <span class="w-100 d-block mt-3 mb-3 menu-item-text1">1000</span>
                                     </div>
                                 </div>
@@ -88,14 +123,14 @@
             <div class="filter-wrapper mt-md-5 mt-4">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-4 col-md-2 col-4">
-                            <span class="d-inline-block fw-bold" style="font-size: 14px;color: #e0091f;padding-top: 15px;">Report Detail</span>
+                        <div class="col-4">
+                            <span class="d-inline-block fw-bold" style="font-size: 14px;color: #e0091f;padding-top: 15px;">BRANCH <?= esc($branch); ?>, CLUSTER <?= esc($cluster); ?></span>
                         </div> 
-                        <div class="offset-lg-4 col-lg-4 offset-md-2 col-md-8 col-sm-12 pt-2">
+                        <div class="offset-4 col-4">
                             <div class="row">
                                 <div class="col-9">
                                     <div class="input-group">
-                                        <input required type="text" id="searchInput" class="form-control txt-input-data" placeholder="Search..."  onkeyup="filterTable()" style="font-size: 14px;">
+                                        <input required type="text" id="searchInput" class="form-control txt-input-data" placeholder="Search..."  onkeyup="filterTable()">
                                         <div class="input-group-addon">
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                         </div>
