@@ -36,16 +36,16 @@
                             <span class="w-100 d-block mt-3 mb-3 menu-item-text2">500</span>
                         </div>
                     </div>
-
                     <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5">
                         <div class="menu-item-wrapper">
-                            <span class="position-absolute menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
-                            <span class="w-100 d-block menu-item-text1 mt-4">SCAN</span>
-                            <span class="w-100 d-block menu-item-text1">PERDANA</span>
-                            <span class="w-100 d-block mt-3 mb-3 menu-item-text2">500</span>
+                            <a href="/qris"> 
+                                <span class="position-absolute menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
+                                <span class="w-100 d-block menu-item-text1 mt-4">SCAN</span>
+                                <span class="w-100 d-block menu-item-text1">PERDANA</span>
+                                <span class="w-100 d-block mt-3 mb-3 menu-item-text2">500</span>
+                            </a>
                         </div>
                     </div>
-
                     <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5">
                         <div class="menu-item-wrapper">
                             <span class="position-absolute menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>

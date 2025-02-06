@@ -2,9 +2,17 @@
 
 namespace App\Controllers;
 
+use App\Models\ScanHistoriesModel;
 
 class Qris extends BaseController
 {
+    protected $scanHistoriesModel;
+
+    public function __construct()
+    {
+        $this->scanHistoriesModel = new ScanHistoriesModel();
+    }
+
     public function index(): string
     {
         return view('qris_page');
@@ -59,4 +67,40 @@ class Qris extends BaseController
             return $this->response->setJSON(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function insertData(){
+        try {
+            $msisdn = $this->request->getPost('msisdn');
+
+            // Validasi jika msisdn kosong
+            if (empty($msisdn)) {
+                return $this->response->setJSON([
+                    "status" => "error",
+                    "message" => "MSISDN is required"
+                ])->setStatusCode(400);
+            }
+
+            $this->scanHistoriesModel->insert([
+                "msisdn" => $msisdn,
+                "status" => "valid"
+            ]);
+
+            return $this->response->setJSON([
+                "status" => "success",
+                "message" => "Data successfully inserted",
+                "data" => [
+                    "msisdn" => $msisdn,
+                    "status" => "valid"
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                "status" => "error",
+                "message" => "Failed to insert data",
+                "error" => $e->getMessage() // Menampilkan pesan error
+            ])->setStatusCode(500);
+        }
+    }
+
 }

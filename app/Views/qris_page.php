@@ -8,13 +8,13 @@
     video { height: 300px; width: 100%; max-width: 400px; border: 2px solid #000; border-radius: 10px; }
         canvas { display: none; }
         #scan-area {
+            top: 10px;
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%; /* Area scan lebih besar */
-            height: 100%;
+            top: 25vh;
+            left: 0;
+            width: 100%;
+            height: 55vh;
             border: 3px solid red;
-            transform: translate(-50%, -50%);
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
             z-index: 10;
         }
@@ -47,11 +47,15 @@
                     </p>
 
                     <p id="results_sn" style="width: 100%; font-size: 16px; font-weight: bold; color: #555; padding: 8px; background: #e9ecef; border-radius: 8px; text-align: center; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; overflow: hidden;">
-                        🔢 Serial Number
+                        🔢 <i>- Serial Number : [_________________] </i>
                     </p>
                     <p id="results_pn" style="width: 100%; font-size: 16px; font-weight: bold; color: #555; padding: 8px; background: #e9ecef; border-radius: 8px; text-align: center; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; overflow: hidden;">
-                        🔢 Phone Number
+                        📞 <i>- Phone Number : [_________________] </i>
                     </p>
+
+                    <div class="col-3 p-0">
+                        <button class="btn btn-danger" id="submit-data">Submit Data</button>
+                    </div>
                 </div>
             </div>
           
@@ -61,6 +65,7 @@
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function () {
         $(function () {
@@ -70,13 +75,14 @@
         }); 
     });
 </script>
-
 <script>
     const video = document.getElementById("video");
     const canvas = document.getElementById("canvas");
     const context = canvas.getContext("2d");
     const resultText = document.getElementById("result");
     const scanArea = document.getElementById("scan-area");
+
+    let serialNumber, phoneNumber;
 
     async function startCamera() {
         try {
@@ -90,21 +96,28 @@
         }
     }
 
-    // $.ajax({
-    //     url: '/qris/scrape', // Ganti dengan URL API Anda
-    //     method: 'POST',
-    //     data: { url: "https://bit.ly/4apPYB5?r=qr" },
-    //     success: function (response) {
-    //         // Tampilkan hasil ke pengguna
-    //         $('#results_sn').html(`<p>Serial Number: ${response.serial_numbers}</p>`);
-    //         $('#results_pn').html(`<p>Phone Number: ${response.phone_numbers}</p>`);
-    //     },
-    //     error: function (xhr) {
-    //         const error = xhr.responseJSON ? xhr.responseJSON.error : 'An error occurred';
-    //         $('#results_sn').html(`<p>Error: ${error}</p>`);
-    //     },
-    // });
+    //getMetaData("https://bit.ly/4apPYB5?r=qr");
 
+    function getMetaData(url){
+        $.ajax({
+            url: '/qris/scrape', // Ganti dengan URL API Anda
+            method: 'POST',
+            data: { url },
+            success: function (response) {
+                // Tampilkan hasil ke pengguna
+                $('#results_sn').html(`<p>🔢 Serial Number: ${response.serial_numbers}</p>`);
+                $('#results_pn').html(`<p>📞 Phone Number: ${response.phone_numbers}</p>`);
+
+                serialNumber = response.serial_numbers;
+                phoneNumber = response.phone_numbers;
+            },
+            error: function (xhr) {
+                const error = xhr.responseJSON ? xhr.responseJSON.error : 'An error occurred';
+                $('#results_sn').html(`<p>Error: ${error}</p>`);
+            },
+        });
+    }
+  
     function scanQRCode() {
         if (video.readyState === video.HAVE_ENOUGH_DATA) {
             canvas.width = 300;
@@ -128,8 +141,6 @@
 
             const qrCode = jsQR(imageData.data, 300, 300);
 
-        
-
             if (qrCode) {
                 resultText.innerText = "QR Code: " + qrCode.data;
                 resultText.style.color = "green";
@@ -137,21 +148,7 @@
                 scanArea.style.boxShadow = "0 0 20px rgba(0, 255, 0, 0.7)";
                 
                 //https://bit.ly/4apPYB5?r=qr
-
-                $.ajax({
-                    url: '/qris/scrape', // Ganti dengan URL API Anda
-                    method: 'POST',
-                    data: { url: qrCode.data },
-                    success: function (response) {
-                        // Tampilkan hasil ke pengguna
-                        $('#results_sn').html(`<p>Serial Number: ${response.serial_numbers}</p>`);
-                        $('#results_pn').html(`<p>Phone Number: ${response.phone_numbers}</p>`);
-                    },
-                    error: function (xhr) {
-                        const error = xhr.responseJSON ? xhr.responseJSON.error : 'An error occurred';
-                        $('#results_sn').html(`<p>Error: ${error}</p>`);
-                    },
-                });
+                getMetaData(qrCode.data);
             } else {
                 scanArea.style.border = "3px solid red";
                 scanArea.style.boxShadow = "0 0 20px rgba(255, 0, 0, 0.7)";
@@ -168,6 +165,35 @@
             startCamera();
         }
     };
+
+    $("#submit-data").click(function(){
+        if( typeof serialNumber === "undefined" || typeof phoneNumber === "undefined"){
+            Swal.fire({
+                icon: 'warning',
+                title: 'Maaf!',
+                text: 'Serial Number or MSISDN Are Empty',
+                confirmButtonText: 'OK'
+            });
+            return false;
+        }
+
+        $.ajax({
+            url: '/qris/insert', // Ganti dengan URL API Anda
+            method: 'POST',
+            data: { msisdn:phoneNumber },
+            success: function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Data Have Been Inputed ',
+                    confirmButtonText: 'OK'
+                });
+            },
+            error: function (xhr) {
+                const error = xhr.responseJSON ? xhr.responseJSON.error : 'An error occurred';
+                
+            },
+        });
+    })
 </script>
 
 <?php $this->endSection() ?>
