@@ -71,6 +71,7 @@ class Qris extends BaseController
     public function insertData(){
         try {
             $msisdn = $this->request->getPost('msisdn');
+            $cardType = $this->request->getPost('cardType');
 
             // Validasi jika msisdn kosong
             if (empty($msisdn)) {
@@ -80,7 +81,15 @@ class Qris extends BaseController
                 ])->setStatusCode(400);
             }
 
+            $data = $this->scanHistoriesModel->getOneByMsisdn($msisdn);
+
+            if (!empty($data)) {
+                return $this->response->setJSON(['error'=>'Msisdn berikut sudah ada: ' . $msisdn])
+                    ->setStatusCode(400);;
+            }
+
             $this->scanHistoriesModel->insert([
+                "card_type" => $cardType,
                 "msisdn" => $msisdn,
                 "status" => "valid"
             ]);

@@ -14,6 +14,16 @@
                     <div class="d-inline-block text-center w-100 pt-4">
                         <h4 class="mb-0">REGISTRATION</h4>
                     </div>
+
+                    <?php if (session()->has('errors')) : ?>
+                        <div class="alert alert-danger">
+                            <ul>
+                                <?php foreach (session('errors') as $error) : ?>
+                                    <li><?= esc($error) ?></li>
+                                <?php endforeach ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
                    
                     <form class="registration col-12 pt-2 pb-2 pe-3 ps-3" action="<?= esc(base_url('/registration/auth')); ?>"  method="POST">
 						<?= csrf_field() ?>
@@ -24,10 +34,13 @@
                             <input type="password" class="login__input w-100 ps-3" id="password_box" placeholder="Password"  name="password" required>
                         </div>
                         <div class="pt-2 pb-0 position-relative">
-                            <input type="password" class="login__input w-100 ps-3" id="confirm_password_box" placeholder="Confirm Password"  name="confirm password" required>
+                            <input type="password" class="login__input w-100 ps-3" id="confirm_password_box" placeholder="Confirm Password"  name="confirm_password" required>
+                        </div>
+                        <div class="pt-2 pb-0 position-relative">
+                            <input type="email" class="login__input w-100 ps-3" id="email_box" placeholder="Email"  name="email" required>
                         </div>
                         <div class="form-group mt-4">
-                            <select class="form-control registration-option-wrapper" id="branch_option" name="branch_option" style="color: #757575;">
+                            <select class="form-control registration-option-wrapper" id="branch_option" name="branch_option" style="color: #757575;" required>
                                 <option value="" selected disabled>Branch</option>
                                 <option>DENPASAR</option>
                                 <option>FLORES</option>
@@ -36,16 +49,16 @@
                             </select>
                         </div>
                         <div class="form-group mt-4">
-                            <select class="form-control registration-option-wrapper" id="cluster_option" name="cluster_option" style="color: #757575;">
+                            <select class="form-control registration-option-wrapper" id="cluster_option" name="cluster_option" style="color: #757575;" required>
                                 <option value="" selected disabled>Cluster</option>
                             </select>
                         </div>
                         <div class="form-group mt-4">
-                            <select class="form-control registration-option-wrapper" id="city_option" name="city_option" style="color: #757575;">
+                            <select class="form-control registration-option-wrapper" id="city_option" name="city_option" style="color: #757575;" required>
                                 <option value="" selected disabled>City</option>
                             </select>
                         </div>
-                        <button class="button login__submit">
+                        <button  type="submit" class="button login__submit">
                             <span class="button__text">Register Now</span>
                             <i class="button__icon fas fa-chevron-right"></i>
                         </button>

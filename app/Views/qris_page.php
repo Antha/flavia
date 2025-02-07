@@ -177,10 +177,13 @@
             return false;
         }
 
+        const urlParams = new URLSearchParams(window.location.search);
+        const cardType = urlParams.get('card_type');
+
         $.ajax({
             url: '/qris/insert', // Ganti dengan URL API Anda
             method: 'POST',
-            data: { msisdn:phoneNumber },
+            data: { msisdn:phoneNumber, cardType},
             beforeSend : function(){
                 Swal.fire({
                     title: 'Please wait...',
@@ -199,7 +202,11 @@
             },
             error: function (xhr) {
                 const error = xhr.responseJSON ? xhr.responseJSON.error : 'An error occurred';
-                
+                Swal.fire({
+                    icon: 'error',
+                    text: error,
+                    confirmButtonText: 'OK'
+                });
             },
         });
     })

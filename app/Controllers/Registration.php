@@ -10,6 +10,11 @@ class Registration extends BaseController
         return view('registration_page');
     }
 
+    public function success(): string
+    {
+        return view('registration_success_page');
+    }
+
     public function auth()
     {
         $validation = \Config\Services::validation();
@@ -24,6 +29,7 @@ class Registration extends BaseController
 
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            //return $this->response->setJSON(["error"=>"not valid"]);
         }
 
         $userModel = new UserModel();
@@ -33,9 +39,9 @@ class Registration extends BaseController
             'username' => $this->request->getPost('username'),
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
             'email' => $this->request->getPost('email'),
-            'branch' => $this->request->getPost('branch'),
-            'cluster' => $this->request->getPost('cluster'),
-            'city' => $this->request->getPost('city'),
+            'branch' => $this->request->getPost('branch_option'),
+            'cluster' => $this->request->getPost('cluster_option'),
+            'city' => $this->request->getPost('city_option'),
             'token' => $token,
             'status' => 0 // Belum aktif
         ];
@@ -50,8 +56,9 @@ class Registration extends BaseController
 
     private function sendVerificationEmail($email, $token)
     {
+        
         $emailService = \Config\Services::email();
-        $emailService->setFrom('your@email.com', 'Your App');
+        $emailService->setFrom('admin@salesbalnus.com', 'Admin Sales Balnus');
         $emailService->setTo($email);
         $emailService->setSubject('Account Verification');
         $emailService->setMessage('Click the link to verify your account: ' . base_url('/registration/verify/' . $token));

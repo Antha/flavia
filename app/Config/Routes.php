@@ -9,7 +9,9 @@ $routes->get('/', 'Login::index');
 $routes->get('/login','Login::index');
 $routes->post('/login/authentication', 'Login::authentication');
 $routes->get('/registration', 'Registration::index');
-
+$routes->get('/registration/success', 'Registration::success');
+$routes->post('/registration/auth', 'Registration::auth');
+$routes->get('/registration/verify/(:any)', 'Registration::verify/$1');
 $routes->post('/sendEmail', 'Home::sendEmail');
 
 //$routes->get('/report_summary','Scan_summary::index');
