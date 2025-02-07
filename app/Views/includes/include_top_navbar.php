@@ -1,3 +1,5 @@
+<?php $uri = service('uri'); ?>
+
 <div class="header-top-wrapper">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -8,22 +10,22 @@
             <div class="collapse navbar-collapse navbarNav-cstm" id="navbarFlavia">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link <?= ($uri->getSegment(1) == 'home' || $uri->getSegment(1) == '') ? 'active' : ''; ?>" href="<?= esc('/home'); ?>">
                             HOME
                             <span class="line-menu"></span>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle <?= ($uri->getSegment(1) == 'qris' || $uri->getSegment(1) == 'scan') ? 'active' : ''; ?>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             SCAN
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">BYU</a>
-                            <a class="dropdown-item" href="#">PERDANA</a>
+                            <a class="dropdown-item <?= ($uri->getSegment(1) == 'byu') ? 'active' : ''; ?>" href="#">BYU</a>
+                            <a class="dropdown-item <?= ($uri->getSegment(1) == 'qris') ? 'active' : ''; ?>" href="<?= esc('/qris'); ?>">PERDANA</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= esc(base_url('/report')); ?>">POINT</a>
+                        <a class="nav-link <?= ($uri->getSegment(1) == 'report') ? 'active' : ''; ?>" href="<?= esc(base_url('/report')); ?>">POINT</a>
                     </li>
                 </ul>
                 <a href="<?= esc(base_url('/login/logout')); ?>" class="ms-auto logout-fa">
