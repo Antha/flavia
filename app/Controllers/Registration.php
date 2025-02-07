@@ -28,12 +28,14 @@ class Registration extends BaseController
         ];
 
         if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            return redirect()->to('/register')->withInput()->with('errors', $validation->getErrors());
             //return $this->response->setJSON(["error"=>"not valid"]);
         }
 
         $userModel = new UserModel();
         $token = bin2hex(random_bytes(32)); // Generate token unik
+
+        $idcard = $this->saveBase64Image($this->request->getPost("imageData"), "./uploads/idcard");
 
         $data = [
             'username' => $this->request->getPost('username'),
@@ -42,6 +44,7 @@ class Registration extends BaseController
             'branch' => $this->request->getPost('branch_option'),
             'cluster' => $this->request->getPost('cluster_option'),
             'city' => $this->request->getPost('city_option'),
+            'idcard' => $idcard,
             'token' => $token,
             'status' => 0 // Belum aktif
         ];
@@ -76,5 +79,34 @@ class Registration extends BaseController
         } else {
             return redirect()->to('/register')->with('error', 'Invalid token!');
         }
+    }
+
+    function saveBase64Image($base64String, $uploadPath) {
+        // Cek apakah data Base64 valid
+        if (preg_match('/^data:image\/(\w+);base64,/', $base64String, $type)) {
+            $base64String = substr($base64String, strpos($base64String, ',') + 1); // Hapus prefix Base64
+            $type = strtolower($type[1]); // Dapatkan tipe file (png, jpg, jpeg, dll)
+
+            // Pastikan tipe file valid
+            if (!in_array($type, ['jpg', 'jpeg', 'png', 'gif'])) {
+                return false;
+            }
+
+            $base64String = base64_decode($base64String); // Decode Base64
+            if ($base64String === false) {
+                return false;
+            }
+
+            // Buat nama file unik
+            $fileName = uniqid() . '.' . $type;
+
+            // Simpan file ke folder upload
+            $filePath = rtrim($uploadPath, '/') . '/' . $fileName;
+            if (file_put_contents($filePath, $base64String)) {
+                return $fileName; // Return nama file
+            }
+        }
+
+        return false; // Jika gagal
     }
 }
