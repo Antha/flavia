@@ -8,7 +8,7 @@ class ScanHistoriesModel extends Model
 {
     protected $table = 'scan_histories';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['datetime', 'msisdn', 'status'];
+    protected $allowedFields = ['datetime', 'msisdn', 'status','user_id'];
     
     public function getOneByMsisdn($msisdn)
     {

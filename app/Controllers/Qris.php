@@ -7,10 +7,12 @@ use App\Models\ScanHistoriesModel;
 class Qris extends BaseController
 {
     protected $scanHistoriesModel;
+    protected $session_user;
 
     public function __construct()
     {
         $this->scanHistoriesModel = new ScanHistoriesModel();
+        $this->session_user = session();
     }
 
     public function index(): string
@@ -91,7 +93,8 @@ class Qris extends BaseController
             $this->scanHistoriesModel->insert([
                 "card_type" => $cardType,
                 "msisdn" => $msisdn,
-                "status" => "valid"
+                "status" => "valid",
+                "user_id" => $this->session_user->get("user_id")
             ]);
 
             return $this->response->setJSON([

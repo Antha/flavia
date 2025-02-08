@@ -66,7 +66,7 @@
                         </a>
                     </div>
                     <div class="col-3 text-center">
-                        <a class="item-menu-bottom1 d-inline-block" href="<?= esc(base_url('/qris')); ?>">
+                        <a class="item-menu-bottom1 d-inline-block" href="<?= esc(base_url('/qris?card_type=perdana')); ?>">
                             <div class="img-wrapper rounded-circle mx-auto">
                                 <img src="<?= esc('/img/icon_scan_white.png'); ?>" class="img-fluid" loading="lazy" alt="scan perdana">
                             </div>
