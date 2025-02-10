@@ -46,11 +46,12 @@
                         📷 Arahkan kamera ke QR Code (+- 10 - 15cm)
                     </p>
 
-                    <p id="results_sn" style="width: 100%; font-size: 16px; font-weight: bold; color: #555; padding: 8px; background: #e9ecef; border-radius: 8px; text-align: center; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; overflow: hidden;">
+                    <p id="results_sn" style="display:none; width: 100%; font-size: 16px; font-weight: bold; color: #555; padding: 8px; background: #e9ecef; border-radius: 8px; text-align: center; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; overflow: hidden;">
                         🔢 <i>- Serial Number : [_________________] </i>
                     </p>
                     <p id="results_pn" style="width: 100%; font-size: 16px; font-weight: bold; color: #555; padding: 8px; background: #e9ecef; border-radius: 8px; text-align: center; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; overflow: hidden;">
-                        📞 <i>- Phone Number : [_________________] </i>
+                        📞 <i>- Phone Number :  <input type="number" id="results_pn_val" /> </i> <br/>
+                        *) <i><span class="text-danger">Please Insert Manualy If QR problem</span></i>
                     </p>
 
                     <div class="col-3 p-0">
@@ -106,7 +107,7 @@
             success: function (response) {
                 // Tampilkan hasil ke pengguna
                 $('#results_sn').html(`<p>🔢 Serial Number: ${response.serial_numbers}</p>`);
-                $('#results_pn').html(`<p>📞 Phone Number: ${response.phone_numbers}</p>`);
+                $('#results_pn_val').val(`${response.phone_numbers}`);
 
                 serialNumber = response.serial_numbers;
                 phoneNumber = response.phone_numbers;
@@ -167,11 +168,15 @@
     };
 
     $("#submit-data").click(function(){
-        if( typeof serialNumber === "undefined" || typeof phoneNumber === "undefined"){
+        if($("#results_pn_val").val() != ""){
+            phoneNumber = $("#results_pn_val").val();
+        }
+
+        if( typeof phoneNumber === "undefined"){
             Swal.fire({
                 icon: 'warning',
                 title: 'Maaf!',
-                text: 'Serial Number or MSISDN Are Empty',
+                text: 'MSISDN Are Empty',
                 confirmButtonText: 'OK'
             });
             return false;

@@ -5,6 +5,13 @@ use App\Models\RewardModel;
 
 class Scan_summary extends BaseController
 {
+    protected $session_user;
+
+    public function __construct()
+    {
+        $this->session_user = session();
+    }
+
     public function index()
     {
         if(session()->get('user_level') == 'admin')
