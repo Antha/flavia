@@ -20,8 +20,8 @@
                             SCAN
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item <?= ($uri->getSegment(1) == 'byu') ? 'active' : ''; ?>" href="#">BYU</a>
-                            <a class="dropdown-item <?= ($uri->getSegment(1) == 'qris') ? 'active' : ''; ?>" href="<?= esc('/qris'); ?>">PERDANA</a>
+                            <a class="dropdown-item <?= ($uri->getSegment(1) == 'byu') ? 'active' : ''; ?>" href="<?= esc('/qris?card_type=byu'); ?>">BYU</a>
+                            <a class="dropdown-item <?= ($uri->getSegment(1) == 'qris') ? 'active' : ''; ?>" href="<?= esc('/qris?card_type=perdana'); ?>">PERDANA</a>
                         </div>
                     </li>
                     <li class="nav-item">
