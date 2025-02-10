@@ -58,7 +58,7 @@
             <div class="container menu-bottom-wrapper pt-md-5 pt-4">
                 <div class="row justify-content-center">
                     <div class="col-3 text-center">
-                        <a class="item-menu-bottom1 d-inline-block" href="#">
+                        <a class="item-menu-bottom1 d-inline-block" href="<?= esc(base_url('/qris?card_type=byu')); ?>">
                             <div class="img-wrapper rounded-circle mx-auto">
                                 <img src="<?= esc('/img/icon_scan_white.png'); ?>" class="img-fluid" loading="lazy" alt="scan byu">
                             </div>
