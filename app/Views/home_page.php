@@ -74,7 +74,7 @@
                         </a>
                     </div>
                     <div class="col-3 text-center">
-                        <a class="item-menu-bottom1 d-inline-block" href="<?= esc(base_url('/report')); ?>">
+                        <a class="item-menu-bottom1 d-inline-block" href="<?= esc(base_url(session("user_level") == 'admin' ? '/report/admin_report' : '/report/user_report')); ?>">
                             <div class="img-wrapper rounded-circle mx-auto">
                                 <img src="<?= esc('/img/icon_reward_white.png'); ?>" class="img-fluid" loading="lazy" alt="scan byu">
                             </div>

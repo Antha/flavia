@@ -61,7 +61,7 @@ class Scan_summary extends BaseController
     public function user_report()
     {
         if (session()->get('user_level') !== 'user') {
-            return redirect()->to('/report/user_admin');
+            return redirect()->to('/report/admin_report');
         }
 
         $reward_model = new RewardModel();
