@@ -20,7 +20,7 @@
                 <div class="row justify-content-center">
                     <div class="col-sm-8 col-10">
                         <div class="home-title-periode text-center position-relative">
-                            <h1 class="font_style_mobile2">JANUARY 2025</h1>
+                            <h1 class="font_style_mobile2"><?= esc($maxUpdateDate); ?></h1>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                             <span class="position-absolute menu-item-fa1 mx-auto"><i class="fa-solid fa-qrcode"></i></span>
                             <span class="w-100 d-block menu-item-text1 mt-4">SCAN</span>
                             <span class="w-100 d-block menu-item-text1">BYU</span>
-                            <span class="w-100 d-block mt-3 mb-3 menu-item-text2">500</span>
+                            <span class="w-100 d-block mt-3 mb-3 menu-item-text2"><?= esc(number_format($resultDataByu)); ?></span>
                         </div>
                     </div>
                     <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5">
@@ -41,7 +41,7 @@
                             <span class="position-absolute menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
                             <span class="w-100 d-block menu-item-text1 mt-4">SCAN</span>
                             <span class="w-100 d-block menu-item-text1">PERDANA</span>
-                            <span class="w-100 d-block mt-3 mb-3 menu-item-text2">500</span>
+                            <span class="w-100 d-block mt-3 mb-3 menu-item-text2"><?= esc(number_format($resultDataPerdana)); ?></span>
                         </div>
                     </div>
                     <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5">
@@ -49,7 +49,7 @@
                             <span class="position-absolute menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
                             <span class="w-100 d-block menu-item-text1 mt-4">TOTAL</span>
                             <span class="w-100 d-block menu-item-text1">SCAN</span>
-                            <span class="w-100 d-block mt-3 mb-3 menu-item-text2">1000</span>
+                            <span class="w-100 d-block mt-3 mb-3 menu-item-text2"><?= esc(number_format($resultDataTotal)); ?></span>
                         </div>
                     </div>
                 </div>
