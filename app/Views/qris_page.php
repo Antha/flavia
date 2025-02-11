@@ -30,7 +30,7 @@
         <div class="home-content mt-md-5 mb-md-5 pt-md-3 mt-4 mb-4 pt-2">
             <div class="container greeting-wrapper">
                 <div class="greeting mb-4 text-end">
-                    <h5 class="font_style_mobile1"><i class="fa-solid fa-user-tie me-2"></i> Welcome, Hendra</h5>
+                    <h5 class="font_style_mobile1"><i class="fa-solid fa-user-tie me-2"></i> Welcome,  <?= esc(session('username')); ?></h5>
                 </div>
             </div>
 

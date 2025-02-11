@@ -44,6 +44,7 @@ class Registration extends BaseController
             'branch' => $this->request->getPost('branch_option'),
             'cluster' => $this->request->getPost('cluster_option'),
             'city' => $this->request->getPost('city_option'),
+            'level' => 'user',
             'idcard' => $idcard,
             'token' => $token,
             'status' => 0 // Belum aktif

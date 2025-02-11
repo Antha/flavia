@@ -583,3 +583,8 @@ a.nav-link {
     padding: 2px 8px;
   }
 }
+
+
+.home-content{
+  min-height: 540px;
+}
