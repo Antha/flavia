@@ -37,7 +37,7 @@
                     <h4 class="alert-heading">
                         <i class="bi bi-check-circle-fill me-2"></i> Registrasi Berhasil!
                     </h4>
-                    <p>Selamat, registrasi Anda telah berhasil. Anda sekarang dapat menggunakan semua fitur yang tersedia.</p>
+                    <p>Selamat, registrasi Anda telah berhasil. Silahkan Cek Email Anda Untuk Aktivasi.</p>
                 </div>
             </div>
         </div>
