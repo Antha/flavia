@@ -33,29 +33,34 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-8">
-                            <form method="post" action="" enctype="multipart/form-data">
+                            <form method="post" action="<?php echo esc(base_url('/report/admin_report')); ?>" enctype="multipart/form-data">
                                 <?php csrf_field() ?>
                                 <div class="row no-gutters">
                                     <div class="form-group col-md-3 col-4 pe-2" id="col_periode_data">
                                         <div class="input-group dropdown_input">
-                                            <input required type="text" class="monthPicker form-control pull-left txt-input-data" id="periode_data" name="periode_data_kpi_admin" value="2025" />
+                                            <input required type="text" class="monthPicker form-control pull-left txt-input-data" id="periode_data" name="periode_data" value="202502" />
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-3 col-3 ps-0" id="wrap_kip_filter_branch">
-                                        <select name='kpi_filter_branch_admin' id='kpi_filter_branch_admin' class="select_filter pb-2 pt-2" title="Area Type" style="width:100%;">
+                                        <select name='filter_branch' id='filter_branch' class="select_filter pb-2 pt-2" title="Area Type" style="width:100%;">
                                             <option value="" selected disabled>Branch</option>
+                                            <option value="ALL">ALL</option>
+                                            <option value="DENPASAR">DENPASAR</option>
+                                            <option value="FLORES">FLORES</option>
+                                            <option value="KUPANG">KUPANG</option>
+                                            <option value="MATARAM">MATARAM</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-3 col-3 ps-0" id="wrap_kip_filter_cluster">
-                                        <select name='kpi_filter_cluster_admin' id='kpi_filter_cluster_admin' class="select_filter pb-2 pt-2" title="Area Type" style="width:100%;">
+                                        <select name='filter_cluster' id='filter_cluster' class="select_filter pb-2 pt-2" title="Area Type" style="width:100%;">
                                             <option value="" selected disabled>Cluster</option>
                                         </select>
                                     </div>
                                     <div class="col-md-3 col-2 ps-0">			
-                                        <input type="submit" id="btn_submit_periode_kip" name="btn_submit_periode_kip_admin" value="GO" class="submit_btn_datepicker rounded float-start">
+                                        <input type="submit" id="btn_submit" name="btn_submit" value="GO" class="submit_btn_datepicker rounded float-start">
                                     </div>
 
                                     <p class="flashdata_error"><?= session()->getFlashdata('table_not_exists'); ?></p> 
@@ -68,7 +73,12 @@
                             <div class="row">
                                 <div class="col-9">
                                     <div class="input-group">
-                                        <input required type="text" id="searchInput" class="form-control txt-input-data" placeholder="Search..."  onkeyup="filterTable()">
+                                        <input required type="text" id="searchInput" class="form-control txt-input-data" 
+                                            placeholder="Search..." onkeyup="filterTable()" 
+                                            style="font-size: 14px;" 
+                                            autocomplete="off" 
+                                            pattern="[A-Za-z0-9 ]{1,50}" 
+                                            oninput="sanitizeInput(this)">
                                         <div class="input-group-addon">
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                         </div>
@@ -82,39 +92,48 @@
                     </div>
                 </div>
             </div>
-
+            <div class="filter-info">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="me-3">Filter Branch : <?= esc($filterBranch); ?></span>
+                            <span>Filter Cluster : <?= esc($filterCluster); ?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="table-report-wrapper mt-3">
                 <div class="container">
                     <div class="row">
                         <div class="col-12 text-center">
-                            <table class="table table-responsive table-bordered">
+                            <table class="table table-responsive table-bordered" id="dataTable">
                                 <thead>
                                     <tr class="header-top-wrapper">
                                         <th>No</th>
                                         <th>FL NAME</th>
-                                        <th>NO HP</th>
                                         <th>SCAN DATE</th>
                                         <th>MSISDN</th>
+                                        <th>BRANCH</th>
+                                        <th>CLUSTER</th>
+                                        <th>CARD</th>
                                         <th>STATUS</th>
+                                        <th>POINT</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="dataTable_body_filter">
+                                    <?php $i=1;foreach($resumeScan as $rows){ ?>
                                     <tr>
-                                        <td>1.</td>
-                                        <td>USER 1</td>
-                                        <td>08123340012939</td>
-                                        <td>2025-01-06 09:00:22:16</td>
-                                        <td>081233944850908</td>
-                                        <td>VALID</td>
+                                        <td><?= $i; ?></td>
+                                        <td><?= esc($rows['username']); ?></td>
+                                        <td><?= esc($rows['scan_date']); ?></td>
+                                        <td><?= esc($rows['msisdn']); ?></td>
+                                        <td><?= esc($rows['branch']); ?></td>
+                                        <td><?= esc($rows['cluster']); ?></td>
+                                        <td><?= esc($rows['card_type']); ?></td>
+                                        <td><?= esc($rows['status_data']); ?></td>
+                                        <td><?= esc($rows['POINT']); ?></td>
                                     </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td>USER 2</td>
-                                        <td>08123340012939</td>
-                                        <td>2025-01-06 09:00:22:16</td>
-                                        <td>081233944850908</td>
-                                        <td>NOT VALID</td>
-                                    </tr>
+                                    <?php $i++;} ?>
                                 </tbody>
                             </table>
                         </div>
@@ -128,11 +147,9 @@
 
 <script>
     $(document).ready(function () {
-        $(function () {
-            $('#security_chckbox').on('change', function () {
-                $('#btn_login').prop('disabled', !this.checked).toggleClass('disable-btn', !this.checked);
-            });
-        });
+        function sanitizeInput(input) {
+            input.value = input.value.replace(/[^A-Za-z0-9 ]/g, ''); // Remove special characters
+        }
 
         $('#periode_data').datepicker({
             format: "yyyymm",
@@ -160,9 +177,9 @@
             "MATARAM": ["LOMBOK", "SUMBAWA BARAT", "SUMBAWA TIMUR"]
         };
 
-        $('#filter_branch_reward').on('change', function() {
+        $('#filter_branch').on('change', function() {
             let branch = $(this).val();
-            let clusterDropdown = $('#filter_cluster_reward');
+            let clusterDropdown = $('#filter_cluster');
             
             clusterDropdown.html('<option value="" selected disabled>Cluster</option>');
             if(branch == 'ALL'){
@@ -176,6 +193,75 @@
             }
         
         });
+    });
+
+    function filterTable() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toLowerCase();
+        const table = document.getElementById("dataTable_body_filter");
+        const rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName("td");
+            let match = false;
+            
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j]) {
+                    const textValue = cells[j].textContent || cells[j].innerText;
+                    if (textValue.toLowerCase().indexOf(filter) > -1) {
+                        match = true;
+                        break;
+                    }
+                }
+            }
+            
+            rows[i].style.display = match ? "" : "none";
+        }
+    }
+
+    $('#exportCsv').click(function () {
+        function exportTableToCSV(filename) {
+            var csv = [];
+            var rows = $('#dataTable').find('tr');
+
+            rows.each(function () {
+                var row = [];
+                $(this).find('th, td').each(function () {
+                    // Bungkus isi sel dengan tanda kutip ganda untuk menangani koma dalam sel
+                    row.push('"' + $(this).text().trim() + '"');
+                });
+                csv.push(row.join(','));
+            });
+
+            var csvContent = csv.join("\n");
+            var blob = new Blob([csvContent], { type: "text/csv" });
+
+            // Deteksi apakah dijalankan di Android atau browser
+            if (window.Android && typeof window.Android.downloadCSV === 'function') {
+                // Android: Kirim data melalui JavaScriptInterface
+                var reader = new FileReader();
+                reader.onload = function () {
+                    window.Android.downloadCSV(reader.result, filename);
+                };
+                reader.readAsText(blob);
+            } else {
+                // Browser: Gunakan mekanisme unduh standar
+                var downloadLink = document.createElement('a');
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = filename;
+                downloadLink.style.display = 'none';
+
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            }
+        }
+
+        // Call the function with a file name
+        const dateformat = new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14); // Format YYYYMMDDHHMMSS
+        const exported_fname = `table_export_${dateformat}.csv`;
+        exportTableToCSV(exported_fname);
+
     });
 </script>
 

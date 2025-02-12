@@ -9,10 +9,10 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        $scan_model = new ScanHistoriesModel();
         $db = \Config\Database::connect();
         $builder = $db->table('scan_histories');
 
+        $user_id = session()->get('user_id');
         $getMaxUpdateDate = $builder->selectMax('datetime')->get();
         $maxUpdateDateFull = $getMaxUpdateDate->getResultArray();
 
@@ -24,7 +24,8 @@ class Home extends BaseController
             $varMaxDate = "0000-00-";
         }
 
-        $queryDataByu = $builder->selectCount('msisdn')->where('card_type','byu')->like('datetime',$varMaxDate,'after')->get();
+        $whereArrByu = ['card_type' => 'byu','user_id' => $user_id];
+        $queryDataByu = $builder->selectCount('msisdn')->where($whereArrByu)->like('datetime',$varMaxDate,'after')->get();
         $resultArrDataByu = $queryDataByu->getResultArray();
 
         if (!empty($resultArrDataByu) && $resultArrDataByu[0]['msisdn'] > 0) {
@@ -33,7 +34,8 @@ class Home extends BaseController
             $resultDataByu = 0;
         }
 
-        $queryDataPerdana = $builder->selectCount('msisdn')->where('card_type','perdana')->like('datetime',$varMaxDate,'after')->get();
+        $whereArrPerdana = ['card_type' => 'perdana','user_id' => $user_id];
+        $queryDataPerdana = $builder->selectCount('msisdn')->where($whereArrPerdana)->like('datetime',$varMaxDate,'after')->get();
         $resultArrDataPerdana = $queryDataPerdana->getResultArray();
 
         if (!empty($resultArrDataPerdana) && $resultArrDataPerdana[0]['msisdn'] > 0) {
