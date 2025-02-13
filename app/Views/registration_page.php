@@ -41,6 +41,12 @@
                         <div class="pt-2 pb-0 position-relative">
                             <input type="email" class="login__input w-100 ps-3" id="email_box" placeholder="Email"  name="email" value="<?= old('email') ?>"  required>
                         </div>
+                        <div class="pt-2 pb-0 position-relative">
+                            <input type="text" class="login__input w-100 ps-3" id="outlate_name" placeholder="Outlet Name"  name="outlet_name" value="<?= old('outlet_name') ?>"  required>
+                        </div>
+                        <div class="pt-2 pb-0 position-relative">
+                            <input type="number" class="login__input w-100 ps-3" id="digipos_id" placeholder="Digipos ID"  name="digipos_id" value="<?= old('digipos_id') ?>"  required>
+                        </div>
                         <div class="form-group mt-4">
                             <select class="form-control registration-option-wrapper" id="branch_option" name="branch_option" style="color: #757575;" required>
                                 <option value="" selected disabled>Branch</option>
