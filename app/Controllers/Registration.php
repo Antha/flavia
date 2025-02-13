@@ -25,10 +25,18 @@ class Registration extends BaseController
             'password' => 'required|min_length[6]',
             'confirm_password' => 'matches[password]',
             'email' => 'required|valid_email|is_unique[users.email]',
+            'outlet_name' => 'required',
+            'digipos_id' => 'required',
+            'imageData' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Anda Harus Photo Dulu!'
+                ]
+            ]
         ];
 
         if (!$this->validate($rules)) {
-            return redirect()->to('/register')->withInput()->with('errors', $validation->getErrors());
+            return redirect()->to('/registration')->withInput()->with('errors', $validation->getErrors());
             //return $this->response->setJSON(["error"=>"not valid"]);
         }
 
@@ -41,6 +49,8 @@ class Registration extends BaseController
             'username' => $this->request->getPost('username'),
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
             'email' => $this->request->getPost('email'),
+            'outlet_name' => $this->request->getPost('outlate_name'),
+            'digipos_id' => $this->request->getPost('digipos_id'),
             'branch' => $this->request->getPost('branch_option'),
             'cluster' => $this->request->getPost('cluster_option'),
             'city' => $this->request->getPost('city_option'),

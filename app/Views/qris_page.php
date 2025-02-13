@@ -97,7 +97,7 @@
         }
     }
 
-    //getMetaData("https://bit.ly/4apPYB5?r=qr");
+    getMetaData("https://bit.ly/4apPYB5?r=qr");
 
     function getMetaData(url){
         $.ajax({
@@ -106,11 +106,14 @@
             data: { url },
             success: function (response) {
                 // Tampilkan hasil ke pengguna
-                $('#results_sn').html(`<p>🔢 Serial Number: ${response.serial_numbers}</p>`);
-                $('#results_pn_val').val(`${response.phone_numbers}`);
-
                 serialNumber = response.serial_numbers;
                 phoneNumber = response.phone_numbers;
+                phoneNumber = phoneNumber.replace(/^0/, "62");
+                
+                $('#results_sn').html(`<p>🔢 Serial Number: ${response.serial_numbers}</p>`);
+                $('#results_pn_val').val(`${phoneNumber}`);
+
+              
             },
             error: function (xhr) {
                 const error = xhr.responseJSON ? xhr.responseJSON.error : 'An error occurred';
@@ -170,7 +173,11 @@
     $("#submit-data").click(function(){
         if($("#results_pn_val").val() != ""){
             phoneNumber = $("#results_pn_val").val();
+            phoneNumber = phoneNumber.replace(/^0/, "62");
+            $("#results_pn_val").val(phoneNumber)
         }
+
+       
 
         if( typeof phoneNumber === "undefined"){
             Swal.fire({
