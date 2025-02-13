@@ -48,11 +48,13 @@
                             </button>
                         </div>
                         <button class="button login__submit">
-                            <span class="button__text">Log In Now</span>
+                            <span class="button__text">Log In</span>
                             <i class="button__icon fas fa-chevron-right"></i>
                         </button>
-                        
-                        <span class="mt-3 d-inline-block" style="font-size: 14px;">Don't have an account?<a href="<?= esc(base_url('/registration'))?>" class="fw-bold text-decoration-none text-sign-up">Sign Up</a></span>
+                        <a class="button login__submit mt-2 cstm_link" href="<?= esc(base_url('/registration'))?>">
+                            <span class="button__text">DAFTAR</span>
+                            <i class="button__icon fas fa-chevron-right"></i>
+                        </a>
                     </form>
                 </div>
                 <div class="screen__background">

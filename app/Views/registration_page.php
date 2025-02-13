@@ -9,7 +9,7 @@
 
     <div class="login-page" id="content">
         <div class="container-cstm">
-            <div class="screen">
+            <div class="screen_registration">
                 <div class="screen__content">
                     <div class="d-inline-block text-center w-100 pt-4">
                         <h4 class="mb-0">REGISTRATION</h4>
@@ -47,7 +47,7 @@
                         <div class="pt-2 pb-0 position-relative">
                             <input type="number" class="login__input w-100 ps-3" id="digipos_id" placeholder="Digipos ID"  name="digipos_id" value="<?= old('digipos_id') ?>"  required>
                         </div>
-                        <div class="form-group mt-4">
+                        <!--<div class="form-group mt-4">
                             <select class="form-control registration-option-wrapper" id="branch_option" name="branch_option" style="color: #757575;" required>
                                 <option value="" selected disabled>Branch</option>
                                 <option>DENPASAR</option>
@@ -65,14 +65,14 @@
                             <select class="form-control registration-option-wrapper" id="city_option" name="city_option" style="color: #757575;" required>
                                 <option value="" selected disabled>City</option>
                             </select>
-                        </div>
+                        </div>-->
                         <div class="form-group mt-4">
                             <input type="hidden" name="imageData" id="imageData">
-                            <h6 class="card-title">Take Identify Card</h6>
+                            <h6 class="card-title">Take Identify Card Photo</h6>
                             <div class="d-flex justify-content-center align-items-center">
                                 <video id="video" autoplay class="border rounded" style="max-width: 100%; height: auto;"></video>
                             </div>
-                            <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 mb-3" style="font-size: 12px;">Capture</button>
+                            <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 mb-3 float-end" style="font-size: 12px;">Capture</button>
                             <canvas id="canvas" class="mt-3 border rounded" style="max-width: 100%; display: none;"></canvas>
                         </div>
                         <button  type="submit" class="button login__submit">
