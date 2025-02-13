@@ -47,25 +47,6 @@
                         <div class="pt-2 pb-0 position-relative">
                             <input type="number" class="login__input w-100 ps-3" id="digipos_id" placeholder="Digipos ID"  name="digipos_id" value="<?= old('digipos_id') ?>"  required>
                         </div>
-                        <!--<div class="form-group mt-4">
-                            <select class="form-control registration-option-wrapper" id="branch_option" name="branch_option" style="color: #757575;" required>
-                                <option value="" selected disabled>Branch</option>
-                                <option>DENPASAR</option>
-                                <option>FLORES</option>
-                                <option>KUPANG</option>
-                                <option>MATARAM</option>
-                            </select>
-                        </div>
-                        <div class="form-group mt-4">
-                            <select class="form-control registration-option-wrapper" id="cluster_option" name="cluster_option" style="color: #757575;" required>
-                                <option value="" selected disabled>Cluster</option>
-                            </select>
-                        </div>
-                        <div class="form-group mt-4">
-                            <select class="form-control registration-option-wrapper" id="city_option" name="city_option" style="color: #757575;" required>
-                                <option value="" selected disabled>City</option>
-                            </select>
-                        </div>-->
                         <div class="form-group mt-4">
                             <input type="hidden" name="imageData" id="imageData">
                             <h6 class="card-title">Take Identify Card Photo</h6>
