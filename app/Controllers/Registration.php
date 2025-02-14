@@ -21,6 +21,7 @@ class Registration extends BaseController
 
         // Aturan validasi
         $rules = [
+            'fl_name' => 'required',
             'username' => 'required|is_unique[users.username]',
             'password' => 'required|min_length[6]',
             'confirm_password' => 'matches[password]',
@@ -46,6 +47,7 @@ class Registration extends BaseController
         $idcard = $this->saveBase64Image($this->request->getPost("imageData"), "./uploads/idcard");
 
         $data = [
+            'fl_name' => $this->request->getPost('fl_name'),
             'username' => $this->request->getPost('username'),
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
             'email' => $this->request->getPost('email'),

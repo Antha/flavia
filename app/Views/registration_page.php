@@ -30,6 +30,9 @@
                     <form class="registration col-12 pt-2 pb-2 pe-3 ps-3" action="<?= esc(base_url('/registration/auth')); ?>"  method="POST">
 						<?= csrf_field() ?>
                         <div class="pt-2 pb-0 position-relative">
+                            <input type="text" class="login__input w-100 ps-3" placeholder="Fl Name" value="<?= old('fl_name') ?>" name="fl_name" required>
+                        </div>
+                        <div class="pt-2 pb-0 position-relative">
                             <input type="text" class="login__input w-100 ps-3" placeholder="Username" value="<?= old('username') ?>" name="username" required>
                         </div>
                         <div class="pt-2 pb-0 position-relative">

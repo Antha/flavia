@@ -80,9 +80,6 @@ class Login extends BaseController
                 'user_id' => $isUserExists['id'],
                 'username' => $isUserExists['username'],
                 'user_level' => $isUserExists["level"],
-                'branch' => $isUserExists['branch'],
-                'cluster' => $isUserExists['cluster'],
-                'city' => $isUserExists['city'],
                 'isLoggedIn' => true,
             ]);
 
