@@ -78,6 +78,7 @@ class Login extends BaseController
             // Simpan session jika login sukses
             $this->session_user->set([
                 'user_id' => $isUserExists['id'],
+                'idcard' => $isUserExists['idcard'],
                 'username' => $isUserExists['username'],
                 'user_level' => $isUserExists["level"],
                 'outlet_name' => $isUserExists["outlet_name"],
