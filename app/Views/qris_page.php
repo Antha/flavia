@@ -177,8 +177,6 @@
             $("#results_pn_val").val(phoneNumber)
         }
 
-       
-
         if( typeof phoneNumber === "undefined"){
             Swal.fire({
                 icon: 'warning',

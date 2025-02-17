@@ -15,6 +15,13 @@
                         <h4 class="mb-0">REGISTRATION</h4>
                     </div>
 
+                    <?php if(session()->has('error_image')): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert"">
+                            <?= session('error_image') ?>
+                        </div>
+                    <?php endif; ?>
+
+
                     <?php if (session()->has('errors')) : ?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong><i class="bi bi-exclamation-triangle-fill"></i> Oops! Terjadi kesalahan:</strong>
@@ -45,10 +52,14 @@
                             <input type="email" class="login__input w-100 ps-3" id="email_box" placeholder="Email"  name="email" value="<?= old('email') ?>"  required>
                         </div>
                         <div class="pt-2 pb-0 position-relative">
-                            <input type="text" class="login__input w-100 ps-3" id="outlate_name" placeholder="Outlet Name"  name="outlet_name" value="<?= old('outlet_name') ?>"  required>
+                            <input type="text" class="login__input w-100 ps-3" id="outlet_name" placeholder="Outlet Name"  name="outlet_name" value="<?= old('outlet_name') ?>"  required>
                         </div>
                         <div class="pt-2 pb-0 position-relative">
                             <input type="number" class="login__input w-100 ps-3" id="digipos_id" placeholder="Digipos ID"  name="digipos_id" value="<?= old('digipos_id') ?>"  required>
+                        </div>
+                        <div class="pt-2 pb-0 position-relative d-flex align-items-center">
+                            <span class="me-2">+62</span>
+                            <input type="number" class="login__input w-100 ps-3" id="link_aja" placeholder="Masukan No Link Aja Yang Aktif" name="link_aja" value="<?= old('link_aja') ?>" required>
                         </div>
                         <div class="form-group mt-4">
                             <input type="hidden" name="imageData" id="imageData">
@@ -59,7 +70,7 @@
                             <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 mb-3 float-end" style="font-size: 12px;">Capture</button>
                             <canvas id="canvas" class="mt-3 border rounded" style="max-width: 100%; display: none;"></canvas>
                         </div>
-                        <button  type="submit" class="button login__submit" disabled>
+                        <button  type="submit" class="button login__submit">
                             <span class="button__text">Register Now</span>
                             <i class="button__icon fas fa-chevron-right"></i>
                         </button>
@@ -82,6 +93,14 @@
             $('#security_chckbox').on('change', function () {
                 $('#btn_login').prop('disabled', !this.checked).toggleClass('disable-btn', !this.checked);
             });
+        });
+
+        document.getElementById('link_aja').addEventListener('input', function() {
+            let inputValue = this.value;
+            if (inputValue.startsWith('0')) {
+                // Remove the leading 0
+                this.value = inputValue.substring(1);
+            }
         });
 
         const clusterOptions = {
