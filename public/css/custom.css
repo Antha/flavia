@@ -292,6 +292,10 @@ a.nav-link {
   transition: 0.2s;
 }
 
+.modal .btn-submit {
+  margin-top: 10px;
+}
+
 .login__submit:active,
 .login__submit:focus,
 .login__submit:hover,
@@ -583,14 +587,18 @@ canvas {
   background: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
-  padding-top: 100px;
+  padding-top: 0px;
 }
 .modal-content {
   background: white;
-  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 300px;
+  height: 600px;
+}
+.modal-content-scroll {
+  padding: 15px;
+  overflow: scroll;
 }
 .modal .close {
   float: right;

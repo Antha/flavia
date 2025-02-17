@@ -6,58 +6,60 @@
 
 <div class="modal" id="modal" style="display: none;"> 
     <div class="modal-content">
-        <p class="mt-2 mb-2 fw-bold text-center" style="font-size:18px;color:#fc4b66">Mohon Update dan Lengkapi Data Anda Terlebih Dahulu</p>
-        <?php if(session()->has('error_image')): ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?= session('error_image') ?>
-            </div>
-        <?php endif; ?>
-        <?php if (session()->has('errors')) : ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong><i class="bi bi-exclamation-triangle-fill"></i> Oops! Terjadi kesalahan:</strong>
-                <ul class="mt-2 mb-0">
-                    <?php foreach (session('errors') as $error) : ?>
-                        <li><?= esc($error) ?></li>
-                    <?php endforeach ?>
-                </ul>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
-        <form  action="/registration/update" method="post" enctype="multipart/form-data">
-            <input type="hidden" value="<?php echo session()->get("user_id")?>" name="id" />
-            <div class="form-group">
-                <label style="color: #9ea9b2;" for="outlate_name">Nama Outlet</label>
-                <input type="text" id="outlet_name" name="outlet_name"  value="<?php echo session()->get("outlet_name") ?>" required>
-            </div>
-            <div class="form-group">
-                <label style="color: #9ea9b2;" for="link_aja">Link Aja</label>
-                <div style="display: flex;">
-                    <span style="padding: 7px;
-                        background: gray;
-                        color: white;
-                        font-size: 10pt;">+62</span>
-                        <input type="text" id="link_aja" name="link_aja"  value="<?php echo session()->get("link_aja") ?>" required>
+        <div class="modal-content-scroll">
+            <p class="mt-2 mb-2 fw-bold text-center" style="font-size:18px;color:#fc4b66">Mohon Update dan Lengkapi Data Anda Terlebih Dahulu</p>
+            <?php if(session()->has('error_image')): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= session('error_image') ?>
                 </div>
-            </div>
-            <div class="form-group">
-                <label style="color: #9ea9b2;" for="digipos_id">ID Digipos Outlet</label>
-                <input type="text" id="digipos_id" name="digipos_id"  value="<?php echo session()->get("digipos_id") ?>" required>
-            </div>
-            <div class="form-group mt-4">
-                <input type="hidden" name="imageData" id="imageData">
-                <h6 class="card-title" style="color: #9ea9b2;">Ambil Foto KTP</h6>
-                <div class="d-flex justify-content-center align-items-center">
-                    <video id="video" autoplay class="border rounded" style="max-width: 100%; height: auto;"></video>
+            <?php endif; ?>
+            <?php if (session()->has('errors')) : ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong><i class="bi bi-exclamation-triangle-fill"></i> Oops! Terjadi kesalahan:</strong>
+                    <ul class="mt-2 mb-0">
+                        <?php foreach (session('errors') as $error) : ?>
+                            <li><?= esc($error) ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="col-12 d-inline-block">
-                    <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 mb-3 float-end" style="font-size: 12px;">Ambil Foto</button>
+            <?php endif; ?>
+            <form  action="/registration/update" method="post" enctype="multipart/form-data">
+                <input type="hidden" value="<?php echo session()->get("user_id")?>" name="id" />
+                <div class="form-group">
+                    <label style="color: #9ea9b2;" for="outlate_name">Nama Outlet</label>
+                    <input type="text" id="outlet_name" name="outlet_name"  value="<?php echo session()->get("outlet_name") ?>" required>
                 </div>
-                <canvas id="canvas" class="mt-3 border rounded" style="max-width: 100%; display: none;"></canvas>
-            </div>
-            <div class="col-12 d-inline-block text-center">
-                <button type="submit" class="btn btn-secondary btn-submit">Submit</button>
-            </div>
-        </form>
+                <div class="form-group">
+                    <label style="color: #9ea9b2;" for="link_aja">Link Aja</label>
+                    <div style="display: flex;">
+                        <span style="padding: 7px;
+                            background: gray;
+                            color: white;
+                            font-size: 10pt;">+62</span>
+                            <input type="text" id="link_aja" name="link_aja"  value="<?php echo session()->get("link_aja") ?>" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label style="color: #9ea9b2;" for="digipos_id">ID Digipos Outlet</label>
+                    <input type="text" id="digipos_id" name="digipos_id"  value="<?php echo session()->get("digipos_id") ?>" required>
+                </div>
+                <div class="form-group mt-4">
+                    <input type="hidden" name="imageData" id="imageData">
+                    <h6 class="card-title" style="color: #9ea9b2;">Ambil Foto KTP</h6>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <video id="video" autoplay class="border rounded" style="max-width: 100%; height: auto;"></video>
+                    </div>
+                    <div class="col-12 d-inline-block">
+                        <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 mb-3 float-end" style="font-size: 12px;">Ambil Foto</button>
+                    </div>
+                    <canvas id="canvas" class="mt-3 border rounded" style="max-width: 100%; display: none;"></canvas>
+                </div>
+                <div class="col-12 d-inline-block text-center">
+                    <button type="submit" class="btn btn-secondary btn-submit">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -74,12 +76,17 @@
                 </div>
             </div>
 
-                
-            <?php if(session()->has('success_message')): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?= session('success_message') ?>
+            <div class="alert-section-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <?php if(session()->has('success_message')): ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= session('success_message') ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
-            <?php endif; ?>
+            </div> 
 
 
             <div class="container home-title">
@@ -223,9 +230,9 @@
         }
     })
 
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-    });
+    //document.addEventListener('contextmenu', function(e) {
+    //    e.preventDefault();
+    //});
 
     // document.onkeydown = function(e) {
     //     if (e.keyCode == 123) { // F12
