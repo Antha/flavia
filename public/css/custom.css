@@ -583,6 +583,7 @@ canvas {
   background: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
+  padding-top: 100px;
 }
 .modal-content {
   background: white;

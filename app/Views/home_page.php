@@ -26,11 +26,11 @@
         <form  action="/registration/update" method="post" enctype="multipart/form-data">
             <input type="hidden" value="<?php echo session()->get("user_id")?>" name="id" />
             <div class="form-group">
-                <label for="outlate_name">Nama Outlet</label>
+                <label style="color: #9ea9b2;" for="outlate_name">Nama Outlet</label>
                 <input type="text" id="outlet_name" name="outlet_name"  value="<?php echo session()->get("outlet_name") ?>" required>
             </div>
             <div class="form-group">
-                <label for="link_aja">Link Aja</label>
+                <label style="color: #9ea9b2;" for="link_aja">Link Aja</label>
                 <div style="display: flex;">
                     <span style="padding: 7px;
                         background: gray;
@@ -40,12 +40,12 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="digipos_id">ID Digipos Outlet</label>
+                <label style="color: #9ea9b2;" for="digipos_id">ID Digipos Outlet</label>
                 <input type="text" id="digipos_id" name="digipos_id"  value="<?php echo session()->get("digipos_id") ?>" required>
             </div>
             <div class="form-group mt-4">
                 <input type="hidden" name="imageData" id="imageData">
-                <h6 class="card-title">Ambil Foto KTP</h6>
+                <h6 class="card-title" style="color: #9ea9b2;">Ambil Foto KTP</h6>
                 <div class="d-flex justify-content-center align-items-center">
                     <video id="video" autoplay class="border rounded" style="max-width: 100%; height: auto;"></video>
                 </div>
@@ -223,7 +223,7 @@
         }
     })
 
-    document.addEventListener('contextmenu', function(e) {
+    /*document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
     });
 
@@ -235,7 +235,7 @@
         } else if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
             return false;
         }
-    };
+    };*/
 
 
 </script>
