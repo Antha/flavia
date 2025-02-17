@@ -127,8 +127,9 @@
                                         <td><?= esc($rows['username']); ?></td>
                                         <td><?= esc($rows['scan_date']); ?></td>
                                         <td><?= esc($rows['msisdn']); ?></td>
-                                        <td><?= esc($rows['branch']); ?></td>
-                                        <td><?= esc($rows['cluster']); ?></td>
+                                        <td><?= esc($rows['fl_name']); ?></td>
+                                        <td><?= esc($rows['outlet_name']); ?></td>
+                                        <td><?= esc($rows['digipos_id']); ?></td>
                                         <td><?= esc($rows['card_type']); ?></td>
                                         <td><?= esc($rows['status_data']); ?></td>
                                         <td><?= esc($rows['POINT']); ?></td>

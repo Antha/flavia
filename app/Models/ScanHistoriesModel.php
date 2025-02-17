@@ -104,7 +104,7 @@ class ScanHistoriesModel extends Model
 
         // Subquery C: users
         $subQueryC = $db->table('users')
-            ->select('id, username, branch, cluster');
+            ->select('id, username, fl_name, outlet_name, digipos_id');
             
         /*if ($branch !== 'ALL' && !empty($cluster)) {
             $subQueryC->where('branch', $branch)
@@ -119,8 +119,9 @@ class ScanHistoriesModel extends Model
                 A.user_id, 
                 A.scan_date,
                 C.username,
-                C.branch,
-                C.cluster, 
+                C.fl_name,
+                C.outlet_name,
+                C.digipos_id,
                 A.msisdn, 
                 A.card_type, 
                 CASE WHEN B.star_status = 'PAYLOAD' THEN 'VALID' ELSE 'NOT VALID' END AS status_data, 
@@ -128,13 +129,6 @@ class ScanHistoriesModel extends Model
             ", false)
             ->join("({$subQueryB->getCompiledSelect(false)}) B", 'A.msisdn = B.msisdn', 'left') // ✅ Left join with B
             ->join("({$subQueryC->getCompiledSelect(false)}) C", 'A.user_id = C.id', 'left'); // ✅ Left join with C (users)
-                // ✅ Dynamically add WHERE conditions outside the method chain
-                if ($branch !== 'ALL' && !empty($cluster)) {
-                    $builder->where('C.branch', $branch)
-                            ->where('C.cluster', $cluster);
-                } elseif ($branch !== 'ALL' && empty($cluster)) {
-                    $builder->where('C.branch', $branch);
-                }
             $builder->orderBy('A.scan_date', 'DESC');
 
         return $builder->get()->getResultArray();

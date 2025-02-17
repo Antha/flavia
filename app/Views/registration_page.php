@@ -59,10 +59,11 @@
                             <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 mb-3 float-end" style="font-size: 12px;">Capture</button>
                             <canvas id="canvas" class="mt-3 border rounded" style="max-width: 100%; display: none;"></canvas>
                         </div>
-                        <button  type="submit" class="button login__submit">
+                        <button  type="submit" class="button login__submit" disabled>
                             <span class="button__text">Register Now</span>
                             <i class="button__icon fas fa-chevron-right"></i>
                         </button>
+                        <span style="color: #fff;font-size:18px;font-weight: bold;margin-top:10px;display:inline-block">Maaf untuk proses registrasi saat ini sedang dalam maintenace sampai jam 12 siang</span>
                     </form>
                 </div>
                 <div class="screen__background">
