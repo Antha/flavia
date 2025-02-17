@@ -165,7 +165,7 @@
 
     const modal = document.getElementById("modal");
 
-    <?php if (!session()->get("outlet_name") || !session()->get("link_aja") || !session()->get("digipos_id") || !session()->get("idcard") || session()->get("idcard") == 0): ?>
+    <?php if ((session()->get("user_level") != 'admin') && (!session()->get("outlet_name") || !session()->get("link_aja") || !session()->get("digipos_id") || !session()->get("idcard") || session()->get("idcard") == 0)): ?>
         modal.style.display = "flex";
     <?php endif?>
 
@@ -223,7 +223,7 @@
         }
     })
 
-    /*document.addEventListener('contextmenu', function(e) {
+    document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
     });
 
@@ -235,7 +235,7 @@
         } else if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
             return false;
         }
-    };*/
+    };
 
 
 </script>
