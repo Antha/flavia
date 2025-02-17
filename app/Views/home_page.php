@@ -6,7 +6,7 @@
 
 <div class="modal" id="modal" style="display: none;"> 
     <div class="modal-content">
-        <h4>Mohon Update dan Lengkapi Data Anda Terlebih Dahulu</h4>
+        <p class="mt-2 mb-2 fw-bold text-center" style="font-size:18px;color:#fc4b66">Mohon Update dan Lengkapi Data Anda Terlebih Dahulu</p>
         <?php if(session()->has('error_image')): ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <?= session('error_image') ?>
