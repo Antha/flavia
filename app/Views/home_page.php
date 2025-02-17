@@ -67,7 +67,7 @@
             <input type="hidden" value="<?php echo session()->get("user_id")?>" name="id" />
             <div class="form-group">
                 <label for="outlate_name">Outlet Name</label>
-                <input type="text" id="outlet_name" name="outlet_name" required>
+                <input type="text" id="outlet_name" name="outlet_name"  value="<?php echo session()->get("outlet_name") ?>" required>
             </div>
             <div class="form-group">
                 <label for="link_aja">Link Aja</label>
@@ -76,12 +76,12 @@
                         background: gray;
                         color: white;
                         font-size: 10pt;">+62</span>
-                        <input type="text" id="link_aja" name="link_aja" required>
+                        <input type="text" id="link_aja" name="link_aja"  value="<?php echo session()->get("link_aja") ?>" required>
                 </div>
             </div>
             <div class="form-group">
                 <label for="digipos_id">Digipos ID</label>
-                <input type="text" id="digipos_id" name="digipos_id" required>
+                <input type="text" id="digipos_id" name="digipos_id"  value="<?php echo session()->get("digipos_id") ?>" required>
             </div>
             <div class="form-group mt-4">
                 <input type="hidden" name="imageData" id="imageData">
