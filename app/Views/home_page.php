@@ -4,51 +4,11 @@
 
 <?php $this->section('content') ?>
 
-<style>
-     .modal {
-            display: flex;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        .close {
-            float: right;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-</style>
-
 <div class="modal" id="modal" style="display: none;"> 
     <div class="modal-content">
-        <h4>Data Outlet Adjustment</h4>
+        <h4>Mohon Update dan Lengkapi Data Anda Terlebih Dahulu</h4>
         <?php if(session()->has('error_image')): ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert"">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <?= session('error_image') ?>
             </div>
         <?php endif; ?>
@@ -66,7 +26,7 @@
         <form  action="/registration/update" method="post" enctype="multipart/form-data">
             <input type="hidden" value="<?php echo session()->get("user_id")?>" name="id" />
             <div class="form-group">
-                <label for="outlate_name">Outlet Name</label>
+                <label for="outlate_name">Nama Outlet</label>
                 <input type="text" id="outlet_name" name="outlet_name"  value="<?php echo session()->get("outlet_name") ?>" required>
             </div>
             <div class="form-group">
@@ -80,19 +40,23 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="digipos_id">Digipos ID</label>
+                <label for="digipos_id">ID Digipos Outlet</label>
                 <input type="text" id="digipos_id" name="digipos_id"  value="<?php echo session()->get("digipos_id") ?>" required>
             </div>
             <div class="form-group mt-4">
                 <input type="hidden" name="imageData" id="imageData">
-                <h6 class="card-title">Take Identify Card Photo</h6>
+                <h6 class="card-title">Ambil Foto KTP</h6>
                 <div class="d-flex justify-content-center align-items-center">
                     <video id="video" autoplay class="border rounded" style="max-width: 100%; height: auto;"></video>
                 </div>
-                <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 mb-3 float-end" style="font-size: 12px;">Capture</button>
+                <div class="col-12 d-inline-block">
+                    <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 mb-3 float-end" style="font-size: 12px;">Ambil Foto</button>
+                </div>
                 <canvas id="canvas" class="mt-3 border rounded" style="max-width: 100%; display: none;"></canvas>
             </div>
-            <button type="submit" class="btn btn-secondary">Submit</button>
+            <div class="col-12 d-inline-block text-center">
+                <button type="submit" class="btn btn-secondary btn-submit">Submit</button>
+            </div>
         </form>
     </div>
 </div>

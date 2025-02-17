@@ -16,7 +16,7 @@
                     </div>
 
                     <?php if(session()->has('error_image')): ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert"">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <?= session('error_image') ?>
                         </div>
                     <?php endif; ?>
