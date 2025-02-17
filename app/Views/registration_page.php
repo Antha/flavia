@@ -36,42 +36,46 @@
                    
                     <form class="registration col-12 pt-2 pb-2 pe-3 ps-3" action="<?= esc(base_url('/registration/auth')); ?>"  method="POST">
 						<?= csrf_field() ?>
-                        <div class="pt-2 pb-0 position-relative">
-                            <input type="text" class="login__input w-100 ps-3" placeholder="Fl Name" value="<?= old('fl_name') ?>" name="fl_name" required>
-                        </div>
-                        <div class="pt-2 pb-0 position-relative">
-                            <input type="text" class="login__input w-100 ps-3" placeholder="Username" value="<?= old('username') ?>" name="username" required>
-                        </div>
-                        <div class="pt-2 pb-0 position-relative">
-                            <input type="password" class="login__input w-100 ps-3" id="password_box" placeholder="Password" value="<?= old('password') ?>" name="password" required>
-                        </div>
-                        <div class="pt-2 pb-0 position-relative">
-                            <input type="password" class="login__input w-100 ps-3" id="confirm_password_box" placeholder="Confirm Password" value="<?= old('confirm_password') ?>" name="confirm_password" required>
-                        </div>
-                        <div class="pt-2 pb-0 position-relative">
-                            <input type="email" class="login__input w-100 ps-3" id="email_box" placeholder="Email"  name="email" value="<?= old('email') ?>"  required>
-                        </div>
-                        <div class="pt-2 pb-0 position-relative">
-                            <input type="text" class="login__input w-100 ps-3" id="outlet_name" placeholder="Outlet Name"  name="outlet_name" value="<?= old('outlet_name') ?>"  required>
-                        </div>
-                        <div class="pt-2 pb-0 position-relative">
-                            <input type="number" class="login__input w-100 ps-3" id="digipos_id" placeholder="Digipos ID"  name="digipos_id" value="<?= old('digipos_id') ?>"  required>
-                        </div>
-                        <div class="pt-2 pb-0 position-relative d-flex align-items-center">
-                            <span class="me-2">+62</span>
-                            <input type="number" class="login__input w-100 ps-3" id="link_aja" placeholder="Masukan No Link Aja Yang Aktif" name="link_aja" value="<?= old('link_aja') ?>" required>
-                        </div>
-                        <div class="form-group mt-4">
-                            <input type="hidden" name="imageData" id="imageData">
-                            <h6 class="card-title">Take Identify Card Photo</h6>
-                            <div class="d-flex justify-content-center align-items-center">
-                                <video id="video" autoplay class="border rounded" style="max-width: 100%; height: auto;"></video>
+                        <div class="p-2 rounded form-wrapper">                       
+                            <div class="pt-2 pb-0 position-relative">
+                                <input type="text" class="login__input w-100 ps-3" placeholder="Nama FL" value="<?= old('fl_name') ?>" name="fl_name" required>
                             </div>
-                            <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 mb-3 float-end" style="font-size: 12px;">Capture</button>
-                            <canvas id="canvas" class="mt-3 border rounded" style="max-width: 100%; display: none;"></canvas>
+                            <div class="pt-2 pb-0 position-relative">
+                                <input type="text" class="login__input w-100 ps-3" placeholder="Username" value="<?= old('username') ?>" name="username" required>
+                            </div>
+                            <div class="pt-2 pb-0 position-relative">
+                                <input type="password" class="login__input w-100 ps-3" id="password_box" placeholder="Password" value="<?= old('password') ?>" name="password" required>
+                            </div>
+                            <div class="pt-2 pb-0 position-relative">
+                                <input type="password" class="login__input w-100 ps-3" id="confirm_password_box" placeholder="Konfirmasi Password" value="<?= old('confirm_password') ?>" name="confirm_password" required>
+                            </div>
+                            <div class="pt-2 pb-0 position-relative">
+                                <input type="email" class="login__input w-100 ps-3" id="email_box" placeholder="Email"  name="email" value="<?= old('email') ?>"  required>
+                            </div>
+                            <div class="pt-2 pb-0 position-relative">
+                                <input type="text" class="login__input w-100 ps-3" id="outlet_name" placeholder="Nama Outlet"  name="outlet_name" value="<?= old('outlet_name') ?>"  required>
+                            </div>
+                            <div class="pt-2 pb-0 position-relative">
+                                <input type="number" class="login__input w-100 ps-3" id="digipos_id" placeholder="ID Digipos Outlet"  name="digipos_id" value="<?= old('digipos_id') ?>"  required>
+                            </div>
+                            <div class="pt-2 pb-0 position-relative d-flex align-items-center">
+                                <span class="me-2">+62</span>
+                                <input type="number" class="login__input w-100 ps-3" id="link_aja" placeholder="Masukan No HP yang Berisi Link Aja Yang Aktif" name="link_aja" value="<?= old('link_aja') ?>" required>
+                            </div>
+                            <div class="form-group mt-4">
+                                <input type="hidden" name="imageData" id="imageData">
+                                <h6 class="card-title">Ambil Foto KTP</h6>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <video id="video" autoplay class="border rounded" style="max-width: 100%; height: auto;"></video>
+                                </div>
+                                <div class="col-12 d-inline-block">
+                                    <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 float-end" style="font-size: 12px;">Ambil Foto</button>
+                                </div>
+                                <canvas id="canvas" class="mt-3 border rounded" style="max-width: 100%; display: none;"></canvas>
+                            </div>
                         </div>
                         <button  type="submit" class="button login__submit">
-                            <span class="button__text">Register Now</span>
+                            <span class="button__text">Registrasi</span>
                             <i class="button__icon fas fa-chevron-right"></i>
                         </button>
                     </form>

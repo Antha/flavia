@@ -3,7 +3,7 @@
 <div class="header-top-wrapper">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="#">Navbar</a>                
+            <a class="navbar-brand" href="<?= esc(base_url('/home')); ?>">Navbar</a>                
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarFlavia" aria-controls="navbarFlavia" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -20,8 +20,8 @@
                             SCAN
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item <?= ($uri->getSegment(1) == 'byu') ? 'active' : ''; ?>" href="<?= esc('/qris?card_type=byu'); ?>">BYU</a>
-                            <a class="dropdown-item <?= ($uri->getSegment(1) == 'qris') ? 'active' : ''; ?>" href="<?= esc('/qris?card_type=perdana'); ?>">PERDANA</a>
+                            <a class="dropdown-item <?= ($uri->getQuery() == 'card_type=byu') ? 'active' : ''; ?>" href="<?= esc(base_url('/qris?card_type=byu')); ?>">BYU</a>
+                            <a class="dropdown-item <?= ($uri->getQuery() == 'card_type=perdana') ? 'active' : ''; ?>" href="<?= esc(base_url('/qris?card_type=perdana')); ?>">PERDANA</a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -33,7 +33,7 @@
                 </a>
             </div>
         </nav>
-        <a class="navbar-brand position-absolute top-0 ps-md-3 pe-md-3 ps-2 pe-2 bg-white navbar-cstm" href="#">
+        <a class="navbar-brand position-absolute top-0 ps-md-3 pe-md-3 ps-2 pe-2 bg-white navbar-cstm" href="<?= esc(base_url('/home'));?>">
             <img src="<?= esc('/img/flavia_logo_banner_nav.png'); ?>" class="d-inline-block align-top img-fluid" alt="flavia nav logo">
         </a>
     </div>

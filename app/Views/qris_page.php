@@ -4,23 +4,6 @@
 
 <?php $this->section('content') ?>
 
-<style>
-    video { height: 300px; width: 100%; max-width: 400px; border: 2px solid #000; border-radius: 10px; }
-        canvas { display: none; }
-        #scan-area {
-            top: 10px;
-            position: absolute;
-            top: 25vh;
-            left: 0;
-            width: 100%;
-            height: 55vh;
-            border: 3px solid red;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
-            z-index: 10;
-        }
-    #result { font-size: 20px; font-weight: bold; margin-top: 10px; }
-</style>
-
 <body class="body-grey">
     <?= $this->include('/includes/loading_spinner'); ?>
 
@@ -34,9 +17,9 @@
                 </div>
             </div>
 
-            <div class="container mt-md-4 mb-md-5 mt-3 mb-4">
+            <div class="container mt-md-4 mb-md-5 mt-3 mb-4 position-relative">
                 <div class="row">
-                    <h2>QR Code Scanner (Auto Scan)</h2>
+                    <h2 style="margin-bottom: 16px;">QR Code Scanner (Auto Scan)</h2>
                     <video id="video" autoplay></video>
                     <div id="scan-area"></div>
                       
@@ -51,10 +34,10 @@
                     </p>
                     <p id="results_pn" style="width: 100%; font-size: 16px; font-weight: bold; color: #555; padding: 8px; background: #e9ecef; border-radius: 8px; text-align: center; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; overflow: hidden;">
                         📞 <i>- Phone Number :  <input type="number" id="results_pn_val" /> </i> <br/>
-                        *) <i><span class="text-danger">Please Insert Manualy If QR problem</span></i>
+                        *) <i><span class="text-danger">Masukkan MSISDN secara manual jika tidak bisa di scan</span></i>
                     </p>
 
-                    <div class="col-3 p-0">
+                    <div class="col-12 p-0 text-center">
                         <button class="btn btn-danger" id="submit-data">Submit Data</button>
                     </div>
                 </div>

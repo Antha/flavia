@@ -81,6 +81,11 @@ a.nav-link {
   color: #f83250;
 }
 
+.dropdown-item.active {
+  background-color: transparent;
+  color: #000;
+}
+
 .logout-fa {
   color: #fff;
   font-size: 16px;
@@ -135,7 +140,7 @@ a.nav-link {
 .spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid #3498db;
+  border: 5px solid #f83250;
   border-top: 5px solid transparent;
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -168,7 +173,7 @@ a.nav-link {
 .screen_registration {
   background: linear-gradient(90deg, #ff2837, #f9b57c);
   position: relative;
-  min-height: 850px;
+  min-height: 1000px;
   width: 420px;
   box-shadow: 0px 0px 24px #5c5696;
 }
@@ -525,10 +530,55 @@ a.nav-link {
   font-size: 12px;
 }
 
+video {
+  height: 300px;
+  width: 100%;
+  max-width: 400px;
+  border: 2px solid #000;
+  border-radius: 10px;
+}
+canvas {
+  display: none;
+}
+#scan-area {
+  /*top: 10px;*/
+  top: 46px;
+  position: absolute;
+  border-radius: 10px;
+  /*top: 25vh;*/
+  left: 0;
+  width: 100%;
+  /*height: 55vh;*/
+  height: 300px;
+  border: 3px solid red;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+  z-index: 10;
+}
+#result {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.home-content {
+  min-height: 540px;
+}
+.registration .form-wrapper {
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
 @media screen and (max-width: 991px) {
-  .container-cstm {
+  .login-page .screen {
     height: 100vh;
     overflow: hidden;
+  }
+
+  .login-page .screen__background {
+    overflow: hidden;
+  }
+
+  #scan_area {
+    top: 45px !important;
   }
   .navbar-cstm {
     height: 70px;
@@ -604,8 +654,4 @@ a.nav-link {
     font-size: 16px;
     padding: 2px 8px;
   }
-}
-
-.home-content {
-  min-height: 540px;
 }
