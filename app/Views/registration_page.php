@@ -45,7 +45,7 @@
                             <input type="email" class="login__input w-100 ps-3" id="email_box" placeholder="Email"  name="email" value="<?= old('email') ?>"  required>
                         </div>
                         <div class="pt-2 pb-0 position-relative">
-                            <input type="text" class="login__input w-100 ps-3" id="outlate_name" placeholder="Outlet Name"  name="outlet_name" value="<?= old('outlet_name') ?>"  required>
+                            <input type="text" class="login__input w-100 ps-3" id="outlet_name" placeholder="Outlet Name"  name="outlet_name" value="<?= old('outlet_name') ?>"  required>
                         </div>
                         <div class="pt-2 pb-0 position-relative">
                             <input type="number" class="login__input w-100 ps-3" id="digipos_id" placeholder="Digipos ID"  name="digipos_id" value="<?= old('digipos_id') ?>"  required>
@@ -59,11 +59,10 @@
                             <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 mb-3 float-end" style="font-size: 12px;">Capture</button>
                             <canvas id="canvas" class="mt-3 border rounded" style="max-width: 100%; display: none;"></canvas>
                         </div>
-                        <button  type="submit" class="button login__submit" disabled>
+                        <button  type="submit" class="button login__submit">
                             <span class="button__text">Register Now</span>
                             <i class="button__icon fas fa-chevron-right"></i>
                         </button>
-                        <span style="color: #fff;font-size:18px;font-weight: bold;margin-top:10px;display:inline-block">Maaf untuk proses registrasi saat ini sedang dalam maintenace sampai jam 12 siang</span>
                     </form>
                 </div>
                 <div class="screen__background">

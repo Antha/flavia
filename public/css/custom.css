@@ -168,7 +168,7 @@ a.nav-link {
 .screen_registration {
   background: linear-gradient(90deg, #ff2837, #f9b57c);
   position: relative;
-  height: 1200px;
+  min-height: 850px;
   width: 420px;
   box-shadow: 0px 0px 24px #5c5696;
 }
@@ -253,6 +253,7 @@ a.nav-link {
   border: none;
   border-bottom: 2px solid #d1d1d4;
   background: none;
+  color: #2b2b2b;
   padding: 10px;
   padding-left: 24px;
   font-weight: normal;
@@ -525,6 +526,10 @@ a.nav-link {
 }
 
 @media screen and (max-width: 991px) {
+  .container-cstm {
+    height: 100vh;
+    overflow: hidden;
+  }
   .navbar-cstm {
     height: 70px;
     padding-top: 30px;

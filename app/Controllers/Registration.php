@@ -53,9 +53,6 @@ class Registration extends BaseController
             'email' => $this->request->getPost('email'),
             'outlet_name' => $this->request->getPost('outlate_name'),
             'digipos_id' => $this->request->getPost('digipos_id'),
-            /*'branch' => $this->request->getPost('branch_option'),
-            'cluster' => $this->request->getPost('cluster_option'),
-            'city' => $this->request->getPost('city_option'),*/
             'level' => 'user',
             'idcard' => $idcard,
             'token' => $token,
