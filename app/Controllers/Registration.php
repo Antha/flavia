@@ -5,10 +5,17 @@ use App\Models\UserModel;
 
 class Registration extends BaseController
 {
+    protected $session_user;
+
     public function index(): string
     {
         return view('registration_page');
     }
+
+    public function __construct()
+    {
+        $this->session_user = session();
+    } 
 
     public function success(): string
     {
@@ -100,6 +107,60 @@ class Registration extends BaseController
         } else {
             return redirect()->to('/register')->with('error', 'Invalid token!');
         }
+    }
+
+    function update(){
+        $userModel = new UserModel();
+
+        $validation = \Config\Services::validation();
+
+        // Aturan validasi
+        $rules = [
+            'imageData' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Anda Harus Photo Dulu!'
+                ]
+            ]
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->to('/home')->withInput()->with('errors', $validation->getErrors());
+            //return $this->response->setJSON(["error"=>"not valid"]);
+        }
+        
+        $id = $this->request->getPost('id'); // Pastikan ID dikirim dari form
+
+        $idcard = $this->saveBase64Image($this->request->getPost("imageData"), "./uploads/idcard");
+
+        if( $idcard === false || $idcard == 0){
+            return redirect()->to('/home')->withInput()->with('error_image', 'Gagal mengupload gambar, silakan coba lagi.');
+        }
+
+        $data = [
+            'outlet_name' => $this->request->getPost('outlet_name'),
+            'digipos_id' => $this->request->getPost('digipos_id'),
+            'link_aja' => "62" . $this->request->getPost('link_aja'),
+            'idcard' => $idcard
+        ];
+
+        $userModel->update($id, $data);
+
+        // Ambil data terbaru dari database
+        $updatedData = $userModel->find($id);
+
+        $this->session_user->set([
+            'user_id' => $updatedData['id'],
+            'idcard' => $updatedData['idcard'],
+            'username' => $updatedData['username'],
+            'user_level' => $updatedData["level"],
+            'outlet_name' => $updatedData["outlet_name"],
+            'link_aja' => $updatedData["link_aja"],
+            'digipos_id' => $updatedData["digipos_id"],
+            'isLoggedIn' => true,
+        ]);
+
+        return redirect()->to('/home')->withInput()->with('success_message', 'Berhasil Memperbaharui Data');
     }
 
     function saveBase64Image($base64String, $uploadPath) {

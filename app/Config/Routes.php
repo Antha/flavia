@@ -12,6 +12,7 @@ $routes->get('/registration', 'Registration::index');
 $routes->get('/registration/success', 'Registration::success');
 $routes->post('/registration/auth', 'Registration::auth');
 $routes->get('/registration/verify/(:any)', 'Registration::verify/$1');
+$routes->post('/registration/update', 'Registration::update');
 $routes->post('/sendEmail', 'Home::sendEmail');
 
 //$routes->get('/report_summary','Scan_summary::index');
