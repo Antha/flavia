@@ -227,15 +227,15 @@
         e.preventDefault();
     });
 
-    document.onkeydown = function(e) {
-        if (e.keyCode == 123) { // F12
-            return false;
-        } else if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
-            return false;
-        } else if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
-            return false;
-        }
-    };
+    // document.onkeydown = function(e) {
+    //     if (e.keyCode == 123) { // F12
+    //         return false;
+    //     } else if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+    //         return false;
+    //     } else if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
+    //         return false;
+    //     }
+    // };
 
 
 </script>
