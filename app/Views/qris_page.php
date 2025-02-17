@@ -80,7 +80,7 @@
         }
     }
 
-    getMetaData("https://bit.ly/4apPYB5?r=qr");
+    //getMetaData("https://bit.ly/4apPYB5?r=qr");
 
     function getMetaData(url){
         $.ajax({

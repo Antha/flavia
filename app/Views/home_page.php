@@ -4,6 +4,99 @@
 
 <?php $this->section('content') ?>
 
+<style>
+     .modal {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .close {
+            float: right;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+</style>
+
+<div class="modal" id="modal" style="display: none;"> 
+    <div class="modal-content">
+        <h4>Data Outlet Adjustment</h4>
+        <?php if(session()->has('error_image')): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert"">
+                <?= session('error_image') ?>
+            </div>
+        <?php endif; ?>
+        <?php if (session()->has('errors')) : ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong><i class="bi bi-exclamation-triangle-fill"></i> Oops! Terjadi kesalahan:</strong>
+                <ul class="mt-2 mb-0">
+                    <?php foreach (session('errors') as $error) : ?>
+                        <li><?= esc($error) ?></li>
+                    <?php endforeach ?>
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+        <form  action="/registration/update" method="post" enctype="multipart/form-data">
+            <input type="hidden" value="<?php echo session()->get("user_id")?>" name="id" />
+            <div class="form-group">
+                <label for="outlate_name">Outlet Name</label>
+                <input type="text" id="outlet_name" name="outlet_name" required>
+            </div>
+            <div class="form-group">
+                <label for="link_aja">Link Aja</label>
+                <div style="display: flex;">
+                    <span style="padding: 7px;
+                        background: gray;
+                        color: white;
+                        font-size: 10pt;">+62</span>
+                        <input type="text" id="link_aja" name="link_aja" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="digipos_id">Digipos ID</label>
+                <input type="text" id="digipos_id" name="digipos_id" required>
+            </div>
+            <div class="form-group mt-4">
+                <input type="hidden" name="imageData" id="imageData">
+                <h6 class="card-title">Take Identify Card Photo</h6>
+                <div class="d-flex justify-content-center align-items-center">
+                    <video id="video" autoplay class="border rounded" style="max-width: 100%; height: auto;"></video>
+                </div>
+                <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 mb-3 float-end" style="font-size: 12px;">Capture</button>
+                <canvas id="canvas" class="mt-3 border rounded" style="max-width: 100%; display: none;"></canvas>
+            </div>
+            <button type="submit" class="btn btn-secondary">Submit</button>
+        </form>
+    </div>
+</div>
+
 <body class="body-grey">
     <?= $this->include('/includes/loading_spinner'); ?>
 
@@ -16,6 +109,15 @@
                     <h5 class="font_style_mobile1"><i class="fa-solid fa-user-tie me-2"></i> Welcome, <?= esc(session('username')); ?></h5>
                 </div>
             </div>
+
+                
+            <?php if(session()->has('success_message')): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?= session('success_message') ?>
+                </div>
+            <?php endif; ?>
+
+
             <div class="container home-title">
                 <div class="row justify-content-center">
                     <div class="col-sm-8 col-10">
@@ -96,6 +198,66 @@
             });
         }); 
     });
+
+    const modal = document.getElementById("modal");
+
+    <?php if (!session()->get("outlet_name") || !session()->get("link_aja") || !session()->get("digipos_id") || !session()->get("idcard") || session()->get("idcard") == 0): ?>
+        modal.style.display = "flex";
+    <?php endif?>
+
+    // Hapus event listener yang menutup modal saat klik di luar
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            event.stopPropagation(); // Men
+        }
+    });
+
+    document.getElementById('link_aja').addEventListener('input', function() {
+        let inputValue = this.value;
+        if (inputValue.startsWith('0')) {
+            // Remove the leading 0
+            this.value = inputValue.substring(1);
+        }
+    });
+
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const captureButton = document.getElementById('capture');
+    const imageDataInput = document.getElementById('imageData');
+
+    // Akses kamera
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+            video.srcObject = stream;
+        })
+        .catch((err) => {
+            console.error('Error accessing camera: ', err);
+        });
+
+    // Capture gambar
+    captureButton.addEventListener('click', () => {
+        const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Tampilkan canvas
+        canvas.style.display = 'block';
+
+        // Ambil data gambar sebagai base64
+        const imageData = canvas.toDataURL('image/png');
+        imageDataInput.value = imageData;
+        //saveButton.disabled = false;
+
+        const scrollHeight = document.body.scrollHeight;
+        
+        const scrollStep = 500;
+       
+        const button = document.querySelector(".button.login__submit");
+        if (button) {
+            button.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    })
 </script>
 
 <?php $this->endSection() ?>

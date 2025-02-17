@@ -80,6 +80,9 @@ class Login extends BaseController
                 'user_id' => $isUserExists['id'],
                 'username' => $isUserExists['username'],
                 'user_level' => $isUserExists["level"],
+                'outlet_name' => $isUserExists["outlet_name"],
+                'link_aja' => $isUserExists["link_aja"],
+                'digipos_id' => $isUserExists["digipos_id"],
                 'isLoggedIn' => true,
             ]);
 
