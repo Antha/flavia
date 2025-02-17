@@ -7,6 +7,7 @@
 <div class="modal" id="modal" style="display: none;"> 
     <div class="modal-content">
         <div class="modal-content-scroll">
+
             <p class="mt-2 mb-2 fw-bold text-center" style="font-size:18px;color:#fc4b66">Mohon Update dan Lengkapi Data Anda Terlebih Dahulu</p>
             <?php if(session()->has('error_image')): ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -76,19 +77,18 @@
                 </div>
             </div>
 
-            <div class="alert-section-wrapper">
+            <div class="alert-section">
                 <div class="container">
                     <div class="row">
-                        <?php if(session()->has('success_message')): ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <?= session('success_message') ?>
-                            </div>
-                        <?php endif; ?>
+                    <?php if(session()->has('success_message')): ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <?= session('success_message') ?>
+                        </div>
+                    <?php endif; ?>
                     </div>
                 </div>
-            </div> 
-
-
+            </div>
+           
             <div class="container home-title">
                 <div class="row justify-content-center">
                     <div class="col-sm-8 col-10">
@@ -171,7 +171,7 @@
     });
 
     const modal = document.getElementById("modal");
-
+    
     <?php if ((session()->get("user_level") != 'admin') && (!session()->get("outlet_name") || !session()->get("link_aja") || !session()->get("digipos_id") || !session()->get("idcard") || session()->get("idcard") == 0)): ?>
         modal.style.display = "flex";
     <?php endif?>
@@ -191,6 +191,8 @@
         }
     });
 
+    <?php if ((session()->get("user_level") != 'admin') && (!session()->get("outlet_name") || !session()->get("link_aja") || !session()->get("digipos_id") || !session()->get("idcard") || session()->get("idcard") == 0)): ?>
+   
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const captureButton = document.getElementById('capture');
@@ -230,19 +232,21 @@
         }
     })
 
-    //document.addEventListener('contextmenu', function(e) {
-    //    e.preventDefault();
-    //});
+    <?php endif?>
 
-    // document.onkeydown = function(e) {
-    //     if (e.keyCode == 123) { // F12
-    //         return false;
-    //     } else if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
-    //         return false;
-    //     } else if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
-    //         return false;
-    //     }
-    // };
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    document.onkeydown = function(e) {
+         if (e.keyCode == 123) { // F12
+             return false;
+         } else if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+             return false;
+         } else if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
+             return false;
+         }
+    };
 
 
 </script>
