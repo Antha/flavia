@@ -15,6 +15,13 @@
                         <h4 class="mb-0">REGISTRATION</h4>
                     </div>
 
+                    <?php if(session()->has('error_image')): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert"">
+                            <?= session('error_image') ?>
+                        </div>
+                    <?php endif; ?>
+
+
                     <?php if (session()->has('errors')) : ?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong><i class="bi bi-exclamation-triangle-fill"></i> Oops! Terjadi kesalahan:</strong>
@@ -50,6 +57,10 @@
                         <div class="pt-2 pb-0 position-relative">
                             <input type="number" class="login__input w-100 ps-3" id="digipos_id" placeholder="Digipos ID"  name="digipos_id" value="<?= old('digipos_id') ?>"  required>
                         </div>
+                        <div class="pt-2 pb-0 position-relative d-flex align-items-center">
+                            <span class="me-2">+62</span>
+                            <input type="number" class="login__input w-100 ps-3" id="link_aja" placeholder="Masukan No Link Aja Yang Aktif" name="link_aja" value="<?= old('link_aja') ?>" required>
+                        </div>
                         <div class="form-group mt-4">
                             <input type="hidden" name="imageData" id="imageData">
                             <h6 class="card-title">Take Identify Card Photo</h6>
@@ -81,6 +92,14 @@
             $('#security_chckbox').on('change', function () {
                 $('#btn_login').prop('disabled', !this.checked).toggleClass('disable-btn', !this.checked);
             });
+        });
+
+        document.getElementById('link_aja').addEventListener('input', function() {
+            let inputValue = this.value;
+            if (inputValue.startsWith('0')) {
+                // Remove the leading 0
+                this.value = inputValue.substring(1);
+            }
         });
 
         const clusterOptions = {
