@@ -41,7 +41,7 @@
                                 <input type="text" class="login__input w-100 ps-3" placeholder="Nama FL" value="<?= old('fl_name') ?>" name="fl_name" required>
                             </div>
                             <div class="pt-2 pb-0 position-relative">
-                                <input type="text" class="login__input w-100 ps-3" placeholder="Username" value="<?= old('username') ?>" name="username" required>
+                                <input type="text" class="login__input w-100 ps-3" id="username" placeholder="Username" value="<?= old('username') ?>" name="username" required>
                             </div>
                             <div class="pt-2 pb-0 position-relative">
                                 <input type="password" class="login__input w-100 ps-3" id="password_box" placeholder="Password" value="<?= old('password') ?>" name="password" required>
@@ -104,6 +104,10 @@
                 // Remove the leading 0
                 this.value = inputValue.substring(1);
             }
+        });
+
+        document.getElementById('username').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^a-zA-Z0-9]/g, ''); // Hanya huruf dan angka
         });
 
         const clusterOptions = {
