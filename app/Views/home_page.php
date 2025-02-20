@@ -199,7 +199,7 @@
     const imageDataInput = document.getElementById('imageData');
 
     // Akses kamera
-    navigator.mediaDevices.getUserMedia({ video: true })
+    navigator.mediaDevices.getUserMedia({ video:{ facingMode: "environment" }})
         .then((stream) => {
             video.srcObject = stream;
         })

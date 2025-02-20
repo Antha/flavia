@@ -382,6 +382,15 @@ a.nav-link {
   color: #ff2278;
 }
 
+.table-scroll-y {
+  overflow-y: auto;
+}
+
+.table-wrapper-scroll-y {
+  position: relative;
+  height: 500px;
+}
+
 .home-title,
 .point-display-home {
   font-family: "Montserrat", serif;

@@ -33,6 +33,21 @@ class ScanHistoriesModel extends Model
         return $builder->selectMax('datetime')->get()->getResultArray();
     }
 
+    function getLattestSoBarcodeTable(){
+        $db = \Config\Database::connect();
+        $targetDatabase = 'flavia'; // Ganti dengan nama database yang sesuai
+
+        $builder = $db->table('INFORMATION_SCHEMA.TABLES')
+            ->select('TABLE_NAME')
+            ->where('TABLE_SCHEMA', $targetDatabase) // Filter berdasarkan database
+            ->like('TABLE_NAME', 'sellout_barcode_%', 'after'); // Filter tabel yang diawali 'sellout_barcode_'
+
+        $query = $builder->get();
+        $results = $query->getRowArray(); // Mengambil hasil sebagai array
+
+        return $results;
+    }
+
     function getScanHistoryData($periode,$periodeDb,$user_id){
         $db = \Config\Database::connect();
 
@@ -89,49 +104,43 @@ class ScanHistoriesModel extends Model
 
     }
 
-    function getScanHistoryDataAdmin($periode,$periodeDb,$branch,$cluster){
+    function getScanHistoryDataAdmin($periodeDb){
         $db = \Config\Database::connect();
+       
+        $tableName = "sellout_barcode_{$periodeDb}"; // Nama tabel dinamis
 
-        
-        // Subquery A: scan_histories
-        $subQueryA = $db->table('scan_histories')
-                ->select('user_id, msisdn, `datetime` AS scan_date, card_type')
-                ->like('datetime', $periode, 'after'); // Correct LIKE usage
+        // Subquery A: users dengan status = '1'
+        $subQueryA = $db->table('users')
+            ->select('id, username, fl_name, outlet_name, digipos_id')
+            ->where('status', '1');
 
-        // Subquery B: sellout_barcode_202502
-        $subQueryB = $db->table('sellout_barcode_'.$periodeDb)
-            ->select('msisdn, star_status');
+        // Subquery D: Perhitungan so_byu_valid & so_perdana_valid
+        $subQueryD = $db->table('scan_histories B')
+            ->select("
+                user_id, 
+                COUNT(CASE WHEN LOWER(star_status) = 'payload' AND LOWER(card_type) = 'byu' THEN B.msisdn END) AS so_byu_valid,
+                COUNT(CASE WHEN LOWER(star_status) != 'payload' AND LOWER(card_type) = 'perdana' THEN B.msisdn END) AS so_perdana_valid
+            ", false)
+            ->join("$tableName C", "CONCAT('0', SUBSTRING(B.msisdn, 3)) = C.msisdn", 'inner')
+            ->groupBy('user_id');
 
-        // Subquery C: users
-        $subQueryC = $db->table('users')
-            ->select('id, username, fl_name, outlet_name, digipos_id');
-            
-        /*if ($branch !== 'ALL' && !empty($cluster)) {
-            $subQueryC->where('branch', $branch)
-                        ->where('cluster', $cluster);
-        }else if($branch !== 'ALL' && empty($cluster)){
-            $subQueryC->where('branch', $branch);
-        }*/
-
-        // Main Query: LEFT JOIN A and B an C
+        // Query utama dengan JOIN subqueries
         $builder = $db->table("({$subQueryA->getCompiledSelect(false)}) A")
             ->select("
-                A.user_id, 
-                A.scan_date,
-                C.username,
-                C.fl_name,
-                C.outlet_name,
-                C.digipos_id,
-                A.msisdn, 
-                A.card_type, 
-                CASE WHEN B.star_status = 'PAYLOAD' THEN 'VALID' ELSE 'NOT VALID' END AS status_data, 
-                CASE WHEN B.star_status = 'PAYLOAD' THEN '1000' ELSE '0' END AS POINT
+                IFNULL(A.fl_name,'NULL') fl_name, 
+                IFNULL(A.outlet_name,'NULL') outlet_name, 
+                IFNULL(A.digipos_id,'NULL') digipos_id, 
+                IFNULL(D.so_byu_valid,0) so_byu_valid, 
+                IFNULL(D.so_perdana_valid,0) so_perdana_valid, 
+                (IFNULL(D.so_byu_valid,0) + IFNULL(D.so_perdana_valid,0)) AS so_total
             ", false)
-            ->join("({$subQueryB->getCompiledSelect(false)}) B", 'A.msisdn = B.msisdn', 'left') // ✅ Left join with B
-            ->join("({$subQueryC->getCompiledSelect(false)}) C", 'A.user_id = C.id', 'left'); // ✅ Left join with C (users)
-            $builder->orderBy('A.scan_date', 'DESC');
+            ->join("({$subQueryD->getCompiledSelect(false)}) D", 'A.id = D.user_id', 'left')
+            ->orderBy('so_total','DESC');
 
-        return $builder->get()->getResultArray();
+        $query = $builder->get();
+        $results = $query->getResultArray();
+
+        return $results;
     }
 
 }

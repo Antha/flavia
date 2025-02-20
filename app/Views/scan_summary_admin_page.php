@@ -14,12 +14,10 @@
             <div class="container page-navigation-wrapper mb-2">
                 <div class="row">
                     <div class="page-navigation">
-                        <a href="<?php echo esc(base_url()."home"); ?>" class="back-btn">
+                        <a href="<?= esc(base_url()."home"); ?>" class="back-btn">
                             <i class="fa-regular fa-circle-left float-start"></i>
                         </a>
-                        <span class="page-navigation-title">
-                            REPORT
-                        </span>
+                        <span class="page-navigation-title">REPORT</span>
                     </div>
                 </div>
             </div>
@@ -33,38 +31,21 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-8">
-                            <form method="post" action="<?php echo esc(base_url('/report/admin_report')); ?>" enctype="multipart/form-data">
-                                <?php csrf_field() ?>
+                            <form id="filterForm">
+                                <?= csrf_field() ?>
                                 <div class="row no-gutters">
-                                    <div class="form-group col-md-3 col-4 pe-2" id="col_periode_data">
+                                    <div class="form-group col-md-3 col-4 pe-2">
                                         <div class="input-group dropdown_input">
-                                            <input required type="text" class="monthPicker form-control pull-left txt-input-data" id="periode_data" name="periode_data" value="202502" />
+                                            <input required type="text" class="monthPicker form-control pull-left txt-input-data" id="periode_data" name="periode_data" />
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-3 col-3 ps-0" id="wrap_kip_filter_branch">
-                                        <select name='filter_branch' id='filter_branch' class="select_filter pb-2 pt-2" title="Area Type" style="width:100%;">
-                                            <option value="" selected disabled>Branch</option>
-                                            <option value="ALL">ALL</option>
-                                            <option value="DENPASAR">DENPASAR</option>
-                                            <option value="FLORES">FLORES</option>
-                                            <option value="KUPANG">KUPANG</option>
-                                            <option value="MATARAM">MATARAM</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-3 col-3 ps-0" id="wrap_kip_filter_cluster">
-                                        <select name='filter_cluster' id='filter_cluster' class="select_filter pb-2 pt-2" title="Area Type" style="width:100%;">
-                                            <option value="" selected disabled>Cluster</option>
-                                        </select>
-                                    </div>
                                     <div class="col-md-3 col-2 ps-0">			
-                                        <input type="submit" id="btn_submit" name="btn_submit" value="GO" class="submit_btn_datepicker rounded float-start">
+                                        <button type="submit" id="btn_submit" class="submit_btn_datepicker rounded float-start">GO</button>
                                     </div>
-
-                                    <p class="flashdata_error"><?= session()->getFlashdata('table_not_exists'); ?></p> 
-                                    
+                                    <p id="errorMessage" class="text-danger"></p> 
                                     <div style="clear: both;"></div>
                                 </div>
                             </form>
@@ -73,12 +54,7 @@
                             <div class="row">
                                 <div class="col-9">
                                     <div class="input-group">
-                                        <input required type="text" id="searchInput" class="form-control txt-input-data" 
-                                            placeholder="Search..." onkeyup="filterTable()" 
-                                            style="font-size: 14px;" 
-                                            autocomplete="off" 
-                                            pattern="[A-Za-z0-9 ]{1,50}" 
-                                            oninput="sanitizeInput(this)">
+                                        <input required type="text" id="searchInput" class="form-control txt-input-data" placeholder="Search..." onkeyup="filterTable()" style="font-size: 14px;" autocomplete="off">
                                         <div class="input-group-addon">
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                         </div>
@@ -92,51 +68,34 @@
                     </div>
                 </div>
             </div>
-            <div class="filter-info">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <span class="me-3">Filter Branch : <?= esc($filterBranch); ?></span>
-                            <span>Filter Cluster : <?= esc($filterCluster); ?></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             <div class="table-report-wrapper mt-3">
                 <div class="container">
                     <div class="row">
                         <div class="col-12 text-center">
-                            <table class="table table-responsive table-bordered" id="dataTable">
-                                <thead>
-                                    <tr class="header-top-wrapper">
-                                        <th>No</th>
-                                        <th>FL NAME</th>
-                                        <th>SCAN DATE</th>
-                                        <th>MSISDN</th>
-                                        <th>BRANCH</th>
-                                        <th>CLUSTER</th>
-                                        <th>CARD</th>
-                                        <th>STATUS</th>
-                                        <th>POINT</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="dataTable_body_filter">
-                                    <?php $i=1;foreach($resumeScan as $rows){ ?>
-                                    <tr>
-                                        <td><?= $i; ?></td>
-                                        <td><?= esc($rows['username']); ?></td>
-                                        <td><?= esc($rows['scan_date']); ?></td>
-                                        <td><?= esc($rows['msisdn']); ?></td>
-                                        <td><?= esc($rows['fl_name']); ?></td>
-                                        <td><?= esc($rows['outlet_name']); ?></td>
-                                        <td><?= esc($rows['digipos_id']); ?></td>
-                                        <td><?= esc($rows['card_type']); ?></td>
-                                        <td><?= esc($rows['status_data']); ?></td>
-                                        <td><?= esc($rows['POINT']); ?></td>
-                                    </tr>
-                                    <?php $i++;} ?>
-                                </tbody>
-                            </table>
+                            <div class="table-wrapper-scroll-y table-scroll-y">
+                                <div class="table-top-scroll">
+                                    <div class="table-scroll-bar"></div>
+                                </div>
+                                <table class="table table-responsive table-bordered" id="dataTable">
+                                    <thead>
+                                        <tr class="header-top-wrapper">
+                                            <th>No</th>
+                                            <th>FL NAME</th>
+                                            <th>OUTLET NAME</th>
+                                            <th>DIGIPOS ID</th>
+                                            <th>SO BYU VALID</th>
+                                            <th>SO PREPAID VALID</th>
+                                            <th>SO TOTAL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dataTable_body_filter">
+                                        <tr>
+                                            <td colspan="7" class="text-center">Loading data...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -144,126 +103,126 @@
         </div>
         <?= $this->include('/includes/include_footer'); ?>
     </div>
-</body>
 
-<script>
-    $(document).ready(function () {
-        function sanitizeInput(input) {
-            input.value = input.value.replace(/[^A-Za-z0-9 ]/g, ''); // Remove special characters
-        }
-
-        $('#periode_data').datepicker({
-            format: "yyyymm",
-            startView: 1,
-            minViewMode:1,
-            autoclose: true,
-            todayHighlight: true
-        });
-        
-        $('.table-scroll-bar').width($('#dataTable').outerWidth());
-
-        // Synchronize scrolling
-        $('.table-top-scroll').on('scroll', function () {
-            $('.table-responsive').scrollLeft($(this).scrollLeft());
-        });
-
-        $('.table-responsive').on('scroll', function () {
-            $('.table-top-scroll').scrollLeft($(this).scrollLeft());
-        });
-
-        const clusterOptions = {
-            "DENPASAR": ["BALI BARAT", "BALI TENGAH", "BALI TIMUR"],
-            "FLORES": ["ENDE SIKKA", "FLORES TIMUR", "MANGGARAI"],
-            "KUPANG": ["KUPANG ROTE", "MALAKA TIMTIM BELU", "SUMBA"],
-            "MATARAM": ["LOMBOK", "SUMBAWA BARAT", "SUMBAWA TIMUR"]
-        };
-
-        $('#filter_branch').on('change', function() {
-            let branch = $(this).val();
-            let clusterDropdown = $('#filter_cluster');
-            
-            clusterDropdown.html('<option value="" selected disabled>Cluster</option>');
-            if(branch == 'ALL'){
-                cityDropdown.html('<option value="" selected disabled>Cluster</option>');
+    <link rel="stylesheet" href="<?php echo base_url('/css/datepicker.css') ?>">
+    <script type="text/javascript" src="<?php echo base_url('/script/bootstrap-datepicker.js') ?>"></script>
+    <script>
+        $(document).ready(function() {
+            function sanitizeInput(input) {
+                input.value = input.value.replace(/[^A-Za-z0-9 ]/g, ''); // Remove special characters
             }
-        
-            if (clusterOptions[branch]) {
-                clusterOptions[branch].forEach(cluster => {
-                    clusterDropdown.append(`<option value="${cluster}">${cluster}</option>`);
-                });
-            }
-        
-        });
-    });
 
-    function filterTable() {
-        const input = document.getElementById("searchInput");
-        const filter = input.value.toLowerCase();
-        const table = document.getElementById("dataTable_body_filter");
-        const rows = table.getElementsByTagName("tr");
-
-        for (let i = 1; i < rows.length; i++) {
-            const cells = rows[i].getElementsByTagName("td");
-            let match = false;
+            $('#periode_data').datepicker({
+                format: "yyyymm",
+                startView: 1,
+                minViewMode:1,
+                autoclose: true,
+                todayHighlight: true
+            });
             
-            for (let j = 0; j < cells.length; j++) {
-                if (cells[j]) {
-                    const textValue = cells[j].textContent || cells[j].innerText;
-                    if (textValue.toLowerCase().indexOf(filter) > -1) {
-                        match = true;
-                        break;
-                    }
-                }
-            }
-            
-            rows[i].style.display = match ? "" : "none";
-        }
-    }
+            $('.table-scroll-bar').width($('#dataTable').outerWidth());
 
-    $('#exportCsv').click(function () {
-        function exportTableToCSV(filename) {
-            var csv = [];
-            var rows = $('#dataTable').find('tr');
-
-            rows.each(function () {
-                var row = [];
-                $(this).find('th, td').each(function () {
-                    // Bungkus isi sel dengan tanda kutip ganda untuk menangani koma dalam sel
-                    row.push('"' + $(this).text().trim() + '"');
-                });
-                csv.push(row.join(','));
+            // Synchronize scrolling
+            $('.table-top-scroll').on('scroll', function () {
+                $('.table-responsive').scrollLeft($(this).scrollLeft());
             });
 
-            var csvContent = csv.join("\n");
-            var blob = new Blob([csvContent], { type: "text/csv" });
+            $('.table-responsive').on('scroll', function () {
+                $('.table-top-scroll').scrollLeft($(this).scrollLeft());
+            });
+            function fetchData(periode = null) {
+                $("#errorMessage").text("");
+                $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center">Loading...</td></tr>');
 
-            // Deteksi apakah dijalankan di Android atau browser
-            if (window.Android && typeof window.Android.downloadCSV === 'function') {
-                // Android: Kirim data melalui JavaScriptInterface
-                var reader = new FileReader();
-                reader.onload = function () {
-                    window.Android.downloadCSV(reader.result, filename);
-                };
-                reader.readAsText(blob);
-            } else {
-                // Browser: Gunakan mekanisme unduh standar
-                var downloadLink = document.createElement('a');
-                downloadLink.href = URL.createObjectURL(blob);
-                downloadLink.download = filename;
-                downloadLink.style.display = 'none';
+                $.ajax({
+                    url: "<?= base_url('/report/admin_report') ?>",
+                    type: "POST",
+                    data: { periode_data: periode },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.displayInputDate) {
+                            $("#periode_data").val(response.displayInputDate); // Update input periode
+                        }
 
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
+                        if (response.resumeScan.length > 0) {
+                            updateTable(response.resumeScan);
+                        } else {
+                            $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center">No data available</td></tr>');
+                        }
+                    },
+                    error: function() {
+                        $("#errorMessage").text("Failed to load data. Please try again.");
+                        $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center">No data available</td></tr>');
+                    }
+                });
             }
-        }
 
-        // Call the function with a file name
-        const dateformat = new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14); // Format YYYYMMDDHHMMSS
-        const exported_fname = `table_export_${dateformat}.csv`;
-        exportTableToCSV(exported_fname);
+            function updateTable(data) {
+                let html = "";
+                $.each(data, function(index, row) {
+                    html += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${row.fl_name ? row.fl_name : '-'}</td>
+                            <td>${row.outlet_name ? row.outlet_name : '-'}</td>
+                            <td>${row.digipos_id ? row.digipos_id : '-'}</td>
+                            <td>${row.so_byu_valid ? row.so_byu_valid : 0}</td>
+                            <td>${row.so_perdana_valid ? row.so_perdana_valid : 0}</td>
+                            <td>${row.so_total ? row.so_total : 0}</td>
+                        </tr>`;
+                });
+                $("#dataTable_body_filter").html(html);
+            }
 
-    });
-</script>
+            // Fungsi untuk export CSV
+            function exportToCSV(data) {
+                if (data.length === 0) {
+                    alert("No data available to export.");
+                    return;
+                }
+
+                let csvContent = "data:text/csv;charset=utf-8,";
+                csvContent += "No,FL NAME,OUTLET NAME,DIGIPOS ID,SO BYU VALID,SO PREPAID VALID,SO TOTAL\n";
+
+                data.forEach((row, index) => {
+                    let rowData = [
+                        index + 1,
+                        row.fl_name ? row.fl_name : '-',
+                        row.outlet_name ? row.outlet_name : '-',
+                        row.digipos_id ? row.digipos_id : '-',
+                        row.so_byu_valid ? row.so_byu_valid : 0,
+                        row.so_perdana_valid ? row.so_perdana_valid : 0,
+                        row.so_total ? row.so_total : 0
+                    ].join(",");
+                    csvContent += rowData + "\n";
+                });
+
+                let encodedUri = encodeURI(csvContent);
+                let link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "admin_report.csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+
+            // Jalankan fetch data pertama kali saat halaman dimuat
+            fetchData();
+
+            // Tangani event form submit
+            $("#filterForm").submit(function(event) {
+                event.preventDefault();
+                let periode = $("#periode_data").val();
+                fetchData(periode);
+            });
+
+            // Event klik tombol export CSV
+            $("#exportCsv").click(function() {
+                let periode = $("#periode_data").val();
+                fetchData(periode, exportToCSV); // Panggil fetchData lalu export CSV setelah data diambil
+            });
+        });
+    </script>
+</body>
 
 <?php $this->endSection() ?>
