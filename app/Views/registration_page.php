@@ -41,7 +41,7 @@
                                 <input type="text" class="login__input w-100 ps-3" placeholder="Nama FL" value="<?= old('fl_name') ?>" name="fl_name" required>
                             </div>
                             <div class="pt-2 pb-0 position-relative">
-                                <input type="text" class="login__input w-100 ps-3" placeholder="Username" value="<?= old('username') ?>" name="username" required>
+                                <input type="text" class="login__input w-100 ps-3" id="username" placeholder="Username" value="<?= old('username') ?>" name="username" required>
                             </div>
                             <div class="pt-2 pb-0 position-relative">
                                 <input type="password" class="login__input w-100 ps-3" id="password_box" placeholder="Password" value="<?= old('password') ?>" name="password" required>
@@ -105,6 +105,66 @@
                 this.value = inputValue.substring(1);
             }
         });
+<<<<<<< HEAD
+=======
+
+        document.getElementById('username').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^a-zA-Z0-9]/g, ''); // Hanya huruf dan angka
+        });
+
+        const clusterOptions = {
+            "DENPASAR": ["BALI BARAT", "BALI TENGAH", "BALI TIMUR"],
+            "FLORES": ["ENDE SIKKA", "FLORES TIMUR", "MANGGARAI"],
+            "KUPANG": ["KUPANG ROTE", "MALAKA TIMTIM BELU", "SUMBA"],
+            "MATARAM": ["LOMBOK", "SUMBAWA BARAT", "SUMBAWA TIMUR"]
+        };
+
+        $('#branch_option').on('change', function() {
+            let branch = $(this).val();
+            let clusterDropdown = $('#cluster_option');
+            let cityDropdown = $('#city_option');
+            
+            clusterDropdown.html('<option value="" selected disabled>Cluster</option>');
+            cityDropdown.html('<option value="" selected disabled>City</option>');
+            
+        
+            if (clusterOptions[branch]) {
+                clusterOptions[branch].forEach(cluster => {
+                    clusterDropdown.append(`<option value="${cluster}">${cluster}</option>`);
+                });
+            }
+        
+        });
+
+        const cityOptions = {
+            'BALI BARAT': ['BULELENG','JEMBRANA','TABANAN'],
+            'BALI TENGAH': ['BADUNG','KOTA DENPASAR'],
+            'BALI TIMUR': ['BANGLI','GIANYAR','KARANG ASEM','KLUNGKUNG'],
+            'ENDE SIKKA': ['ENDE','SIKKA'],
+            'FLORES TIMUR': ['ALOR','FLORES TIMUR','LEMBATA'],
+            'KUPANG ROTE': ['KOTA KUPANG','KUPANG','ROTE NDAO'],
+            'MALAKA TIMTIM BELU': ['BELU','MALAKA','TIMOR TENGAH SELATAN','TIMOR TENGAH UTARA'],
+            'MANGGARAI': ['MANGGARAI','MANGGARAI BARAT','MANGGARAI TIMUR','NAGEKEO','NGADA'],
+            'SUMBA': ['SABU RAIJUA','SUMBA BARAT','SUMBA BARAT DAYA','SUMBA TENGAH','SUMBA TIMUR'],
+            'LOMBOK': ['KOTA MATARAM','LOMBOK BARAT','LOMBOK TENGAH','LOMBOK TIMUR','LOMBOK UTARA'],
+            'SUMBAWA BARAT': ['SUMBAWA','SUMBAWA BARAT'],
+            'SUMBAWA TIMUR': ['BIMA','DOMPU','KOTA BIMA'],
+        };
+
+        $('#cluster_option').on('change', function() {
+            let cluster = $(this).val();
+            let cityDropdown = $('#city_option');
+            
+            cityDropdown.html('<option value="" selected disabled>City</option>');
+        
+            if (cityOptions[cluster]) {
+                cityOptions[cluster].forEach(city => {
+                    cityDropdown.append(`<option value="${city}">${city}</option>`);
+                });
+            }
+        
+        });
+>>>>>>> origin/dewa
     });
 
     function togglePassword() {

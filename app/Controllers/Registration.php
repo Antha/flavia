@@ -29,7 +29,17 @@ class Registration extends BaseController
         // Aturan validasi
         $rules = [
             'fl_name' => 'required',
-            'username' => 'required|is_unique[users.username]',
+            'username' => [
+                'label' => 'Username',
+                'rules' => 'required|alpha_numeric|is_unique[users.username]|min_length[3]|max_length[20]',
+                'errors' => [
+                    'required' => 'Username wajib diisi.',
+                    'alpha_numeric' => 'Username hanya boleh mengandung huruf dan angka.',
+                    'is_unique' => 'Username sudah digunakan.',
+                    'min_length' => 'Username minimal 3 karakter.',
+                    'max_length' => 'Username maksimal 20 karakter.'
+                ]
+            ],
             'password' => 'required|min_length[6]',
             'confirm_password' => 'matches[password]',
             'email' => 'required|valid_email|is_unique[users.email]',
