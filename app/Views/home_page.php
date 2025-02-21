@@ -4,96 +4,63 @@
 
 <?php $this->section('content') ?>
 
-<style>
-     .modal {
-            display: flex;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        .close {
-            float: right;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-</style>
-
 <div class="modal" id="modal" style="display: none;"> 
     <div class="modal-content">
-        <h4>Data Outlet Adjustment</h4>
-        <?php if(session()->has('error_image')): ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert"">
-                <?= session('error_image') ?>
-            </div>
-        <?php endif; ?>
-        <?php if (session()->has('errors')) : ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong><i class="bi bi-exclamation-triangle-fill"></i> Oops! Terjadi kesalahan:</strong>
-                <ul class="mt-2 mb-0">
-                    <?php foreach (session('errors') as $error) : ?>
-                        <li><?= esc($error) ?></li>
-                    <?php endforeach ?>
-                </ul>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
-        <form  action="/registration/update" method="post" enctype="multipart/form-data">
-            <input type="hidden" value="<?php echo session()->get("user_id")?>" name="id" />
-            <div class="form-group">
-                <label for="outlate_name">Outlet Name</label>
-                <input type="text" id="outlet_name" name="outlet_name"  value="<?php echo session()->get("outlet_name") ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="link_aja">Link Aja</label>
-                <div style="display: flex;">
-                    <span style="padding: 7px;
-                        background: gray;
-                        color: white;
-                        font-size: 10pt;">+62</span>
-                        <input type="text" id="link_aja" name="link_aja"  value="<?php echo session()->get("link_aja") ?>" required>
+        <div class="modal-content-scroll">
+
+            <p class="mt-2 mb-2 fw-bold text-center" style="font-size:18px;color:#fc4b66">Mohon Update dan Lengkapi Data Anda Terlebih Dahulu</p>
+            <?php if(session()->has('error_image')): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= session('error_image') ?>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="digipos_id">Digipos ID</label>
-                <input type="text" id="digipos_id" name="digipos_id"  value="<?php echo session()->get("digipos_id") ?>" required>
-            </div>
-            <div class="form-group mt-4">
-                <input type="hidden" name="imageData" id="imageData">
-                <h6 class="card-title">Take Identify Card Photo</h6>
-                <div class="d-flex justify-content-center align-items-center">
-                    <video id="video" autoplay class="border rounded" style="max-width: 100%; height: auto;"></video>
+            <?php endif; ?>
+            <?php if (session()->has('errors')) : ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong><i class="bi bi-exclamation-triangle-fill"></i> Oops! Terjadi kesalahan:</strong>
+                    <ul class="mt-2 mb-0">
+                        <?php foreach (session('errors') as $error) : ?>
+                            <li><?= esc($error) ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 mb-3 float-end" style="font-size: 12px;">Capture</button>
-                <canvas id="canvas" class="mt-3 border rounded" style="max-width: 100%; display: none;"></canvas>
-            </div>
-            <button type="submit" class="btn btn-secondary">Submit</button>
-        </form>
+            <?php endif; ?>
+            <form  action="/registration/update" method="post" enctype="multipart/form-data">
+                <input type="hidden" value="<?php echo session()->get("user_id")?>" name="id" />
+                <div class="form-group">
+                    <label style="color: #9ea9b2;" for="outlate_name">Nama Outlet</label>
+                    <input type="text" id="outlet_name" name="outlet_name"  value="<?php echo session()->get("outlet_name") ?>" required>
+                </div>
+                <div class="form-group">
+                    <label style="color: #9ea9b2;" for="link_aja">Link Aja</label>
+                    <div style="display: flex;">
+                        <span style="padding: 7px;
+                            background: gray;
+                            color: white;
+                            font-size: 10pt;">+62</span>
+                            <input type="text" id="link_aja" name="link_aja"  value="<?php echo session()->get("link_aja") ?>" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label style="color: #9ea9b2;" for="digipos_id">ID Digipos Outlet</label>
+                    <input type="text" id="digipos_id" name="digipos_id"  value="<?php echo session()->get("digipos_id") ?>" required>
+                </div>
+                <div class="form-group mt-4">
+                    <input type="hidden" name="imageData" id="imageData">
+                    <h6 class="card-title" style="color: #9ea9b2;">Ambil Foto KTP</h6>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <video id="video" autoplay class="border rounded" style="max-width: 100%; height: auto;"></video>
+                    </div>
+                    <div class="col-12 d-inline-block">
+                        <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 mb-3 float-end" style="font-size: 12px;">Ambil Foto</button>
+                    </div>
+                    <canvas id="canvas" class="mt-3 border rounded" style="max-width: 100%; display: none;"></canvas>
+                </div>
+                <div class="col-12 d-inline-block text-center">
+                    <button type="submit" class="btn btn-secondary btn-submit">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -110,14 +77,18 @@
                 </div>
             </div>
 
-                
-            <?php if(session()->has('success_message')): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?= session('success_message') ?>
+            <div class="alert-section">
+                <div class="container">
+                    <div class="row">
+                    <?php if(session()->has('success_message')): ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <?= session('success_message') ?>
+                        </div>
+                    <?php endif; ?>
+                    </div>
                 </div>
-            <?php endif; ?>
-
-
+            </div>
+           
             <div class="container home-title">
                 <div class="row justify-content-center">
                     <div class="col-sm-8 col-10">
@@ -200,8 +171,8 @@
     });
 
     const modal = document.getElementById("modal");
-
-    <?php if (!session()->get("outlet_name") || !session()->get("link_aja") || !session()->get("digipos_id") || !session()->get("idcard") || session()->get("idcard") == 0): ?>
+    
+    <?php if ((session()->get("user_level") != 'admin') && (!session()->get("outlet_name") || !session()->get("link_aja") || !session()->get("digipos_id") || !session()->get("idcard") || session()->get("idcard") == 0)): ?>
         modal.style.display = "flex";
     <?php endif?>
 
@@ -220,6 +191,8 @@
         }
     });
 
+    <?php if ((session()->get("user_level") != 'admin') && (!session()->get("outlet_name") || !session()->get("link_aja") || !session()->get("digipos_id") || !session()->get("idcard") || session()->get("idcard") == 0)): ?>
+   
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const captureButton = document.getElementById('capture');
@@ -259,19 +232,21 @@
         }
     })
 
+    <?php endif?>
+
     document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
     });
 
-    // document.onkeydown = function(e) {
-    //     if (e.keyCode == 123) { // F12
-    //         return false;
-    //     } else if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
-    //         return false;
-    //     } else if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
-    //         return false;
-    //     }
-    // };
+    document.onkeydown = function(e) {
+         if (e.keyCode == 123) { // F12
+             return false;
+         } else if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+             return false;
+         } else if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
+             return false;
+         }
+    };
 
 
 </script>

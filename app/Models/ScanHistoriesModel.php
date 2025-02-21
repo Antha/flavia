@@ -8,7 +8,7 @@ class ScanHistoriesModel extends Model
 {
     protected $table = 'scan_histories';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['datetime', 'msisdn', 'status','user_id','card_type'];
+    protected $allowedFields = ['fl_name','digipos_id','outlet_name','datetime', 'msisdn', 'status','user_id','card_type'];
     
     public function getOneByMsisdn($msisdn)
     {
@@ -92,32 +92,11 @@ class ScanHistoriesModel extends Model
     function getScanHistoryDataAdmin($periode,$periodeDb,$branch,$cluster){
         $db = \Config\Database::connect();
 
-        
-        // Subquery A: scan_histories
-        $subQueryA = $db->table('scan_histories')
-                ->select('user_id, msisdn, `datetime` AS scan_date, card_type')
-                ->like('datetime', $periode, 'after'); // Correct LIKE usage
-
-        // Subquery B: sellout_barcode_202502
-        $subQueryB = $db->table('sellout_barcode_'.$periodeDb)
-            ->select('msisdn, star_status');
-
-        // Subquery C: users
-        $subQueryC = $db->table('users')
-            ->select('id, username, fl_name, outlet_name, digipos_id');
-            
-        /*if ($branch !== 'ALL' && !empty($cluster)) {
-            $subQueryC->where('branch', $branch)
-                        ->where('cluster', $cluster);
-        }else if($branch !== 'ALL' && empty($cluster)){
-            $subQueryC->where('branch', $branch);
-        }*/
-
-        // Main Query: LEFT JOIN A and B an C
-        $builder = $db->table("({$subQueryA->getCompiledSelect(false)}) A")
+        // Main Query: JOIN langsung tanpa subquery
+        $builder = $db->table('scan_histories A')
             ->select("
                 A.user_id, 
-                A.scan_date,
+                A.datetime AS scan_date,
                 C.username,
                 C.fl_name,
                 C.outlet_name,
@@ -127,9 +106,9 @@ class ScanHistoriesModel extends Model
                 CASE WHEN B.star_status = 'PAYLOAD' THEN 'VALID' ELSE 'NOT VALID' END AS status_data, 
                 CASE WHEN B.star_status = 'PAYLOAD' THEN '1000' ELSE '0' END AS POINT
             ", false)
-            ->join("({$subQueryB->getCompiledSelect(false)}) B", 'A.msisdn = B.msisdn', 'left') // ✅ Left join with B
-            ->join("({$subQueryC->getCompiledSelect(false)}) C", 'A.user_id = C.id', 'left'); // ✅ Left join with C (users)
-            $builder->orderBy('A.scan_date', 'DESC');
+            ->join("sellout_barcode_".$periodeDb." B", 'A.msisdn = B.msisdn', 'left')
+            ->join("users C", 'A.user_id = C.id', 'left') // Gunakan BETWEEN untuk efisiensi
+            ->orderBy('A.datetime', 'DESC');
 
         return $builder->get()->getResultArray();
     }

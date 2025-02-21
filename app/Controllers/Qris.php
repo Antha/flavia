@@ -94,7 +94,10 @@ class Qris extends BaseController
                 "card_type" => $cardType,
                 "msisdn" => $msisdn,
                 "status" => "valid",
-                "user_id" => $this->session_user->get("user_id")
+                "user_id" => $this->session_user->get("user_id"),
+                "fl_name" => $this->session_user->get("fl_name"),
+                "digipos_id" => $this->session_user->get("digipos_id"),
+                "outlet_name" => $this->session_user->get("outlet_name")
             ]);
 
             return $this->response->setJSON([

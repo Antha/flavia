@@ -79,6 +79,7 @@ class Login extends BaseController
             $this->session_user->set([
                 'user_id' => $isUserExists['id'],
                 'idcard' => $isUserExists['idcard'],
+                'fl_name' => $isUserExists['fl_name'],
                 'username' => $isUserExists['username'],
                 'user_level' => $isUserExists["level"],
                 'outlet_name' => $isUserExists["outlet_name"],
