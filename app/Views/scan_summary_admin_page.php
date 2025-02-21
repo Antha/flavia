@@ -31,12 +31,12 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-8">
-                            <form id="filterForm">
+                            <form id="filterForm" method="post" action="<?php echo esc(base_url('/report/admin_report')); ?>" enctype="multipart/form-data">
                                 <?= csrf_field() ?>
                                 <div class="row no-gutters">
                                     <div class="form-group col-md-3 col-4 pe-2">
                                         <div class="input-group dropdown_input">
-                                            <input required type="text" class="monthPicker form-control pull-left txt-input-data" id="periode_data" name="periode_data" />
+                                            <input required type="text" class="monthPicker form-control pull-left txt-input-data" id="periode_data" name="periode_data" value="<?= esc($displayInputDate); ?>"/>
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
@@ -90,9 +90,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="dataTable_body_filter">
-                                        <tr>
-                                            <td colspan="7" class="text-center">Loading data...</td>
-                                        </tr>
+                                       
                                     </tbody>
                                 </table>
                             </div>
@@ -107,120 +105,89 @@
     <link rel="stylesheet" href="<?php echo base_url('/css/datepicker.css') ?>">
     <script type="text/javascript" src="<?php echo base_url('/script/bootstrap-datepicker.js') ?>"></script>
     <script>
-        $(document).ready(function() {
-            function sanitizeInput(input) {
-                input.value = input.value.replace(/[^A-Za-z0-9 ]/g, ''); // Remove special characters
-            }
+        $(document).ready(function () {
+            function loadData(periode = "") {
+                // Disable tombol saat loading
+                $("#btn_submit").prop("disabled", true);
+                $("#exportCsv").prop("disabled", true);
 
-            $('#periode_data').datepicker({
-                format: "yyyymm",
-                startView: 1,
-                minViewMode:1,
-                autoclose: true,
-                todayHighlight: true
-            });
-            
-            $('.table-scroll-bar').width($('#dataTable').outerWidth());
+                //tampilkan keterangan loading di dalam table
+                $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center text-danger">Loading....</td></tr>');
 
-            // Synchronize scrolling
-            $('.table-top-scroll').on('scroll', function () {
-                $('.table-responsive').scrollLeft($(this).scrollLeft());
-            });
-
-            $('.table-responsive').on('scroll', function () {
-                $('.table-top-scroll').scrollLeft($(this).scrollLeft());
-            });
-            function fetchData(periode = null) {
-                $("#errorMessage").text("");
-                $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center">Loading...</td></tr>');
+                if (periode !== "" && !/^\d{6}$/.test(periode)) { 
+                    Swal.fire({
+                        icon: "error",
+                        title: "Periode Tidak Valid!",
+                        text: "Periode harus berupa angka 6 digit (YYYYMM).",
+                    });
+                    $("#dataTable_body_filter").html(""); // Kosongkan tabel jika input salah
+                    //enable tombol kembali
+                    $("#btn_submit_periode").prop("disabled", false);
+                    $("#exportCsv").prop("disabled", false);
+                    return;
+                }
 
                 $.ajax({
-                    url: "<?= base_url('/report/admin_report') ?>",
+                    url: "<?= base_url('/report/admin_report') ?>", // Sesuaikan dengan URL controller
                     type: "POST",
-                    data: { periode_data: periode },
+                    data: { periode_data: periode }, // Kirim periode ke server
                     dataType: "json",
                     success: function(response) {
-                        if (response.displayInputDate) {
-                            $("#periode_data").val(response.displayInputDate); // Update input periode
+                        $("#dataTable_body_filter").html();
+                        if (response.error) {
+                            Swal.fire({
+                                icon: "warning",
+                                title: "Data Tidak Ditemukan",
+                                text: response.error,
+                            });
+                            $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center text-danger">Data tidak ditemukan</td></tr>');
+                            return;
                         }
 
-                        if (response.resumeScan.length > 0) {
-                            updateTable(response.resumeScan);
-                        } else {
-                            $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center">No data available</td></tr>');
-                        }
+                        let html = "";
+                        let no = 1;
+                        $.each(response.resumeScan, function(index, row) {
+                            html += `<tr>
+                                <td class="text-center">${no}</td>
+                                <td>${row.username}</td>
+                                <td>${row.outlet_name}</td>
+                                <td class="text-center">${row.digipos_id}</td>
+                                <td class="text-center">${row.so_byu_valid}</td>
+                                <td class="text-center">${row.so_perdana_valid}</td>
+                                <td class="text-center">${row.so_total_valid}</td>
+                            </tr>`;
+                            no++;
+                        });
+
+                        $("#dataTable_body_filter").html(html);
+
+                        // Update informasi lainnya di halaman
+                        $("#maxUpdateDate").text(response.maxUpdateDate);
+                        $("#resultDataByu").text(response.resultDataByu);
+                        $("#resultDataPerdana").text(response.resultDataPerdana);
+                        $("#resultDataTotal").text(response.resultDataTotal);
+                        $("#poinDataTotal").text(response.poinDataTotal);
                     },
-                    error: function() {
-                        $("#errorMessage").text("Failed to load data. Please try again.");
-                        $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center">No data available</td></tr>');
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error:", xhr.responseText); // Debugging di console
+                        Swal.fire({
+                            icon: "error",
+                            title: "Gagal Mengambil Data!",
+                            text: "Terjadi kesalahan saat mengambil data dari server.",
+                        });
+                        $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center text-danger">Gagal Mengambil Data!</td></tr>');
+                    },
+                    complete: function() {
+                        // Enable tombol setelah selesai (baik sukses maupun error)
+                        $("#btn_submit_periode").prop("disabled", false);
+                        $("#exportCsv").prop("disabled", false);
                     }
                 });
             }
 
-            function updateTable(data) {
-                let html = "";
-                $.each(data, function(index, row) {
-                    html += `
-                        <tr>
-                            <td>${index + 1}</td>
-                            <td>${row.fl_name ? row.fl_name : '-'}</td>
-                            <td>${row.outlet_name ? row.outlet_name : '-'}</td>
-                            <td>${row.digipos_id ? row.digipos_id : '-'}</td>
-                            <td>${row.so_byu_valid ? row.so_byu_valid : 0}</td>
-                            <td>${row.so_perdana_valid ? row.so_perdana_valid : 0}</td>
-                            <td>${row.so_total ? row.so_total : 0}</td>
-                        </tr>`;
-                });
-                $("#dataTable_body_filter").html(html);
-            }
+            // Load data saat pertama kali halaman dimuat
+            loadData(<?= esc($displayInputDate); ?>);
 
-            // Fungsi untuk export CSV
-            function exportToCSV(data) {
-                if (data.length === 0) {
-                    alert("No data available to export.");
-                    return;
-                }
-
-                let csvContent = "data:text/csv;charset=utf-8,";
-                csvContent += "No,FL NAME,OUTLET NAME,DIGIPOS ID,SO BYU VALID,SO PREPAID VALID,SO TOTAL\n";
-
-                data.forEach((row, index) => {
-                    let rowData = [
-                        index + 1,
-                        row.fl_name ? row.fl_name : '-',
-                        row.outlet_name ? row.outlet_name : '-',
-                        row.digipos_id ? row.digipos_id : '-',
-                        row.so_byu_valid ? row.so_byu_valid : 0,
-                        row.so_perdana_valid ? row.so_perdana_valid : 0,
-                        row.so_total ? row.so_total : 0
-                    ].join(",");
-                    csvContent += rowData + "\n";
-                });
-
-                let encodedUri = encodeURI(csvContent);
-                let link = document.createElement("a");
-                link.setAttribute("href", encodedUri);
-                link.setAttribute("download", "admin_report.csv");
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-
-            // Jalankan fetch data pertama kali saat halaman dimuat
-            fetchData();
-
-            // Tangani event form submit
-            $("#filterForm").submit(function(event) {
-                event.preventDefault();
-                let periode = $("#periode_data").val();
-                fetchData(periode);
-            });
-
-            // Event klik tombol export CSV
-            $("#exportCsv").click(function() {
-                let periode = $("#periode_data").val();
-                fetchData(periode, exportToCSV); // Panggil fetchData lalu export CSV setelah data diambil
-            });
         });
     </script>
 </body>

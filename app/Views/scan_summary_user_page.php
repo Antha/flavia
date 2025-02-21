@@ -44,7 +44,7 @@
                     <div class="row">
                         <div class="col-md-6 col-12 mx-auto">
                             <div class="row justify-content-center">
-                                <div class="col-3 text-center menu-item ps-1 pe-1">
+                                <div class="col-4 text-center menu-item ps-1 pe-1">
                                     <div class="menu-item-wrapper h-100">
                                         <span class="menu-item-fa1 mx-auto"><i class="fa-solid fa-qrcode"></i></span>
                                         <span class="w-100 d-block menu-item-text3 mt-4">SCAN</span>
@@ -53,7 +53,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3 text-center menu-item ps-1 pe-1">
+                                <div class="col-4 text-center menu-item ps-1 pe-1">
                                     <div class="menu-item-wrapper h-100">
                                         <span class="menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
                                         <span class="w-100 d-block menu-item-text3 mt-4">SCAN</span>
@@ -62,21 +62,12 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3 text-center menu-item ps-1 pe-1">
+                                <div class="col-4 text-center menu-item ps-1 pe-1">
                                     <div class="menu-item-wrapper h-100">
                                         <span class="menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
                                         <span class="w-100 d-block menu-item-text3 mt-4">TOTAL</span>
                                         <span class="w-100 d-block menu-item-text3">SCAN</span>
                                         <span class="w-100 d-block mt-3 mb-3 menu-item-text1"><?= esc(number_format($resultDataTotal)); ?></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-3 text-center menu-item ps-1 pe-1">
-                                    <div class="menu-item-wrapper h-100">
-                                        <span class="menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
-                                        <span class="w-100 d-block menu-item-text3 mt-4">TOTAL</span>
-                                        <span class="w-100 d-block menu-item-text3">POIN</span>
-                                        <span class="w-100 d-block mt-3 mb-3 menu-item-text1"><?= esc(number_format($poinDataTotal)); ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +91,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-4 col-md-2 col-4">
-                            <span class="d-inline-block fw-bold" style="font-size: 14px;color: #e0091f;padding-top: 15px;">Report Detail</span>
+                            <span class="d-inline-block fw-bold" style="font-size: 14px;color: #e0091f;padding-top: 15px;">Report Summary Valid Scan</span>
                         </div>
                     </div>
                 </div>
@@ -130,7 +121,7 @@
                         </div> 
                         <div class="col-lg-4">
                             <div class="row">
-                                <div class="col-9">
+                                <!--<div class="col-9">
                                     <div class="input-group">
                                         <input required type="text" id="searchInput" class="form-control txt-input-data" 
                                             placeholder="Search..." onkeyup="filterTable()" 
@@ -142,8 +133,8 @@
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-3 ps-0">
+                                </div>-->
+                                <div class="offset-9 col-3 ps-0">
                                     <button id="exportCsv" class="submit_btn rounded w-100">DOWNLOAD</button>
                                 </div>
                             </div>
@@ -159,25 +150,17 @@
                             <table class="table table-responsive table-bordered" id="dataTable">
                                 <thead>
                                     <tr class="header-top-wrapper">
-                                        <th>No</th>
-                                        <th>SCAN DATE</th>
-                                        <th>MSISDN</th>
-                                        <th>TYPE</th>
-                                        <th>STATUS</th>
-                                        <th>POINT</th>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">USERNAME</th>
+                                        <th class="text-center">OUTLET NAME</th>
+                                        <th class="text-center">DIGIPOS ID</th>
+                                        <th class="text-center">SO BYU VALID</th>
+                                        <th class="text-center">SO PREPAID VALID</th>
+                                        <th class="text-center">SO VALID TOTAL</th>
                                     </tr>
                                 </thead>
                                 <tbody id="dataTable_body_filter">
-                                    <?php $i=1;foreach($resumeScan as $rows){ ?>
-                                        <tr>
-                                            <td><?= $i; ?></td>
-                                            <td><?= esc($rows['scan_date']); ?></td>
-                                            <td><?= esc($rows['msisdn']); ?></td>
-                                            <td><?= esc($rows['card_type']); ?></td>
-                                            <td><?= esc($rows['status_data']); ?></td>
-                                            <td><?= esc($rows['POINT']); ?></td>
-                                        </tr>
-                                    <?php $i++;} ?>
+                                   
                                 </tbody>
                             </table>
                         </div>
@@ -187,104 +170,185 @@
         </div>
         <?= $this->include('/includes/include_footer'); ?>
     </div>
-</body>
+    <script>
+        $(document).ready(function () {
+            function loadData(periode = "") {
+                // Disable tombol saat loading
+                $("#btn_submit_periode").prop("disabled", true);
+                $("#exportCsv").prop("disabled", true);
 
-<script>
-    $(document).ready(function () {
-        $(function () {
-            $('#security_chckbox').on('change', function () {
-                $('#btn_login').prop('disabled', !this.checked).toggleClass('disable-btn', !this.checked);
+                //tampilkan keterangan loading di dalam table
+                $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center text-danger">Loading....</td></tr>');
+
+                if (periode !== "" && !/^\d{6}$/.test(periode)) { 
+                    Swal.fire({
+                        icon: "error",
+                        title: "Periode Tidak Valid!",
+                        text: "Periode harus berupa angka 6 digit (YYYYMM).",
+                    });
+                    $("#dataTable_body_filter").html(""); // Kosongkan tabel jika input salah
+                    //enable tombol kembali
+                    $("#btn_submit_periode").prop("disabled", false);
+                    $("#exportCsv").prop("disabled", false);
+                    return;
+                }
+
+                $.ajax({
+                    url: "<?= base_url('/report/user_report') ?>", // Sesuaikan dengan URL controller
+                    type: "POST",
+                    data: { periode_data: periode }, // Kirim periode ke server
+                    dataType: "json",
+                    success: function(response) {
+                        $("#dataTable_body_filter").html();
+                        if (response.error) {
+                            Swal.fire({
+                                icon: "warning",
+                                title: "Data Tidak Ditemukan",
+                                text: response.error,
+                            });
+                            $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center text-danger">Data tidak ditemukan</td></tr>');
+                            return;
+                        }
+
+                        let html = "";
+                        let no = 1;
+                        $.each(response.resumeScan, function(index, row) {
+                            html += `<tr>
+                                <td class="text-center">${no}</td>
+                                <td>${row.username}</td>
+                                <td>${row.outlet_name}</td>
+                                <td class="text-center">${row.digipos_id}</td>
+                                <td class="text-center">${row.so_byu_valid}</td>
+                                <td class="text-center">${row.so_perdana_valid}</td>
+                                <td class="text-center">${row.so_total_valid}</td>
+                            </tr>`;
+                            no++;
+                        });
+
+                        $("#dataTable_body_filter").html(html);
+
+                        // Update informasi lainnya di halaman
+                        $("#maxUpdateDate").text(response.maxUpdateDate);
+                        $("#resultDataByu").text(response.resultDataByu);
+                        $("#resultDataPerdana").text(response.resultDataPerdana);
+                        $("#resultDataTotal").text(response.resultDataTotal);
+                        $("#poinDataTotal").text(response.poinDataTotal);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error:", xhr.responseText); // Debugging di console
+                        Swal.fire({
+                            icon: "error",
+                            title: "Gagal Mengambil Data!",
+                            text: "Terjadi kesalahan saat mengambil data dari server.",
+                        });
+                        $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center text-danger">Gagal Mengambil Data!</td></tr>');
+                    },
+                    complete: function() {
+                        // Enable tombol setelah selesai (baik sukses maupun error)
+                        $("#btn_submit_periode").prop("disabled", false);
+                        $("#exportCsv").prop("disabled", false);
+                    }
+                });
+            }
+
+            // Load data saat pertama kali halaman dimuat
+            loadData(<?= esc($displayInputDate); ?>);
+
+            // Refresh Data Saat Tombol Submit Periode Diklik
+            $("#btn_submit_periode").click(function() {
+                let periode = $("#periode_data").val().trim();
+                loadData(periode);
+            });
+
+
+            $('#periode_data').datepicker({
+                format: "yyyymm",
+                startView: 1,
+                minViewMode:1,
+                autoclose: true,
+                todayHighlight: true
+            });
+            
+            $('.table-scroll-bar').width($('#dataTable').outerWidth());
+
+            // Synchronize scrolling
+            $('.table-top-scroll').on('scroll', function () {
+                $('.table-responsive').scrollLeft($(this).scrollLeft());
+            });
+
+            $('.table-responsive').on('scroll', function () {
+                $('.table-top-scroll').scrollLeft($(this).scrollLeft());
             });
         });
 
-        $('#periode_data').datepicker({
-            format: "yyyymm",
-            startView: 1,
-            minViewMode:1,
-            autoclose: true,
-            todayHighlight: true
-        });
-        
-        $('.table-scroll-bar').width($('#dataTable').outerWidth());
+        function filterTable() {
+            const input = document.getElementById("searchInput");
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById("dataTable_body_filter");
+            const rows = table.getElementsByTagName("tr");
 
-        // Synchronize scrolling
-        $('.table-top-scroll').on('scroll', function () {
-            $('.table-responsive').scrollLeft($(this).scrollLeft());
-        });
-
-        $('.table-responsive').on('scroll', function () {
-            $('.table-top-scroll').scrollLeft($(this).scrollLeft());
-        });
-    });
-
-    function filterTable() {
-        const input = document.getElementById("searchInput");
-        const filter = input.value.toLowerCase();
-        const table = document.getElementById("dataTable_body_filter");
-        const rows = table.getElementsByTagName("tr");
-
-        for (let i = 1; i < rows.length; i++) {
-            const cells = rows[i].getElementsByTagName("td");
-            let match = false;
-            
-            for (let j = 0; j < cells.length; j++) {
-                if (cells[j]) {
-                    const textValue = cells[j].textContent || cells[j].innerText;
-                    if (textValue.toLowerCase().indexOf(filter) > -1) {
-                        match = true;
-                        break;
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName("td");
+                let match = false;
+                
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j]) {
+                        const textValue = cells[j].textContent || cells[j].innerText;
+                        if (textValue.toLowerCase().indexOf(filter) > -1) {
+                            match = true;
+                            break;
+                        }
                     }
                 }
+                
+                rows[i].style.display = match ? "" : "none";
             }
-            
-            rows[i].style.display = match ? "" : "none";
         }
-    }
 
-    $('#exportCsv').click(function () {
-        function exportTableToCSV(filename) {
-            var csv = [];
-            var rows = $('#dataTable').find('tr');
+        $('#exportCsv').click(function () {
+            function exportTableToCSV(filename) {
+                var csv = [];
+                var rows = $('#dataTable').find('tr');
 
-            rows.each(function () {
-                var row = [];
-                $(this).find('th, td').each(function () {
-                    // Bungkus isi sel dengan tanda kutip ganda untuk menangani koma dalam sel
-                    row.push('"' + $(this).text().trim() + '"');
+                rows.each(function () {
+                    var row = [];
+                    $(this).find('th, td').each(function () {
+                        // Bungkus isi sel dengan tanda kutip ganda untuk menangani koma dalam sel
+                        row.push('"' + $(this).text().trim() + '"');
+                    });
+                    csv.push(row.join(','));
                 });
-                csv.push(row.join(','));
-            });
 
-            var csvContent = csv.join("\n");
-            var blob = new Blob([csvContent], { type: "text/csv" });
+                var csvContent = csv.join("\n");
+                var blob = new Blob([csvContent], { type: "text/csv" });
 
-            // Deteksi apakah dijalankan di Android atau browser
-            if (window.Android && typeof window.Android.downloadCSV === 'function') {
-                // Android: Kirim data melalui JavaScriptInterface
-                var reader = new FileReader();
-                reader.onload = function () {
-                    window.Android.downloadCSV(reader.result, filename);
-                };
-                reader.readAsText(blob);
-            } else {
-                // Browser: Gunakan mekanisme unduh standar
-                var downloadLink = document.createElement('a');
-                downloadLink.href = URL.createObjectURL(blob);
-                downloadLink.download = filename;
-                downloadLink.style.display = 'none';
+                // Deteksi apakah dijalankan di Android atau browser
+                if (window.Android && typeof window.Android.downloadCSV === 'function') {
+                    // Android: Kirim data melalui JavaScriptInterface
+                    var reader = new FileReader();
+                    reader.onload = function () {
+                        window.Android.downloadCSV(reader.result, filename);
+                    };
+                    reader.readAsText(blob);
+                } else {
+                    // Browser: Gunakan mekanisme unduh standar
+                    var downloadLink = document.createElement('a');
+                    downloadLink.href = URL.createObjectURL(blob);
+                    downloadLink.download = filename;
+                    downloadLink.style.display = 'none';
 
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
+                }
             }
-        }
 
-        // Call the function with a file name
-        const dateformat = new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14); // Format YYYYMMDDHHMMSS
-        const exported_fname = `table_export_${dateformat}.csv`;
-        exportTableToCSV(exported_fname);
+            // Call the function with a file name
+            const dateformat = new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14); // Format YYYYMMDDHHMMSS
+            const exported_fname = `table_export_${dateformat}.csv`;
+            exportTableToCSV(exported_fname);
 
-    });
-</script>
-
+        });
+    </script>
+</body>
 <?php $this->endSection() ?>

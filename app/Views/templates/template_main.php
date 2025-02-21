@@ -13,7 +13,12 @@
     <script type="text/javascript" src="<?php echo base_url('/script/bootstrap.bundle.min.js') ?>"></script>
     <script type="text/javascript" src="<?php echo base_url('/script/bootstrap-datepicker.js') ?>"></script>
     <script type="text/javascript" src="<?php echo base_url('/script/loader.js') ?>"></script>
-    <script src="https://kit.fontawesome.com/47796dec6e.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!--Font Awesome-->
+    <link href="<?php echo base_url('/assets/fontawesome/css/fontawesome.css') ?>" rel="stylesheet" />
+    <link href="<?php echo base_url('/assets/fontawesome/css/brands.css') ?>" rel="stylesheet" />
+    <link href="<?php echo base_url('/assets/fontawesome/css/solid.css') ?>" rel="stylesheet" />
 
     <!-- STYLES -->
     <link rel="stylesheet" href="<?php echo base_url('/css/bootstrap.css') ?>">

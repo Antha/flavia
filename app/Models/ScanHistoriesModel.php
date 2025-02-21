@@ -48,7 +48,7 @@ class ScanHistoriesModel extends Model
         return $results;
     }
 
-    function getScanHistoryData($periode,$periodeDb,$user_id){
+    function getScanHistoryDataDetail($periode,$periodeDb,$user_id){
         $db = \Config\Database::connect();
 
         // Subquery A: scan_histories
@@ -75,6 +75,33 @@ class ScanHistoriesModel extends Model
             ->orderBy('A.scan_date', 'DESC');
 
         return $builder->get()->getResultArray();
+    }
+
+    function getScanHistorySummaryUser($periodeDb,$user_id,$username,$outlet_name,$digipos_id){
+        $db = \Config\Database::connect();
+
+        // Validasi nama tabel agar tidak dieksploitasi (hindari SQL injection)
+        if (!preg_match('/^\d{6}$/', $periodeDb)) {
+            throw new \Exception("Format periode tidak valid");
+        }
+        $tableName = "sellout_barcode_" . $periodeDb; // Nama tabel yang valid
+
+        $builder = $db->table('scan_histories B');
+        $builder->select([
+            'user_id',
+            "'$username' AS username", // Langsung string, tidak perlu escape
+            "'$outlet_name' AS outlet_name",
+            "'$digipos_id' AS digipos_id",
+            "COUNT(CASE WHEN LOWER(star_status) = 'payload' AND LOWER(card_type) = 'byu' THEN B.msisdn END) AS so_byu_valid",
+            "COUNT(CASE WHEN LOWER(star_status) != 'payload' AND LOWER(card_type) = 'perdana' THEN B.msisdn END) AS so_perdana_valid",
+            "COUNT(B.msisdn) AS so_total_valid"
+        ]);
+        $builder->join("$tableName C", "CONCAT('0', SUBSTRING(B.msisdn, 3)) = C.msisdn");
+        $builder->where('user_id', $user_id);
+        $builder->groupBy('user_id');
+
+        $query = $builder->get();
+        return $query->getResultArray();
     }
 
     function getScanTotalOnly($periode,$periodeDb,$user_id){
@@ -132,10 +159,10 @@ class ScanHistoriesModel extends Model
                 IFNULL(A.digipos_id,'NULL') digipos_id, 
                 IFNULL(D.so_byu_valid,0) so_byu_valid, 
                 IFNULL(D.so_perdana_valid,0) so_perdana_valid, 
-                (IFNULL(D.so_byu_valid,0) + IFNULL(D.so_perdana_valid,0)) AS so_total
+                (IFNULL(D.so_byu_valid,0) + IFNULL(D.so_perdana_valid,0)) AS so_total_valid
             ", false)
             ->join("({$subQueryD->getCompiledSelect(false)}) D", 'A.id = D.user_id', 'left')
-            ->orderBy('so_total','DESC');
+            ->orderBy('so_total_valid','DESC');
 
         $query = $builder->get();
         $results = $query->getResultArray();

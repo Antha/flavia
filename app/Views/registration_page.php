@@ -105,8 +105,6 @@
                 this.value = inputValue.substring(1);
             }
         });
-<<<<<<< HEAD
-=======
 
         document.getElementById('username').addEventListener('input', function (e) {
             this.value = this.value.replace(/[^a-zA-Z0-9]/g, ''); // Hanya huruf dan angka
@@ -164,7 +162,6 @@
             }
         
         });
->>>>>>> origin/dewa
     });
 
     function togglePassword() {

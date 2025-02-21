@@ -24,7 +24,7 @@ class Scan_summary extends BaseController
         }
     }
 
-    public function admin_report()
+    public function admin_report_bc()
     {
         // Cek jika user bukan admin, redirect ke halaman lain
         if (session()->get('user_level') !== 'admin') {
@@ -35,9 +35,19 @@ class Scan_summary extends BaseController
 
         // Cek apakah request datang dari AJAX
         if ($this->request->isAJAX()) {
-            $periode = $this->request->getPost('periode_data');
+            $periode = $this->request->getPost('periode_data') ?? date('Ym'); // Gunakan default jika kosong
 
             // Validasi input periode (jika ada)
+            $validation = \Config\Services::validation();
+            $validation->setRules([
+                'periode_data' => 'required|min_length[6]|max_length[6]|numeric'
+            ]);
+
+            if (!$validation->run(['periode_data' => $periode])) {
+                return $this->response->setJSON(['error' => 'Periode tidak valid!']);
+            }
+
+            
             if (!empty($periode)) {
                 $validation = \Config\Services::validation();
                 $rules = [
@@ -93,14 +103,69 @@ class Scan_summary extends BaseController
         return view('scan_summary_admin_page');
     }
 
-    public function user_report()
+    public function admin_report()
+    {
+        // Cek jika user bukan admin, redirect ke halaman lain
+        if (session()->get('user_level') !== 'admin') {
+            return redirect()->to('/report/user_report');
+        }
+
+        $scan_model = new ScanHistoriesModel();
+        // Jika request berasal dari AJAX
+        if ($this->request->isAJAX()) {
+            $periode = $this->request->getPost('periode_data') ?? date('Ym'); // Gunakan default jika kosong
+
+            // Validasi periode
+            // Validasi input periode
+            $validation = \Config\Services::validation();
+            $validation->setRules([
+                'periode_data' => 'required|min_length[6]|max_length[6]|numeric'
+            ]);
+
+            if (!$validation->run(['periode_data' => $periode])) {
+                return $this->response->setJSON(['error' => 'Periode tidak valid!']);
+            }
+
+
+            // Cek apakah tabel dengan nama periode tersedia
+            if ($scan_model->isTableExists($periode) == "0") {
+                return $this->response->setJSON(['error' => 'No Data Available In ' . $periode]);
+            }
+        }
+
+        // Jika request bukan AJAX, tampilkan halaman normal
+        $maxUpdateDateFull = $scan_model->getMaxUpdateDateFull();
+        if (!empty($maxUpdateDateFull[0]['datetime'])) {
+            $maxUpdateDate = date('F Y', strtotime($maxUpdateDateFull[0]['datetime']));
+            $varMaxDate = date('Y-m-', strtotime($maxUpdateDateFull[0]['datetime']));
+            $displayInputDate = date('Ym', strtotime($maxUpdateDateFull[0]['datetime']));
+        } else {
+            $maxUpdateDate = "No Data Found";
+            $varMaxDate = "0000-00-";
+            $displayInputDate = "202501";
+        }
+
+        $data = [
+            'maxUpdateDate' => $maxUpdateDate,
+            'displayInputDate' => $displayInputDate,
+            'resumeScan' => $scan_model->getScanHistoryDataAdmin($displayInputDate)
+        ];
+
+        return view('scan_summary_admin_page',$data);
+    }
+
+    public function user_report_bc()
     {
         if (session()->get('user_level') !== 'user') {
             return redirect()->to('/report/admin_report');
         }
 
         $scan_model = new ScanHistoriesModel();
+       
         $user_id = $this->session_user->get('user_id');
+        $username = $this->session_user->get('username');
+        $outlet_name = $this->session_user->get('outlet_name');
+        $digipos_id = $this->session_user->get('digipos_id');
 
         //if button submit clicked or not
         if($this->request->getPost('btn_submit_periode')){
@@ -139,7 +204,6 @@ class Scan_summary extends BaseController
             }
         }
 
-        $resumeScan = $scan_model->getScanHistoryData($varMaxDate,$displayInputDate,$user_id);
         $resultArrDataTotal = $scan_model->getScanTotalOnly($varMaxDate,$displayInputDate,$user_id);
 
         $data = [
@@ -149,10 +213,89 @@ class Scan_summary extends BaseController
             'resultDataTotal' =>  $resultArrDataTotal['total_card'],
             'poinDataTotal' =>  $resultArrDataTotal['total_point'],
             'displayInputDate' => $displayInputDate,
-            'resumeScan' => $scan_model->getScanHistoryData($varMaxDate,$displayInputDate,$user_id)
+            'resumeScan' => $scan_model->getScanHistorySummaryUser($displayInputDate,$user_id,$username,$outlet_name,$digipos_id)
         ];
 
         return view('scan_summary_user_page', $data);
     }
+
+    public function user_report()
+    {
+        if (session()->get('user_level') !== 'user') {
+            return redirect()->to('/report/admin_report');
+        }
+
+        $scan_model = new ScanHistoriesModel();
+        $user_id = session()->get('user_id');
+        $username = session()->get('username');
+        $outlet_name = session()->get('outlet_name');
+        $digipos_id = session()->get('digipos_id');
+
+        // Jika request berasal dari AJAX
+        if ($this->request->isAJAX()) {
+            $periode = $this->request->getPost('periode_data') ?? date('Ym'); // Gunakan default jika kosong
+
+            // Validasi periode
+            // Validasi input periode
+            $validation = \Config\Services::validation();
+            $validation->setRules([
+                'periode_data' => 'required|min_length[6]|max_length[6]|numeric'
+            ]);
+
+            if (!$validation->run(['periode_data' => $periode])) {
+                return $this->response->setJSON(['error' => 'Periode tidak valid!']);
+            }
+
+
+            // Cek apakah tabel dengan nama periode tersedia
+            if ($scan_model->isTableExists($periode) == "0") {
+                return $this->response->setJSON(['error' => 'No Data Available In ' . $periode]);
+            }
+
+            $maxUpdateDate = date('F Y', strtotime($periode));
+            $varMaxDate = date('Y-m-', strtotime($periode));
+            $displayInputDate = $periode;
+
+            $resultArrDataTotal = $scan_model->getScanTotalOnly($varMaxDate, $displayInputDate, $user_id);
+            $resumeScan = $scan_model->getScanHistorySummaryUser($displayInputDate, $user_id, $username, $outlet_name, $digipos_id);
+
+            // Kirim response dalam format JSON
+            return $this->response->setJSON([
+                'maxUpdateDate' => $maxUpdateDate,
+                'resultDataByu' => $resultArrDataTotal['total_byu'],
+                'resultDataPerdana' => $resultArrDataTotal['total_perdana'],
+                'resultDataTotal' => $resultArrDataTotal['total_card'],
+                'poinDataTotal' => $resultArrDataTotal['total_point'],
+                'resumeScan' => $resumeScan
+            ]);
+        }
+
+        // Jika request bukan AJAX, tampilkan halaman normal
+        $maxUpdateDateFull = $scan_model->getMaxUpdateDateFull();
+        if (!empty($maxUpdateDateFull[0]['datetime'])) {
+            $maxUpdateDate = date('F Y', strtotime($maxUpdateDateFull[0]['datetime']));
+            $varMaxDate = date('Y-m-', strtotime($maxUpdateDateFull[0]['datetime']));
+            $displayInputDate = date('Ym', strtotime($maxUpdateDateFull[0]['datetime']));
+        } else {
+            $maxUpdateDate = "No Data Found";
+            $varMaxDate = "0000-00-";
+            $displayInputDate = "202501";
+        }
+
+        $resultArrDataTotal = $scan_model->getScanTotalOnly($varMaxDate, $displayInputDate, $user_id);
+
+        $data = [
+            'maxUpdateDate' => $maxUpdateDate,
+            'resultDataByu' => $resultArrDataTotal['total_byu'],
+            'resultDataPerdana' => $resultArrDataTotal['total_perdana'],
+            'resultDataTotal' => $resultArrDataTotal['total_card'],
+            'poinDataTotal' => $resultArrDataTotal['total_point'],
+            'displayInputDate' => $displayInputDate,
+            'resumeScan' => $scan_model->getScanHistorySummaryUser($displayInputDate, $user_id, $username, $outlet_name, $digipos_id)
+        ];
+
+        return view('scan_summary_user_page', $data);
+    }
+
 
 }
