@@ -82,6 +82,7 @@ class Registration extends BaseController
             'token' => $token,
             'link_aja' => "62".$this->request->getPost('link_aja'),
             'status' => 0 // Belum aktif
+            
         ];
 
         $userModel->save($data);
@@ -159,6 +160,7 @@ class Registration extends BaseController
         $this->session_user->set([
             'user_id' => $updatedData['id'],
             'idcard' => $updatedData['idcard'],
+            'fl_name' => $updatedData['fl_name'],
             'username' => $updatedData['username'],
             'user_level' => $updatedData["level"],
             'outlet_name' => $updatedData["outlet_name"],

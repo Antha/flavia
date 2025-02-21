@@ -8,7 +8,7 @@ class ScanHistoriesModel extends Model
 {
     protected $table = 'scan_histories';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['datetime', 'msisdn', 'status','user_id','card_type'];
+    protected $allowedFields = ['fl_name','digipos_id','outlet_name','datetime', 'msisdn', 'status','user_id','card_type'];
     
     public function getOneByMsisdn($msisdn)
     {
@@ -136,33 +136,23 @@ class ScanHistoriesModel extends Model
        
         $tableName = "sellout_barcode_{$periodeDb}"; // Nama tabel dinamis
 
-        // Subquery A: users dengan status = '1'
-        $subQueryA = $db->table('users')
-            ->select('id, username, fl_name, outlet_name, digipos_id')
-            ->where('status', '1');
-
-        // Subquery D: Perhitungan so_byu_valid & so_perdana_valid
-        $subQueryD = $db->table('scan_histories B')
+        // Main Query: JOIN langsung tanpa subquery
+        $builder = $db->table('scan_histories A')
             ->select("
-                user_id, 
-                COUNT(CASE WHEN LOWER(star_status) = 'payload' AND LOWER(card_type) = 'byu' THEN B.msisdn END) AS so_byu_valid,
-                COUNT(CASE WHEN LOWER(star_status) != 'payload' AND LOWER(card_type) = 'perdana' THEN B.msisdn END) AS so_perdana_valid
+                A.user_id, 
+                A.datetime AS scan_date,
+                C.username,
+                C.fl_name,
+                C.outlet_name,
+                C.digipos_id,
+                A.msisdn, 
+                A.card_type, 
+                CASE WHEN B.star_status = 'PAYLOAD' THEN 'VALID' ELSE 'NOT VALID' END AS status_data, 
+                CASE WHEN B.star_status = 'PAYLOAD' THEN '1000' ELSE '0' END AS POINT
             ", false)
-            ->join("$tableName C", "CONCAT('0', SUBSTRING(B.msisdn, 3)) = C.msisdn", 'inner')
-            ->groupBy('user_id');
-
-        // Query utama dengan JOIN subqueries
-        $builder = $db->table("({$subQueryA->getCompiledSelect(false)}) A")
-            ->select("
-                IFNULL(A.fl_name,'NULL') fl_name, 
-                IFNULL(A.outlet_name,'NULL') outlet_name, 
-                IFNULL(A.digipos_id,'NULL') digipos_id, 
-                IFNULL(D.so_byu_valid,0) so_byu_valid, 
-                IFNULL(D.so_perdana_valid,0) so_perdana_valid, 
-                (IFNULL(D.so_byu_valid,0) + IFNULL(D.so_perdana_valid,0)) AS so_total_valid
-            ", false)
-            ->join("({$subQueryD->getCompiledSelect(false)}) D", 'A.id = D.user_id', 'left')
-            ->orderBy('so_total_valid','DESC');
+            ->join("sellout_barcode_".$periodeDb." B", 'A.msisdn = B.msisdn', 'left')
+            ->join("users C", 'A.user_id = C.id', 'left') // Gunakan BETWEEN untuk efisiensi
+            ->orderBy('A.datetime', 'DESC');
 
         $query = $builder->get();
         $results = $query->getResultArray();
