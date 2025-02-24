@@ -124,6 +124,27 @@ class Registration extends BaseController
 
         // Aturan validasi
         $rules = [
+            'outlet_name' => [
+                'rules'  => 'required|trim|not_space_only',
+                'errors' => [
+                    'required' => 'Nama Outlet wajib diisi!',
+                    'not_space_only' => 'Nama Outlet tidak boleh hanya berisi spasi!'
+                ]
+            ],
+            'link_aja' => [
+                'rules'  => 'required|trim|not_space_only',
+                'errors' => [
+                    'required' => 'Link Aja wajib diisi!',
+                    'not_space_only' => 'Link Aja tidak boleh hanya berisi spasi!'
+                ]
+            ],
+            'digipos_id' => [
+                'rules'  => 'required|trim|not_space_only',
+                'errors' => [
+                    'required' => 'ID Digipos wajib diisi!',
+                    'not_space_only' => 'ID Digipos tidak boleh hanya berisi spasi!'
+                ]
+            ],
             'imageData' => [
                 'rules' => 'required',
                 'errors' => [

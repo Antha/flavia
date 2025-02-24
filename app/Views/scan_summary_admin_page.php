@@ -30,11 +30,11 @@
             <div class="filter-wrapper mt-md-5 mt-4">
                 <div class="container">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-lg-8 col-12">
                             <form id="filterForm" method="post" action="<?php echo esc(base_url('/report/admin_report')); ?>" enctype="multipart/form-data">
                                 <?= csrf_field() ?>
                                 <div class="row no-gutters">
-                                    <div class="form-group col-md-3 col-4 pe-2">
+                                    <div class="form-group col-md-3 col-6 pe-2">
                                         <div class="input-group dropdown_input">
                                             <input required type="text" class="monthPicker form-control pull-left txt-input-data" id="periode_data" name="periode_data" value="<?= esc($displayInputDate); ?>"/>
                                             <div class="input-group-addon">
@@ -50,7 +50,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-4 col-12">
                             <div class="row">
                                 <div class="col-9">
                                     <div class="input-group">
@@ -77,22 +77,24 @@
                                 <div class="table-top-scroll">
                                     <div class="table-scroll-bar"></div>
                                 </div>
-                                <table class="table table-responsive table-bordered" id="dataTable">
-                                    <thead>
-                                        <tr class="header-top-wrapper">
-                                            <th>No</th>
-                                            <th>FL NAME</th>
-                                            <th>OUTLET NAME</th>
-                                            <th>DIGIPOS ID</th>
-                                            <th>SO BYU VALID</th>
-                                            <th>SO PREPAID VALID</th>
-                                            <th>SO TOTAL</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="dataTable_body_filter">
-                                       
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table class="table table-responsive table-bordered" id="dataTable">
+                                        <thead>
+                                            <tr class="header-top-wrapper">
+                                                <th>No</th>
+                                                <th>FL NAME</th>
+                                                <th>OUTLET NAME</th>
+                                                <th>DIGIPOS ID</th>
+                                                <th>SO BYU VALID</th>
+                                                <th>SO PREPAID VALID</th>
+                                                <th>SO TOTAL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dataTable_body_filter">
+                                        
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -122,7 +124,7 @@
                     });
                     $("#dataTable_body_filter").html(""); // Kosongkan tabel jika input salah
                     //enable tombol kembali
-                    $("#btn_submit_periode").prop("disabled", false);
+                    $("#btn_submit").prop("disabled", false);
                     $("#exportCsv").prop("disabled", false);
                     return;
                 }
@@ -149,7 +151,7 @@
                         $.each(response.resumeScan, function(index, row) {
                             html += `<tr>
                                 <td class="text-center">${no}</td>
-                                <td>${row.username}</td>
+                                <td>${row.fl_name}</td>
                                 <td>${row.outlet_name}</td>
                                 <td class="text-center">${row.digipos_id}</td>
                                 <td class="text-center">${row.so_byu_valid}</td>
@@ -179,7 +181,7 @@
                     },
                     complete: function() {
                         // Enable tombol setelah selesai (baik sukses maupun error)
-                        $("#btn_submit_periode").prop("disabled", false);
+                        $("#btn_submit").prop("disabled", false);
                         $("#exportCsv").prop("disabled", false);
                     }
                 });
@@ -187,6 +189,100 @@
 
             // Load data saat pertama kali halaman dimuat
             loadData(<?= esc($displayInputDate); ?>);
+
+            // Refresh Data Saat Tombol Submit Periode Diklik
+            $("#btn_submit").click(function() {
+                let periode = $("#periode_data").val().trim();
+                loadData(periode);
+            });
+
+
+            $('#periode_data').datepicker({
+                format: "yyyymm",
+                startView: 1,
+                minViewMode:1,
+                autoclose: true,
+                todayHighlight: true
+            });
+            
+            $('.table-scroll-bar').width($('#dataTable').outerWidth());
+
+            // Synchronize scrolling
+            $('.table-top-scroll').on('scroll', function () {
+                $('.table-responsive').scrollLeft($(this).scrollLeft());
+            });
+
+            $('.table-responsive').on('scroll', function () {
+                $('.table-top-scroll').scrollLeft($(this).scrollLeft());
+            });
+        });
+
+        function filterTable() {
+            const input = document.getElementById("searchInput");
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById("dataTable_body_filter");
+            const rows = table.getElementsByTagName("tr");
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName("td");
+                let match = false;
+                
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j]) {
+                        const textValue = cells[j].textContent || cells[j].innerText;
+                        if (textValue.toLowerCase().indexOf(filter) > -1) {
+                            match = true;
+                            break;
+                        }
+                    }
+                }
+                
+                rows[i].style.display = match ? "" : "none";
+            }
+        }
+
+        $('#exportCsv').click(function () {
+            function exportTableToCSV(filename) {
+                var csv = [];
+                var rows = $('#dataTable').find('tr');
+
+                rows.each(function () {
+                    var row = [];
+                    $(this).find('th, td').each(function () {
+                        // Bungkus isi sel dengan tanda kutip ganda untuk menangani koma dalam sel
+                        row.push('"' + $(this).text().trim() + '"');
+                    });
+                    csv.push(row.join(','));
+                });
+
+                var csvContent = csv.join("\n");
+                var blob = new Blob([csvContent], { type: "text/csv" });
+
+                // Deteksi apakah dijalankan di Android atau browser
+                if (window.Android && typeof window.Android.downloadCSV === 'function') {
+                    // Android: Kirim data melalui JavaScriptInterface
+                    var reader = new FileReader();
+                    reader.onload = function () {
+                        window.Android.downloadCSV(reader.result, filename);
+                    };
+                    reader.readAsText(blob);
+                } else {
+                    // Browser: Gunakan mekanisme unduh standar
+                    var downloadLink = document.createElement('a');
+                    downloadLink.href = URL.createObjectURL(blob);
+                    downloadLink.download = filename;
+                    downloadLink.style.display = 'none';
+
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
+                }
+            }
+
+            // Call the function with a file name
+            const dateformat = new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14); // Format YYYYMMDDHHMMSS
+            const exported_fname = `table_export_${dateformat}.csv`;
+            exportTableToCSV(exported_fname);
 
         });
     </script>

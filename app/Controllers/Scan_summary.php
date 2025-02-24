@@ -126,11 +126,22 @@ class Scan_summary extends BaseController
                 return $this->response->setJSON(['error' => 'Periode tidak valid!']);
             }
 
-
             // Cek apakah tabel dengan nama periode tersedia
             if ($scan_model->isTableExists($periode) == "0") {
                 return $this->response->setJSON(['error' => 'No Data Available In ' . $periode]);
             }
+
+            $maxUpdateDate = date('F Y', strtotime($periode));
+            $varMaxDate = date('Y-m-', strtotime($periode));
+            $displayInputDate = $periode;
+
+            $resumeScan = $scan_model->getScanSummaryCompare($varMaxDate);
+
+            // Kirim response dalam format JSON
+            return $this->response->setJSON([
+                'maxUpdateDate' => $maxUpdateDate,
+                'resumeScan' => $resumeScan
+            ]);
         }
 
         // Jika request bukan AJAX, tampilkan halaman normal
@@ -148,7 +159,7 @@ class Scan_summary extends BaseController
         $data = [
             'maxUpdateDate' => $maxUpdateDate,
             'displayInputDate' => $displayInputDate,
-            'resumeScan' => $scan_model->getScanHistoryDataAdmin($displayInputDate)
+            'resumeScan' => $scan_model->getScanSummaryCompare($varMaxDate)
         ];
 
         return view('scan_summary_admin_page',$data);

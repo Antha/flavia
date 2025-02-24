@@ -382,6 +382,10 @@ a.nav-link {
   color: #ff2278;
 }
 
+.table-responsive {
+  position: relative;
+}
+
 .table-scroll-y {
   overflow-y: auto;
 }
@@ -389,6 +393,20 @@ a.nav-link {
 .table-wrapper-scroll-y {
   position: relative;
   height: 500px;
+}
+
+.table-top-scroll {
+  overflow-x: auto;
+  margin-bottom: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.table-scroll-bar {
+  width: 100%; /* Synchronize with the table's width */
+  height: 15px;
+  background: #e0e0e0;
 }
 
 .home-title,

@@ -92,11 +92,11 @@ class ScanHistoriesModel extends Model
             "'$username' AS username", // Langsung string, tidak perlu escape
             "'$outlet_name' AS outlet_name",
             "'$digipos_id' AS digipos_id",
-            "COUNT(CASE WHEN LOWER(star_status) = 'payload' AND LOWER(card_type) = 'byu' THEN B.msisdn END) AS so_byu_valid",
-            "COUNT(CASE WHEN LOWER(star_status) != 'payload' AND LOWER(card_type) = 'perdana' THEN B.msisdn END) AS so_perdana_valid",
+            "COUNT(CASE WHEN LOWER(card_type) = 'byu' THEN B.msisdn END) AS so_byu_valid",
+            "COUNT(CASE WHEN LOWER(card_type) = 'perdana' THEN B.msisdn END) AS so_perdana_valid",
             "COUNT(B.msisdn) AS so_total_valid"
         ]);
-        $builder->join("$tableName C", "CONCAT('0', SUBSTRING(B.msisdn, 3)) = C.msisdn");
+        $builder->join("$tableName C", "B.msisdn = C.msisdn");
         $builder->where('user_id', $user_id);
         $builder->groupBy('user_id');
 
@@ -131,33 +131,48 @@ class ScanHistoriesModel extends Model
 
     }
 
-    function getScanHistoryDataAdmin($periodeDb){
+    function getScanSummaryDataAdmin($periodeDb){
         $db = \Config\Database::connect();
-       
-        $tableName = "sellout_barcode_{$periodeDb}"; // Nama tabel dinamis
+        $periodeDb = '202502'; // Example value, replace it dynamically
+        $tableName = "sellout_barcode_{$periodeDb}_v2"; // Dynamically generate table name
 
-        // Main Query: JOIN langsung tanpa subquery
-        $builder = $db->table('scan_histories A')
-            ->select("
-                A.user_id, 
-                A.datetime AS scan_date,
-                C.username,
-                C.fl_name,
-                C.outlet_name,
-                C.digipos_id,
-                A.msisdn, 
-                A.card_type, 
-                CASE WHEN B.star_status = 'PAYLOAD' THEN 'VALID' ELSE 'NOT VALID' END AS status_data, 
-                CASE WHEN B.star_status = 'PAYLOAD' THEN '1000' ELSE '0' END AS POINT
-            ", false)
-            ->join("sellout_barcode_".$periodeDb." B", 'A.msisdn = B.msisdn', 'left')
-            ->join("users C", 'A.user_id = C.id', 'left') // Gunakan BETWEEN untuk efisiensi
-            ->orderBy('A.datetime', 'DESC');
+        $builder = $db->table('users u');
+
+        // Subquery for sellout and scan history
+        $subquery = $db->table($tableName.' sb')
+            ->join('scan_histories t', 'sb.msisdn = t.msisdn')
+            ->select('t.user_id')
+            ->selectCount("CASE WHEN t.card_type = 'byu' THEN t.msisdn END", 'so_byu_valid')
+            ->selectCount("CASE WHEN t.card_type = 'perdana' THEN t.msisdn END", 'so_perdana_valid')
+            ->selectCount("t.msisdn", 'so_total_valid')
+            ->groupBy('t.user_id')
+            ->getCompiledSelect(); // Compile the subquery
+
+        $builder->select('u.fl_name, u.outlet_name, u.digipos_id')
+            ->select('COALESCE(s.so_byu_valid, 0) AS so_byu_valid', false)
+            ->select('COALESCE(s.so_perdana_valid, 0) AS so_perdana_valid', false)
+            ->select('COALESCE(s.so_total_valid, 0) AS so_total_valid', false)
+            ->join("($subquery) s", 'u.id = s.user_id', 'left', false)
+            ->where('u.status', '1')
+            ->orderBy('so_total_valid','DESC')
+            ->limit(50);
 
         $query = $builder->get();
-        $results = $query->getResultArray();
+        $result = $query->getResultArray(); // Fetch as an array
 
-        return $results;
+        return $result;
     }
 
+    function getScanSummaryCompare($periode){
+        $db = \Config\Database::connect();
+
+        $builder = $db->table('scan_compare')
+        ->where('update_date LIKE', '2025-02-%') // Filter update_date by February 2025
+        ->orderBy('so_total_valid', 'DESC'); // Order by so_total_valid descending
+    
+        $query = $builder->get();
+        $result = $query->getResultArray(); // Fetch as an array
+
+        return $result;
+    }
 }

@@ -90,18 +90,18 @@
                 </div>
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-4 col-md-2 col-4">
+                        <div class="col-lg-4 col-md-2 col-10">
                             <span class="d-inline-block fw-bold" style="font-size: 14px;color: #e0091f;padding-top: 15px;">Report Summary Valid Scan</span>
                         </div>
                     </div>
                 </div>
                 <div class="container mt-3">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-lg-8 col-6">
                             <form method="post" action="<?php echo esc(base_url('/report/user_report')); ?>" enctype="multipart/form-data">
                                 <?php csrf_field() ?>
                                 <div class="row no-gutters">
-                                    <div class="form-group col-md-3 col-4 pe-2" id="col_periode_data">
+                                    <div class="form-group col-md-3 col-10 pe-lg-2 pe-0" id="col_periode_data">
                                         <div class="input-group dropdown_input">
                                             <input required type="text" class="monthPicker form-control pull-left txt-input-data" id="periode_data" name="periode_data" value="<?= esc($displayInputDate); ?>" readonly/>
                                             <div class="input-group-addon">
@@ -119,7 +119,7 @@
                                 </div>
                             </form>
                         </div> 
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 col-6">
                             <div class="row">
                                 <!--<div class="col-9">
                                     <div class="input-group">
@@ -134,7 +134,7 @@
                                         </div>
                                     </div>
                                 </div>-->
-                                <div class="offset-9 col-3 ps-0">
+                                <div class="offset-lg-9 col-lg-3 offset-6 col-6 ps-0">
                                     <button id="exportCsv" class="submit_btn rounded w-100">DOWNLOAD</button>
                                 </div>
                             </div>
@@ -147,22 +147,29 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12 text-center">
-                            <table class="table table-responsive table-bordered" id="dataTable">
-                                <thead>
-                                    <tr class="header-top-wrapper">
-                                        <th class="text-center">No</th>
-                                        <th class="text-center">USERNAME</th>
-                                        <th class="text-center">OUTLET NAME</th>
-                                        <th class="text-center">DIGIPOS ID</th>
-                                        <th class="text-center">SO BYU VALID</th>
-                                        <th class="text-center">SO PREPAID VALID</th>
-                                        <th class="text-center">SO VALID TOTAL</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="dataTable_body_filter">
-                                   
-                                </tbody>
-                            </table>
+                            <div class="table-wrapper-scroll-y table-scroll-y">
+                                <div class="table-top-scroll">
+                                    <div class="table-scroll-bar"></div>
+                                </div>
+                                <div class="table-responsive">     
+                                    <table class="table table-responsive table-bordered" id="dataTable">
+                                        <thead>
+                                            <tr class="header-top-wrapper">
+                                                <th class="text-center">No</th>
+                                                <th class="text-center">USERNAME</th>
+                                                <th class="text-center">OUTLET NAME</th>
+                                                <th class="text-center">DIGIPOS ID</th>
+                                                <th class="text-center">SO BYU VALID</th>
+                                                <th class="text-center">SO PREPAID VALID</th>
+                                                <th class="text-center">SO VALID TOTAL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dataTable_body_filter">
+                                        
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
