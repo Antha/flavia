@@ -30,7 +30,19 @@ class ScanHistoriesModel extends Model
     function getMaxUpdateDateFull(){
         $db = \Config\Database::connect();
         $builder = $db->table('scan_histories');
-        return $builder->selectMax('datetime')->get()->getResultArray();
+        return $builder->selectMax('datetime','update_date')->get()->getResultArray();
+    }
+
+    function getMaxUpdateDateFullUser($user_id){
+        $db = \Config\Database::connect();
+        $builder = $db->table('scan_histories');
+        return $builder->selectMax('datetime','update_date')->where('user_id',$user_id)->get()->getResultArray();
+    }
+
+    function getMaxUpdateDatescanCompare(){
+        $db = \Config\Database::connect();
+        $builder = $db->table('scan_compare');
+        return $builder->selectMax('update_date')->get()->getResultArray();
     }
 
     function getLattestSoBarcodeTable(){
@@ -38,7 +50,7 @@ class ScanHistoriesModel extends Model
         $targetDatabase = 'flavia'; // Ganti dengan nama database yang sesuai
 
         $builder = $db->table('INFORMATION_SCHEMA.TABLES')
-            ->select('TABLE_NAME')
+            ->selectMax('TABLE_NAME')
             ->where('TABLE_SCHEMA', $targetDatabase) // Filter berdasarkan database
             ->like('TABLE_NAME', 'sellout_barcode_%', 'after'); // Filter tabel yang diawali 'sellout_barcode_'
 
@@ -48,131 +60,142 @@ class ScanHistoriesModel extends Model
         return $results;
     }
 
-    function getScanHistoryDataDetail($periode,$periodeDb,$user_id){
+    function getScanTotalOnly($user_id,$startDate,$endDate){
         $db = \Config\Database::connect();
 
-        // Subquery A: scan_histories
-        $subQueryA = $db->table('scan_histories')
-            ->select('user_id, msisdn, `datetime` AS scan_date, card_type')
-            ->like('datetime', $periode, 'after') // Correct LIKE usage
-            ->where('user_id', $user_id);
-
-        // Subquery B: sellout_barcode_202502
-        $subQueryB = $db->table('sellout_barcode_'.$periodeDb)
-            ->select('msisdn, star_status');
-
-        // Main Query: LEFT JOIN A and B
-        $builder = $db->table("({$subQueryA->getCompiledSelect(false)}) A")
-            ->select("
-                A.user_id, 
-                A.scan_date, 
-                A.msisdn, 
-                A.card_type, 
-                CASE WHEN B.star_status = 'PAYLOAD' THEN 'VALID' ELSE 'NOT VALID' END AS status_data, 
-                CASE WHEN B.star_status = 'PAYLOAD' THEN '1000' ELSE '0' END AS POINT
-            ", false)
-            ->join("({$subQueryB->getCompiledSelect(false)}) B", 'A.msisdn = B.msisdn', 'left')
-            ->orderBy('A.scan_date', 'DESC');
-
-        return $builder->get()->getResultArray();
-    }
-
-    function getScanHistorySummaryUser($periodeDb,$user_id,$username,$outlet_name,$digipos_id){
-        $db = \Config\Database::connect();
-
-        // Validasi nama tabel agar tidak dieksploitasi (hindari SQL injection)
-        if (!preg_match('/^\d{6}$/', $periodeDb)) {
-            throw new \Exception("Format periode tidak valid");
-        }
-        $tableName = "sellout_barcode_" . $periodeDb; // Nama tabel yang valid
-
-        $builder = $db->table('scan_histories B');
-        $builder->select([
-            'user_id',
-            "'$username' AS username", // Langsung string, tidak perlu escape
-            "'$outlet_name' AS outlet_name",
-            "'$digipos_id' AS digipos_id",
-            "COUNT(CASE WHEN LOWER(card_type) = 'byu' THEN B.msisdn END) AS so_byu_valid",
-            "COUNT(CASE WHEN LOWER(card_type) = 'perdana' THEN B.msisdn END) AS so_perdana_valid",
-            "COUNT(B.msisdn) AS so_total_valid"
-        ]);
-        $builder->join("$tableName C", "B.msisdn = C.msisdn");
-        $builder->where('user_id', $user_id);
-        $builder->groupBy('user_id');
-
-        $query = $builder->get();
-        return $query->getResultArray();
-    }
-
-    function getScanTotalOnly($periode,$periodeDb,$user_id){
-        $db = \Config\Database::connect();
-
-        // Subquery A: scan_histories
-        $subQueryA = $db->table('scan_histories')
-            ->select('user_id, msisdn, `datetime` AS scan_date, card_type')
-            ->like('datetime', $periode, 'after')
-            ->where('user_id', $user_id);
-
-        // Subquery B: sellout_barcode_XXXX
-        $subQueryB = $db->table('sellout_barcode_' . $periodeDb)
-            ->select('msisdn, star_status');
-
-        // Main Query: LEFT JOIN A and B
-        $builder = $db->table("({$subQueryA->getCompiledSelect(false)}) A")
-            ->select("
-                COUNT(CASE WHEN A.card_type = 'byu' THEN A.msisdn END) AS total_byu,
-                COUNT(CASE WHEN A.card_type = 'perdana' THEN A.msisdn END) AS total_perdana,
-                COUNT(CASE WHEN A.card_type = 'byu' THEN A.msisdn END) + COUNT(CASE WHEN A.card_type = 'perdana' THEN A.msisdn END) AS total_card,
-                (COUNT(CASE WHEN A.card_type = 'byu' AND B.star_status = 'PAYLOAD' THEN A.msisdn END) + COUNT(CASE WHEN A.card_type = 'perdana' AND B.star_status = 'PAYLOAD' THEN A.msisdn END))*1000 AS total_point
-            ", false) // ✅ Counting msisdn for 'byu' and 'perdana'
-            ->join("({$subQueryB->getCompiledSelect(false)}) B", 'A.msisdn = B.msisdn', 'left');
+        $builder = $db->table('scan_histories')
+            ->select('user_id')
+            ->select("IFNULL(COUNT(DISTINCT IF(card_type = 'byu', msisdn, NULL)), 0) AS total_byu", false)
+            ->select("IFNULL(COUNT(DISTINCT IF(card_type = 'perdana', msisdn, NULL)), 0) AS total_perdana", false)
+            ->select("IFNULL(COUNT(DISTINCT msisdn), 0) AS total_scan", false)
+            ->where('user_id', $user_id)
+            ->where("datetime >=", $startDate)
+            ->where("datetime <=", $endDate)
+            ->groupBy('user_id');
 
         return $builder->get()->getRowArray(); // ✅ Use getRowArray() since it's a single result
 
     }
 
-    function getScanSummaryDataAdmin($periodeDb){
+    function getScanSummaryCompareAdmin($periode){
         $db = \Config\Database::connect();
-        $periodeDb = '202502'; // Example value, replace it dynamically
-        $tableName = "sellout_barcode_{$periodeDb}_v2"; // Dynamically generate table name
+        $periodeDb = $periode."%";
 
-        $builder = $db->table('users u');
-
-        // Subquery for sellout and scan history
-        $subquery = $db->table($tableName.' sb')
-            ->join('scan_histories t', 'sb.msisdn = t.msisdn')
-            ->select('t.user_id')
-            ->selectCount("CASE WHEN t.card_type = 'byu' THEN t.msisdn END", 'so_byu_valid')
-            ->selectCount("CASE WHEN t.card_type = 'perdana' THEN t.msisdn END", 'so_perdana_valid')
-            ->selectCount("t.msisdn", 'so_total_valid')
-            ->groupBy('t.user_id')
-            ->getCompiledSelect(); // Compile the subquery
-
-        $builder->select('u.fl_name, u.outlet_name, u.digipos_id')
-            ->select('COALESCE(s.so_byu_valid, 0) AS so_byu_valid', false)
-            ->select('COALESCE(s.so_perdana_valid, 0) AS so_perdana_valid', false)
-            ->select('COALESCE(s.so_total_valid, 0) AS so_total_valid', false)
-            ->join("($subquery) s", 'u.id = s.user_id', 'left', false)
-            ->where('u.status', '1')
-            ->orderBy('so_total_valid','DESC')
-            ->limit(50);
-
-        $query = $builder->get();
-        $result = $query->getResultArray(); // Fetch as an array
-
-        return $result;
-    }
-
-    function getScanSummaryCompare($periode){
-        $db = \Config\Database::connect();
+        /* New source code compare 
+        SELECT user_id,fl_name,outlet_name,digipos_id,id_outlet,
+        COUNT(CASE WHEN LOWER(card_type) = 'perdana' THEN AB.msisdn END) so_perdana_valid,
+        COUNT(CASE WHEN LOWER(card_type) = 'byu' THEN AB.msisdn END) so_byu_valid,
+        COUNT(AB.msisdn) so_total
+        FROM
+        (SELECT A.id user_id,fl_name,outlet_name,digipos_id,msisdn,card_type
+        FROM
+        (SELECT id,fl_name,outlet_name,digipos_id
+        FROM users)A
+        JOIN
+        (SELECT user_id,msisdn,card_type 
+        FROM `scan_histories`
+        WHERE (`datetime` >= '2025-02-01 00:00:00' AND `datetime` <= '2025-02-28 23:59:59'))B
+        ON A.id = B.user_id)AB
+        JOIN
+        (SELECT CONCAT('62', SUBSTRING(msisdn, 2))msisdn,id_outlet FROM `sellout_barcode_202502`)C
+        ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet
+        GROUP BY user_id,fl_name,outlet_name,digipos_id
+        */
 
         $builder = $db->table('scan_compare')
-        ->where('update_date LIKE', '2025-02-%') // Filter update_date by February 2025
+        ->where('update_date LIKE', $periodeDb) // Filter update_date by February 2025
         ->orderBy('so_total_valid', 'DESC'); // Order by so_total_valid descending
     
         $query = $builder->get();
         $result = $query->getResultArray(); // Fetch as an array
 
         return $result;
+    }
+
+    function getScanSummaryCompareRealTimeAdmin(){
+        $db = \Config\Database::connect();
+        $tableName = "sellout_barcode_202502"; // Adjust dynamically if needed
+
+        // Subquery A: Users
+        $subqueryA = $db->table('users')
+                        ->select('id AS user_id, fl_name, outlet_name, digipos_id');
+
+        // Subquery B: Scan Histories (filtered by date)
+        $subqueryB = $db->table('scan_histories')
+            ->select('user_id, msisdn, card_type')
+            ->where("datetime >=", '2025-02-01 00:00:00')
+            ->where("datetime <=", '2025-02-28 23:59:59');
+
+        // Combining Subquery A and B (AB)
+        $subqueryAB = $db->table("({$subqueryA->getCompiledSelect()}) A")
+            ->join("({$subqueryB->getCompiledSelect()}) B", "A.user_id = B.user_id", "inner")
+            ->select('A.user_id, A.fl_name, A.outlet_name, A.digipos_id, B.msisdn, B.card_type');
+
+        // Subquery C: Sellout Barcode Table
+        $subqueryC = $db->table($tableName)
+            ->select("CONCAT('62', SUBSTRING(msisdn, 2)) AS msisdn, id_outlet");
+
+        // Final Query with COUNT DISTINCT
+        $query = $db->table("({$subqueryAB->getCompiledSelect()}) AB")
+            ->join("({$subqueryC->getCompiledSelect()}) C", "AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet", "inner")
+            ->select('AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id')
+            ->selectCount("DISTINCT IF(LOWER(AB.card_type) = 'perdana', AB.msisdn, NULL)", 'so_perdana_valid', false)
+            ->selectCount("DISTINCT IF(LOWER(AB.card_type) = 'byu', AB.msisdn, NULL)", 'so_byu_valid', false)
+            ->selectCount("DISTINCT AB.msisdn", 'so_total', false)
+            ->groupBy('AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id');
+
+        $result = $query->get()->getResultArray();
+
+    }
+
+    function getScanSummaryCompareUser($periode,$user_id){
+        $db = \Config\Database::connect();
+        $periodeDb = $periode."%";
+
+        $builder = $db->table('scan_compare')
+        ->where('update_date LIKE', $periodeDb) // Filter update_date by February 2025
+        ->where('user_id',$user_id);
+    
+        $query = $builder->get();
+        $result = $query->getResultArray(); // Fetch as an array
+
+        return $result;
+    }
+
+    function getScanSummaryCompareRealTimeUser($periode,$user_id,$startDate,$endDate){
+        $db = \Config\Database::connect();
+        $tableName = 'sellout_barcode_'.$periode;
+
+        // Subquery A: Users
+        $subqueryA = "(SELECT id AS user_id, fl_name, outlet_name, digipos_id FROM users WHERE id = '{$user_id}')";
+
+        // Subquery B: Scan Histories
+        $subqueryB = "(SELECT user_id, msisdn, card_type 
+                    FROM scan_histories 
+                    WHERE datetime >= '{$startDate}' 
+                    AND datetime <= '{$endDate}' 
+                    AND user_id = '{$user_id}')";
+
+        // Gabungan Subquery A dan B (AB)
+        $subqueryAB = "(SELECT A.user_id, A.fl_name, A.outlet_name, A.digipos_id, B.msisdn, B.card_type 
+                        FROM {$subqueryA} A 
+                        JOIN {$subqueryB} B ON A.user_id = B.user_id)";
+
+        // Subquery C: Sellout Barcode
+        $subqueryC = "(SELECT CONCAT('62', SUBSTRING(msisdn, 2)) AS msisdn, id_outlet 
+                    FROM {$tableName})";
+
+        // Query Final
+        $queryStr = "SELECT AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id, 
+                        COUNT(CASE WHEN LOWER(AB.card_type) = 'perdana' THEN AB.msisdn END) AS so_perdana_valid,
+                        COUNT(CASE WHEN LOWER(AB.card_type) = 'byu' THEN AB.msisdn END) AS so_byu_valid,
+                        COUNT(AB.msisdn) AS so_total
+                    FROM {$subqueryAB} AB
+                    JOIN {$subqueryC} C ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet
+                    GROUP BY AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id";
+
+        // Eksekusi Query
+        $query = $db->query($queryStr);
+        return $query->getResultArray();
     }
 }

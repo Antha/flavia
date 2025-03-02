@@ -29,4 +29,6 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->post('/report/admin_report', 'Scan_summary::admin_report');
     $routes->get('/report/user_report', 'Scan_summary::user_report', ['filter' => 'checkSession']);
     $routes->post('/report/user_report', 'Scan_summary::user_report',['filter' => 'checkSession']);
+    $routes->get('/report/user_report_realtime', 'Scan_summary::user_report_real_time', ['filter' => 'checkSession']);
+    $routes->post('/report/user_report_realtime', 'Scan_summary::user_report_real_time',['filter' => 'checkSession']);
 });

@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\RewardModel;
 use App\Models\ScanHistoriesModel;
-use App\Models\UserHistoriesModel;
+use DateTime;
 
 class Scan_summary extends BaseController
 {
@@ -113,7 +112,14 @@ class Scan_summary extends BaseController
         $scan_model = new ScanHistoriesModel();
         // Jika request berasal dari AJAX
         if ($this->request->isAJAX()) {
-            $periode = $this->request->getPost('periode_data') ?? date('Ym'); // Gunakan default jika kosong
+            // Jika request bukan AJAX, tampilkan halaman normal
+            $maxUpdateDateFull = $scan_model->getMaxUpdateDatescanCompare();
+            
+            $maxUpdateDate = date('F Y', strtotime($maxUpdateDateFull[0]['update_date']));
+            $varMaxDate = date('Y-m-', strtotime($maxUpdateDateFull[0]['update_date']));
+            $displayInputDate = date('Ym', strtotime($maxUpdateDateFull[0]['update_date']));
+
+            $periode = $this->request->getPost('periode_data') ?? $displayInputDate; // Gunakan default jika kosong
 
             // Validasi periode
             // Validasi input periode
@@ -131,11 +137,18 @@ class Scan_summary extends BaseController
                 return $this->response->setJSON(['error' => 'No Data Available In ' . $periode]);
             }
 
-            $maxUpdateDate = date('F Y', strtotime($periode));
-            $varMaxDate = date('Y-m-', strtotime($periode));
+            $maxUpdateDate = DateTime::createFromFormat('Ym', $periode)->format('F Y');
+            $varMaxDate = DateTime::createFromFormat('Ym', $periode)->format('Y-m-');
             $displayInputDate = $periode;
+            $resumeScan = $scan_model->getScanSummaryCompareAdmin($varMaxDate);
 
-            $resumeScan = $scan_model->getScanSummaryCompare($varMaxDate);
+            if (empty($resumeScan)) {
+                return $this->response->setJSON([
+                    'status'  => 'error',
+                    'error' => 'No data found',
+                    'data'    => []
+                ]);
+            }
 
             // Kirim response dalam format JSON
             return $this->response->setJSON([
@@ -145,11 +158,12 @@ class Scan_summary extends BaseController
         }
 
         // Jika request bukan AJAX, tampilkan halaman normal
-        $maxUpdateDateFull = $scan_model->getMaxUpdateDateFull();
-        if (!empty($maxUpdateDateFull[0]['datetime'])) {
-            $maxUpdateDate = date('F Y', strtotime($maxUpdateDateFull[0]['datetime']));
-            $varMaxDate = date('Y-m-', strtotime($maxUpdateDateFull[0]['datetime']));
-            $displayInputDate = date('Ym', strtotime($maxUpdateDateFull[0]['datetime']));
+        $maxUpdateDateFull = $scan_model->getMaxUpdateDatescanCompare();
+        
+        if (!empty($maxUpdateDateFull[0]['update_date'])) {
+            $maxUpdateDate = date('F Y', strtotime($maxUpdateDateFull[0]['update_date']));
+            $varMaxDate = date('Y-m-', strtotime($maxUpdateDateFull[0]['update_date']));
+            $displayInputDate = date('Ym', strtotime($maxUpdateDateFull[0]['update_date']));
         } else {
             $maxUpdateDate = "No Data Found";
             $varMaxDate = "0000-00-";
@@ -159,75 +173,102 @@ class Scan_summary extends BaseController
         $data = [
             'maxUpdateDate' => $maxUpdateDate,
             'displayInputDate' => $displayInputDate,
-            'resumeScan' => $scan_model->getScanSummaryCompare($varMaxDate)
+            'resumeScan' => $scan_model->getScanSummaryCompareAdmin($varMaxDate)
         ];
 
         return view('scan_summary_admin_page',$data);
     }
 
-    public function user_report_bc()
+    public function user_report_real_time()
     {
         if (session()->get('user_level') !== 'user') {
             return redirect()->to('/report/admin_report');
         }
 
         $scan_model = new ScanHistoriesModel();
-       
         $user_id = $this->session_user->get('user_id');
-        $username = $this->session_user->get('username');
-        $outlet_name = $this->session_user->get('outlet_name');
-        $digipos_id = $this->session_user->get('digipos_id');
 
-        //if button submit clicked or not
-        if($this->request->getPost('btn_submit_periode')){
-            //validation
+        // Jika request berasal dari AJAX
+        if ($this->request->isAJAX()) {
+            $maxUpdateDateFull = $scan_model->getMaxUpdateDateFullUser($user_id);
+            
+            $maxUpdateDate = date('F Y', strtotime($maxUpdateDateFull[0]['update_date']));
+            $varMaxDate = date('Y-m-', strtotime($maxUpdateDateFull[0]['update_date']));
+            $displayInputDate = date('Ym', strtotime($maxUpdateDateFull[0]['update_date']));
+
+            $periode = $this->request->getPost('periode_data') ?? $displayInputDate; // Gunakan default jika kosong
+
+            // Validasi periode
+            // Validasi input periode
             $validation = \Config\Services::validation();
-    
-            // Define validation rules
-            $rules = [
-                'periode_data' => 'required|max_length[6]', // Example: must be 4-10 characters long
-            ];
+            $validation->setRules([
+                'periode_data' => 'required|min_length[6]|max_length[6]|numeric'
+            ]);
 
-            if (!$this->validate($rules)) {
-                // Validation failed
-                return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            if (!$validation->run(['periode_data' => $periode])) {
+                return $this->response->setJSON(['error' => 'Periode tidak valid!']);
             }
 
-            $periode = $this->request->getPost('periode_data');        
-            $isTableExists = $scan_model->isTableExists($periode);
-            if($isTableExists == "0"){
-                return redirect()->back()->withInput()->with('errors', 'No Data Available In '.$periode);
-            }else{
-                $maxUpdateDate = date('F Y', strtotime($periode));
-                $varMaxDate = date('Y-m-', strtotime($periode));
-                $displayInputDate = $periode; 
+            // Cek apakah tabel dengan nama periode tersedia
+            if ($scan_model->isTableExists($periode) == "0") {
+                return $this->response->setJSON(['error' => 'No Data Available In ' . $periode]);
             }
-        }else{
-            $maxUpdateDateFull = $scan_model->getMaxUpdateDateFull();
-            if (!empty($maxUpdateDateFull[0]['datetime'])) {
-                $maxUpdateDate = date('F Y', strtotime($maxUpdateDateFull[0]['datetime']));
-                $varMaxDate = date('Y-m-', strtotime($maxUpdateDateFull[0]['datetime']));
-                $displayInputDate = date('Ym', strtotime($maxUpdateDateFull[0]['datetime'])); 
-            } else {
-                $maxUpdateDate = "No Data Found";
-                $varMaxDate = "0000-00-";
-                $displayInputDate = "202501";
+
+            // Ensure $periode is in 'YYYYMM' format and convert it to 'YYYY-MM-01'
+            $periodeFormatted = substr($periode, 0, 4) . '-' . substr($periode, 4, 2) . '-01';
+
+            $startDate = date('Y-m-01 00:00:00', strtotime($periodeFormatted));
+            $endDate = date('Y-m-t 23:59:59', strtotime($periodeFormatted));
+
+            $displayInputDate = $periode;
+
+            $resultArrDataTotal = $scan_model->getScanTotalOnly($user_id,$startDate,$endDate);
+            if(!$resultArrDataTotal){
+                return $this->response->setJSON(['error' => 'No Data Available In ' . $periode]);
             }
+
+            $resumeScan = $scan_model->getScanSummaryCompareRealTimeUser($periode,$user_id,$startDate,$endDate);
+            // Kirim response dalam format JSON
+            return $this->response->setJSON([
+                'maxUpdateDate' => $maxUpdateDate,
+                'resultDataByu' => $resultArrDataTotal['total_byu'],
+                'resultDataPerdana' => $resultArrDataTotal['total_perdana'],
+                'resultDataTotal' => $resultArrDataTotal['total_scan'],
+                'resumeScan' => $resumeScan,
+                'startDate' => $startDate,
+                'endDate' => $endDate
+            ]);
         }
 
-        $resultArrDataTotal = $scan_model->getScanTotalOnly($varMaxDate,$displayInputDate,$user_id);
+        // Jika request bukan AJAX, tampilkan halaman normal
+        $maxUpdateDateFullUser = $scan_model->getMaxUpdateDateFullUser($user_id);
 
+        if (!empty($maxUpdateDateFullUser[0]['update_date'])) {
+            $maxUpdateDate = date('F Y', strtotime($maxUpdateDateFullUser[0]['update_date']));
+            $varMaxDate = date('Y-m-', strtotime($maxUpdateDateFullUser[0]['update_date']));
+            $displayInputDate = date('Ym', strtotime($maxUpdateDateFullUser[0]['update_date']));
+        } else {
+            $maxUpdateDate = "ND 00 ";
+            $varMaxDate = "0000-00-";
+            $displayInputDate = "0000";
+        }
+        
+        $startDate = date('Y-m-01', strtotime($maxUpdateDateFullUser[0]['update_date']));
+        $endDate = date('Y-m-t', strtotime($maxUpdateDateFullUser[0]['update_date']));
+          
+        $resultArrDataTotal = $scan_model->getScanTotalOnly($user_id,$startDate,$endDate);
+       
         $data = [
             'maxUpdateDate' => $maxUpdateDate,
             'resultDataByu' => $resultArrDataTotal['total_byu'],
             'resultDataPerdana' => $resultArrDataTotal['total_perdana'],
-            'resultDataTotal' =>  $resultArrDataTotal['total_card'],
-            'poinDataTotal' =>  $resultArrDataTotal['total_point'],
+            'resultDataTotal' => $resultArrDataTotal['total_scan'],
             'displayInputDate' => $displayInputDate,
-            'resumeScan' => $scan_model->getScanHistorySummaryUser($displayInputDate,$user_id,$username,$outlet_name,$digipos_id)
+            'resumeScan' => $scan_model->getScanSummaryCompareRealTimeUser($displayInputDate,$user_id,$startDate,$endDate)
         ];
 
         return view('scan_summary_user_page', $data);
+        
     }
 
     public function user_report()
@@ -238,13 +279,16 @@ class Scan_summary extends BaseController
 
         $scan_model = new ScanHistoriesModel();
         $user_id = session()->get('user_id');
-        $username = session()->get('username');
-        $outlet_name = session()->get('outlet_name');
-        $digipos_id = session()->get('digipos_id');
 
         // Jika request berasal dari AJAX
         if ($this->request->isAJAX()) {
-            $periode = $this->request->getPost('periode_data') ?? date('Ym'); // Gunakan default jika kosong
+            $maxUpdateDateFull = $scan_model->getMaxUpdateDatescanCompare();
+            
+            $maxUpdateDate = date('F Y', strtotime($maxUpdateDateFull[0]['update_date']));
+            $varMaxDate = date('Y-m-', strtotime($maxUpdateDateFull[0]['update_date']));
+            $displayInputDate = date('Ym', strtotime($maxUpdateDateFull[0]['update_date']));
+
+            $periode = $this->request->getPost('periode_data') ?? $displayInputDate; // Gunakan default jika kosong
 
             // Validasi periode
             // Validasi input periode
@@ -257,52 +301,62 @@ class Scan_summary extends BaseController
                 return $this->response->setJSON(['error' => 'Periode tidak valid!']);
             }
 
-
             // Cek apakah tabel dengan nama periode tersedia
             if ($scan_model->isTableExists($periode) == "0") {
                 return $this->response->setJSON(['error' => 'No Data Available In ' . $periode]);
             }
 
-            $maxUpdateDate = date('F Y', strtotime($periode));
-            $varMaxDate = date('Y-m-', strtotime($periode));
+            // Ensure $periode is in 'YYYYMM' format and convert it to 'YYYY-MM-01'
+            $periodeFormatted = substr($periode, 0, 4) . '-' . substr($periode, 4, 2) . '-01';
+
+            $startDate = date('Y-m-01 00:00:00', strtotime($periodeFormatted));
+            $endDate = date('Y-m-t 23:59:59', strtotime($periodeFormatted));
+
             $displayInputDate = $periode;
 
-            $resultArrDataTotal = $scan_model->getScanTotalOnly($varMaxDate, $displayInputDate, $user_id);
-            $resumeScan = $scan_model->getScanHistorySummaryUser($displayInputDate, $user_id, $username, $outlet_name, $digipos_id);
+            $resultArrDataTotal = $scan_model->getScanTotalOnly($user_id,$startDate,$endDate);
+            if(!$resultArrDataTotal){
+                return $this->response->setJSON(['error' => 'No Data Available In ' . $periode]);
+            }
 
+            $resumeScan = $scan_model->getScanSummaryCompareUser($varMaxDate, $user_id);
             // Kirim response dalam format JSON
             return $this->response->setJSON([
                 'maxUpdateDate' => $maxUpdateDate,
                 'resultDataByu' => $resultArrDataTotal['total_byu'],
                 'resultDataPerdana' => $resultArrDataTotal['total_perdana'],
-                'resultDataTotal' => $resultArrDataTotal['total_card'],
-                'poinDataTotal' => $resultArrDataTotal['total_point'],
-                'resumeScan' => $resumeScan
+                'resultDataTotal' => $resultArrDataTotal['total_scan'],
+                'resumeScan' => $resumeScan,
+                'startDate' => $startDate,
+                'endDate' => $endDate
             ]);
         }
 
         // Jika request bukan AJAX, tampilkan halaman normal
-        $maxUpdateDateFull = $scan_model->getMaxUpdateDateFull();
-        if (!empty($maxUpdateDateFull[0]['datetime'])) {
-            $maxUpdateDate = date('F Y', strtotime($maxUpdateDateFull[0]['datetime']));
-            $varMaxDate = date('Y-m-', strtotime($maxUpdateDateFull[0]['datetime']));
-            $displayInputDate = date('Ym', strtotime($maxUpdateDateFull[0]['datetime']));
+        $maxUpdateDateFullUser = $scan_model->getMaxUpdateDatescanCompare();
+
+        if (!empty($maxUpdateDateFullUser[0]['update_date'])) {
+            $maxUpdateDate = date('F Y', strtotime($maxUpdateDateFullUser[0]['update_date']));
+            $varMaxDate = date('Y-m-', strtotime($maxUpdateDateFullUser[0]['update_date']));
+            $displayInputDate = date('Ym', strtotime($maxUpdateDateFullUser[0]['update_date']));
         } else {
-            $maxUpdateDate = "No Data Found";
+            $maxUpdateDate = "ND 00 ";
             $varMaxDate = "0000-00-";
-            $displayInputDate = "202501";
+            $displayInputDate = "0000";
         }
-
-        $resultArrDataTotal = $scan_model->getScanTotalOnly($varMaxDate, $displayInputDate, $user_id);
-
+        
+        $startDate = date('Y-m-01', strtotime($maxUpdateDateFullUser[0]['update_date']));
+        $endDate = date('Y-m-t', strtotime($maxUpdateDateFullUser[0]['update_date']));
+          
+        $resultArrDataTotal = $scan_model->getScanTotalOnly($user_id,$startDate,$endDate);
+       
         $data = [
             'maxUpdateDate' => $maxUpdateDate,
             'resultDataByu' => $resultArrDataTotal['total_byu'],
             'resultDataPerdana' => $resultArrDataTotal['total_perdana'],
-            'resultDataTotal' => $resultArrDataTotal['total_card'],
-            'poinDataTotal' => $resultArrDataTotal['total_point'],
+            'resultDataTotal' => $resultArrDataTotal['total_scan'],
             'displayInputDate' => $displayInputDate,
-            'resumeScan' => $scan_model->getScanHistorySummaryUser($displayInputDate, $user_id, $username, $outlet_name, $digipos_id)
+            'resumeScan' => $scan_model->getScanSummaryCompareUser($varMaxDate, $user_id)
         ];
 
         return view('scan_summary_user_page', $data);

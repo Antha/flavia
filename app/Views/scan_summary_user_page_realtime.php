@@ -188,7 +188,7 @@
                 }
 
                 $.ajax({
-                    url: "<?= base_url('/report/user_report') ?>", // Sesuaikan dengan URL controller
+                    url: "<?= base_url('/report/user_report_realtime') ?>", // Sesuaikan dengan URL controller
                     type: "POST",
                     data: { periode_data: periode }, // Kirim periode ke server
                     dataType: "json",
