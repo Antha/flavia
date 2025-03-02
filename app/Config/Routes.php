@@ -25,10 +25,15 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->post('/qris/scrape', 'Qris::scrape', ['filter' => 'checkSession']);
     $routes->post('/qris/insert', 'Qris::insertData', ['filter' => 'checkSession']);
 
-    $routes->get('/report/admin_report', 'Scan_summary::admin_report');
-    $routes->post('/report/admin_report', 'Scan_summary::admin_report');
-    $routes->get('/report/user_report', 'Scan_summary::user_report', ['filter' => 'checkSession']);
-    $routes->post('/report/user_report', 'Scan_summary::user_report',['filter' => 'checkSession']);
-    $routes->get('/report/user_report_realtime', 'Scan_summary::user_report_real_time', ['filter' => 'checkSession']);
-    $routes->post('/report/user_report_realtime', 'Scan_summary::user_report_real_time',['filter' => 'checkSession']);
+    //using manual compare
+    //$routes->get('/report/admin_report', 'Scan_summary::admin_report');
+    //$routes->post('/report/admin_report', 'Scan_summary::admin_report');
+    //$routes->get('/report/user_report', 'Scan_summary::user_report', ['filter' => 'checkSession']);
+    //$routes->post('/report/user_report', 'Scan_summary::user_report',['filter' => 'checkSession']);
+
+    //using real time compare
+    $routes->get('/report/admin_report', 'Scan_summary::admin_report_real_time');
+    $routes->post('/report/admin_report', 'Scan_summary::admin_report_real_time');
+    $routes->get('/report/user_report', 'Scan_summary::user_report_real_time');
+    $routes->post('/report/user_report', 'Scan_summary::user_report_real_time');
 });

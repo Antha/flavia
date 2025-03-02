@@ -95,9 +95,9 @@ class Qris extends BaseController
                 "msisdn" => $msisdn,
                 "status" => "valid",
                 "user_id" => $this->session_user->get("user_id"),
-                "fl_name" => $this->session_user->get("fl_name"),
-                "digipos_id" => $this->session_user->get("digipos_id"),
-                "outlet_name" => $this->session_user->get("outlet_name")
+                //"fl_name" => $this->session_user->get("fl_name"),
+                //"digipos_id" => $this->session_user->get("digipos_id"),
+                //"outlet_name" => $this->session_user->get("outlet_name")
             ]);
 
             return $this->response->setJSON([

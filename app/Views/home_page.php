@@ -38,12 +38,12 @@
                             background: gray;
                             color: white;
                             font-size: 10pt;">+62</span>
-                            <input type="text" id="link_aja" name="link_aja"  value="<?php echo session()->get("link_aja") ?>" required>
+                            <input type="text" id="link_aja" name="link_aja"  value="<?php echo session()->get("link_aja") ?>" required placeholder="81xxxxxxxx (contoh pengisian nomer)">
                     </div>
                 </div>
                 <div class="form-group">
                     <label style="color: #9ea9b2;" for="digipos_id">ID Digipos Outlet</label>
-                    <input type="text" id="digipos_id" name="digipos_id"  value="<?php echo session()->get("digipos_id") ?>" required>
+                    <input type="text" id="digipos_id" name="digipos_id"  value="<?php echo session()->get("digipos_id") ?>" required placeholder="minimal 10 digit">
                 </div>
                 <div class="form-group mt-4">
                     <input type="hidden" name="imageData" id="imageData">
@@ -135,7 +135,7 @@
                             <div class="img-wrapper rounded-circle mx-auto">
                                 <img src="<?= esc('/img/icon_scan_white.png'); ?>" class="img-fluid" loading="lazy" alt="scan byu">
                             </div>
-                            <span class="img-title">Increase ByU Scan Point</span>
+                            <span class="img-title">Tingkatkan Scan ByU Point</span>
                         </a>
                     </div>
                     <div class="col-3 text-center">
@@ -143,7 +143,7 @@
                             <div class="img-wrapper rounded-circle mx-auto">
                                 <img src="<?= esc('/img/icon_scan_white.png'); ?>" class="img-fluid" loading="lazy" alt="scan perdana">
                             </div>
-                            <span class="img-title">Increase Perdana Scan Point</span>
+                            <span class="img-title">Tingkatkan Perdana Scan Point</span>
                         </a>
                     </div>
                     <div class="col-3 text-center">

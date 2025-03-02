@@ -33,7 +33,7 @@
                         🔢 <i>- Serial Number : [_________________] </i>
                     </p>
                     <p id="results_pn" style="width: 100%; font-size: 16px; font-weight: bold; color: #555; padding: 8px; background: #e9ecef; border-radius: 8px; text-align: center; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; overflow: hidden;">
-                        📞 <i>- Phone Number :  <input type="number" id="results_pn_val" /> </i> <br/>
+                        📞 <i>- Phone Number :  <input type="number" id="results_pn_val" placeholder="Ex : 628xxxxxxxxxx"/> </i> <br/>
                         *) <i><span class="text-danger">Masukkan MSISDN secara manual jika tidak bisa di scan</span></i>
                     </p>
 

@@ -112,9 +112,9 @@ class ScanHistoriesModel extends Model
         return $result;
     }
 
-    function getScanSummaryCompareRealTimeAdmin(){
+    function getScanSummaryCompareRealTimeAdmin($periode,$startDate,$endDate){
         $db = \Config\Database::connect();
-        $tableName = "sellout_barcode_202502"; // Adjust dynamically if needed
+        $tableName = "sellout_barcode_".$periode; // Adjust dynamically if needed
 
         // Subquery A: Users
         $subqueryA = $db->table('users')
@@ -123,8 +123,8 @@ class ScanHistoriesModel extends Model
         // Subquery B: Scan Histories (filtered by date)
         $subqueryB = $db->table('scan_histories')
             ->select('user_id, msisdn, card_type')
-            ->where("datetime >=", '2025-02-01 00:00:00')
-            ->where("datetime <=", '2025-02-28 23:59:59');
+            ->where("datetime >=", $startDate)
+            ->where("datetime <=", $endDate);
 
         // Combining Subquery A and B (AB)
         $subqueryAB = $db->table("({$subqueryA->getCompiledSelect()}) A")
@@ -137,15 +137,17 @@ class ScanHistoriesModel extends Model
 
         // Final Query with COUNT DISTINCT
         $query = $db->table("({$subqueryAB->getCompiledSelect()}) AB")
-            ->join("({$subqueryC->getCompiledSelect()}) C", "AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet", "inner")
-            ->select('AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id')
-            ->selectCount("DISTINCT IF(LOWER(AB.card_type) = 'perdana', AB.msisdn, NULL)", 'so_perdana_valid', false)
-            ->selectCount("DISTINCT IF(LOWER(AB.card_type) = 'byu', AB.msisdn, NULL)", 'so_byu_valid', false)
-            ->selectCount("DISTINCT AB.msisdn", 'so_total', false)
-            ->groupBy('AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id');
+                    ->join("({$subqueryC->getCompiledSelect()}) C", "AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet", "inner")
+                    ->select('AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id')
+                    ->select("COUNT(DISTINCT CASE WHEN LOWER(AB.card_type) = 'perdana' THEN AB.msisdn END) AS so_perdana_valid", false)
+                    ->select("COUNT(DISTINCT CASE WHEN LOWER(AB.card_type) = 'byu' THEN AB.msisdn END) AS so_byu_valid", false)
+                    ->select("COUNT(DISTINCT AB.msisdn) AS so_total_valid", false)
+                    ->groupBy('AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id')
+                    ->orderBy('so_total_valid', 'DESC'); // ORDER BY so_total DESC
 
         $result = $query->get()->getResultArray();
 
+        return $result;
     }
 
     function getScanSummaryCompareUser($periode,$user_id){
@@ -187,9 +189,9 @@ class ScanHistoriesModel extends Model
 
         // Query Final
         $queryStr = "SELECT AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id, 
-                        COUNT(CASE WHEN LOWER(AB.card_type) = 'perdana' THEN AB.msisdn END) AS so_perdana_valid,
-                        COUNT(CASE WHEN LOWER(AB.card_type) = 'byu' THEN AB.msisdn END) AS so_byu_valid,
-                        COUNT(AB.msisdn) AS so_total
+                        COUNT(DISTINCT CASE WHEN LOWER(AB.card_type) = 'perdana' THEN AB.msisdn END) AS so_perdana_valid,
+                        COUNT(DISTINCT CASE WHEN LOWER(AB.card_type) = 'byu' THEN AB.msisdn END) AS so_byu_valid,
+                        COUNT(DISTINCT AB.msisdn) AS so_total_valid
                     FROM {$subqueryAB} AB
                     JOIN {$subqueryC} C ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet
                     GROUP BY AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id";

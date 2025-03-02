@@ -139,10 +139,11 @@ class Registration extends BaseController
                 ]
             ],
             'digipos_id' => [
-                'rules'  => 'required|trim|not_space_only',
+                'rules'  => 'required|trim|not_space_only|min_length[10]',
                 'errors' => [
                     'required' => 'ID Digipos wajib diisi!',
-                    'not_space_only' => 'ID Digipos tidak boleh hanya berisi spasi!'
+                    'not_space_only' => 'ID Digipos tidak boleh hanya berisi spasi!',
+                    'min_length' => 'ID Digipos harus terdiri dari minimal 10 digit!'
                 ]
             ],
             'imageData' => [

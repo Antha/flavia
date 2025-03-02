@@ -14,12 +14,10 @@
             <div class="container page-navigation-wrapper mb-2">
                 <div class="row">
                     <div class="page-navigation">
-                        <a href="<?php echo esc(base_url()."home"); ?>" class="back-btn">
+                        <a href="<?= esc(base_url()."home"); ?>" class="back-btn">
                             <i class="fa-regular fa-circle-left float-start"></i>
                         </a>
-                        <span class="page-navigation-title">
-                            REPORT
-                        </span>
+                        <span class="page-navigation-title">REPORT</span>
                     </div>
                 </div>
             </div>
@@ -29,99 +27,40 @@
                 </div>
             </div>
 
-            <div class="container home-title">
-                <div class="row justify-content-center">
-                    <div class="col-sm-8 col-10">
-                        <div class="home-title-periode text-center position-relative">
-                            <h1 id="maxUpdateDate" class="font_style_mobile2"></h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="reward-info-wrapper">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-12 mx-auto">
-                            <div class="row justify-content-center">
-                                <div class="col-4 text-center menu-item ps-1 pe-1">
-                                    <div class="menu-item-wrapper h-100">
-                                        <span class="menu-item-fa1 mx-auto"><i class="fa-solid fa-qrcode"></i></span>
-                                        <span class="w-100 d-block menu-item-text3 mt-4">SCAN</span>
-                                        <span class="w-100 d-block menu-item-text3">BYU</span>
-                                        <span id="resultDataByu" class="w-100 d-block mt-3 mb-3 menu-item-text1"></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-4 text-center menu-item ps-1 pe-1">
-                                    <div class="menu-item-wrapper h-100">
-                                        <span class="menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
-                                        <span class="w-100 d-block menu-item-text3 mt-4">SCAN</span>
-                                        <span class="w-100 d-block menu-item-text3">PERDANA</span>
-                                        <span id="resultDataPerdana" class="w-100 d-block mt-3 mb-3 menu-item-text1"></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-4 text-center menu-item ps-1 pe-1">
-                                    <div class="menu-item-wrapper h-100">
-                                        <span class="menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
-                                        <span class="w-100 d-block menu-item-text3 mt-4">TOTAL</span>
-                                        <span class="w-100 d-block menu-item-text3">SCAN</span>
-                                        <span id="resultDataTotal" class="w-100 d-block mt-3 mb-3 menu-item-text1"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="filter-wrapper mt-md-5 mt-4">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12">
-                            <?php if (session()->has('errors')): ?>
-                                <div class="alert alert-danger">
-                                    <?= session('errors') ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-2 col-10">
-                            <span class="d-inline-block fw-bold" style="font-size: 14px;color: #e0091f;padding-top: 15px;">Report Summary Valid Scan</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="container mt-3">
-                    <div class="row">
-                        <div class="col-lg-8 col-6">
-                            <form method="post" action="<?php echo esc(base_url('/report/user_report')); ?>" enctype="multipart/form-data">
-                                <?php csrf_field() ?>
+                        <div class="col-lg-8 col-12">
+                            <form id="filterForm" method="post" action="<?php echo esc(base_url('/report/admin_report')); ?>" enctype="multipart/form-data">
+                                <?= csrf_field() ?>
                                 <div class="row no-gutters">
-                                    <div class="form-group col-md-3 col-10 pe-lg-2 pe-0" id="col_periode_data">
+                                    <div class="form-group col-md-3 col-6 pe-2">
                                         <div class="input-group dropdown_input">
-                                            <input required type="text" class="monthPicker form-control pull-left txt-input-data" id="periode_data" name="periode_data" value="<?= esc($displayInputDate); ?>" readonly/>
+                                            <input required type="text" class="monthPicker form-control pull-left txt-input-data" id="periode_data" name="periode_data" value="<?= esc($displayInputDate); ?>"/>
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-2 ps-0">			
-                                        <input type="submit" id="btn_submit_periode" name="btn_submit_periode" value="GO" class="submit_btn_datepicker rounded float-start">
+                                        <button type="submit" id="btn_submit" class="submit_btn_datepicker rounded float-start">GO</button>
                                     </div>
-
-                                    <p class="flashdata_error"><?= session()->getFlashdata('table_not_exists'); ?></p> 
-                                    
+                                    <p id="errorMessage" class="text-danger"></p> 
                                     <div style="clear: both;"></div>
                                 </div>
                             </form>
-                        </div> 
-                        <div class="col-lg-4 col-6">
+                        </div>
+                        <div class="col-lg-4 col-12">
                             <div class="row">
-                                <div class="offset-lg-9 col-lg-3 offset-6 col-6 ps-0">
+                                <div class="col-9">
+                                    <div class="input-group">
+                                        <input required type="text" id="searchInput" class="form-control txt-input-data" placeholder="Search..." onkeyup="filterTable()" style="font-size: 14px;" autocomplete="off">
+                                        <div class="input-group-addon">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 ps-0">
                                     <button id="exportCsv" class="submit_btn rounded w-100">DOWNLOAD</button>
                                 </div>
                             </div>
@@ -129,8 +68,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class="table-report-wrapper mt-1">
+            
+            <div class="table-report-wrapper mt-3">
                 <div class="container">
                     <div class="row">
                         <div class="col-12 text-center">
@@ -138,17 +77,17 @@
                                 <div class="table-top-scroll">
                                     <div class="table-scroll-bar"></div>
                                 </div>
-                                <div class="table-responsive">     
+                                <div class="table-responsive">
                                     <table class="table table-responsive table-bordered" id="dataTable">
                                         <thead>
                                             <tr class="header-top-wrapper">
-                                                <th class="text-center">No</th>
-                                                <th class="text-center">FL NAME</th>
-                                                <th class="text-center">OUTLET NAME</th>
-                                                <th class="text-center">DIGIPOS ID</th>
-                                                <th class="text-center">SO BYU VALID</th>
-                                                <th class="text-center">SO PREPAID VALID</th>
-                                                <th class="text-center">SO VALID TOTAL</th>
+                                                <th>No</th>
+                                                <th>FL NAME</th>
+                                                <th>OUTLET NAME</th>
+                                                <th>DIGIPOS ID</th>
+                                                <th>SO BYU VALID</th>
+                                                <th>SO PREPAID VALID</th>
+                                                <th>SO TOTAL</th>
                                             </tr>
                                         </thead>
                                         <tbody id="dataTable_body_filter">
@@ -164,11 +103,14 @@
         </div>
         <?= $this->include('/includes/include_footer'); ?>
     </div>
+
+    <link rel="stylesheet" href="<?php echo base_url('/css/datepicker.css') ?>">
+    <script type="text/javascript" src="<?php echo base_url('/script/bootstrap-datepicker.js') ?>"></script>
     <script>
         $(document).ready(function () {
             function loadData(periode = "") {
                 // Disable tombol saat loading
-                $("#btn_submit_periode").prop("disabled", true);
+                $("#btn_submit").prop("disabled", true);
                 $("#exportCsv").prop("disabled", true);
 
                 //tampilkan keterangan loading di dalam table
@@ -182,13 +124,13 @@
                     });
                     $("#dataTable_body_filter").html(""); // Kosongkan tabel jika input salah
                     //enable tombol kembali
-                    $("#btn_submit_periode").prop("disabled", false);
+                    $("#btn_submit").prop("disabled", false);
                     $("#exportCsv").prop("disabled", false);
                     return;
                 }
 
                 $.ajax({
-                    url: "<?= base_url('/report/user_report') ?>", // Sesuaikan dengan URL controller
+                    url: "<?= base_url('/report/admin_report_real_time') ?>", // Sesuaikan dengan URL controller
                     type: "POST",
                     data: { periode_data: periode }, // Kirim periode ke server
                     dataType: "json",
@@ -201,11 +143,6 @@
                                 text: response.error,
                             });
                             $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center text-danger">Data tidak ditemukan</td></tr>');
-                            $("#maxUpdateDate").text(response.maxUpdateDate ?? 'No Data');
-                            $("#resultDataByu").text(response.resultDataByu ?? 0);
-                            $("#resultDataPerdana").text(response.resultDataPerdana ?? 0);
-                            $("#resultDataTotal").text(response.resultDataTotal ?? 0);
-                            $("#poinDataTotal").text(response.poinDataTotal ?? 0);
                             return;
                         }
 
@@ -227,13 +164,14 @@
                         $("#dataTable_body_filter").html(html);
 
                         // Update informasi lainnya di halaman
-                        $("#maxUpdateDate").text(response.maxUpdateDate ?? 'No Data');
-                        $("#resultDataByu").text(response.resultDataByu ?? 0);
-                        $("#resultDataPerdana").text(response.resultDataPerdana ?? 0);
-                        $("#resultDataTotal").text(response.resultDataTotal ?? 0);
-                        $("#poinDataTotal").text(response.poinDataTotal ?? 0);
+                        $("#maxUpdateDate").text(response.maxUpdateDate);
+                        $("#resultDataByu").text(response.resultDataByu);
+                        $("#resultDataPerdana").text(response.resultDataPerdana);
+                        $("#resultDataTotal").text(response.resultDataTotal);
+                        $("#poinDataTotal").text(response.poinDataTotal);
                     },
                     error: function(xhr, status, error) {
+                        console.error("AJAX Error:", xhr.responseText); // Debugging di console
                         Swal.fire({
                             icon: "error",
                             title: "Gagal Mengambil Data!",
@@ -243,7 +181,7 @@
                     },
                     complete: function() {
                         // Enable tombol setelah selesai (baik sukses maupun error)
-                        $("#btn_submit_periode").prop("disabled", false);
+                        $("#btn_submit").prop("disabled", false);
                         $("#exportCsv").prop("disabled", false);
                     }
                 });
@@ -253,7 +191,7 @@
             loadData(<?= esc($displayInputDate); ?>);
 
             // Refresh Data Saat Tombol Submit Periode Diklik
-            $("#btn_submit_periode").click(function() {
+            $("#btn_submit").click(function() {
                 let periode = $("#periode_data").val().trim();
                 loadData(periode);
             });
@@ -285,7 +223,7 @@
             const table = document.getElementById("dataTable_body_filter");
             const rows = table.getElementsByTagName("tr");
 
-            for (let i = 1; i < rows.length; i++) {
+            for (let i = 0; i < rows.length; i++) {
                 const cells = rows[i].getElementsByTagName("td");
                 let match = false;
                 
@@ -349,4 +287,5 @@
         });
     </script>
 </body>
+
 <?php $this->endSection() ?>
