@@ -36,7 +36,13 @@ class ScanHistoriesModel extends Model
     function getMaxUpdateDateFullUser($user_id){
         $db = \Config\Database::connect();
         $builder = $db->table('scan_histories');
-        return $builder->selectMax('datetime','update_date')->where('user_id',$user_id)->get()->getResultArray();
+
+       $builder->select("COALESCE(MAX(datetime), '2025-01-01') AS update_date", false)
+        ->where('user_id', $user_id);
+
+        $result = $builder->get()->getResultArray();
+
+        return $result ?? ['update_date' => '202501'];
     }
 
     function getMaxUpdateDatescanCompare(){
@@ -65,15 +71,16 @@ class ScanHistoriesModel extends Model
 
         $builder = $db->table('scan_histories')
             ->select('user_id')
-            ->select("IFNULL(COUNT(DISTINCT IF(card_type = 'byu', msisdn, NULL)), 0) AS total_byu", false)
-            ->select("IFNULL(COUNT(DISTINCT IF(card_type = 'perdana', msisdn, NULL)), 0) AS total_perdana", false)
-            ->select("IFNULL(COUNT(DISTINCT msisdn), 0) AS total_scan", false)
+            ->select("COALESCE(COUNT(DISTINCT IF(card_type = 'byu', msisdn, NULL)), 0) AS total_byu", false)
+            ->select("COALESCE(COUNT(DISTINCT IF(card_type = 'perdana', msisdn, NULL)), 0) AS total_perdana", false)
+            ->select("COALESCE(COUNT(DISTINCT msisdn), 0) AS total_scan", false)
             ->where('user_id', $user_id)
             ->where("datetime >=", $startDate)
             ->where("datetime <=", $endDate)
             ->groupBy('user_id');
 
-        return $builder->get()->getRowArray(); // ✅ Use getRowArray() since it's a single result
+        $result = $builder->get()->getRowArray();
+        return $result ?? ['user_id' => $user_id, 'total_byu' => 0, 'total_perdana' => 0, 'total_scan' => 0];
 
     }
 

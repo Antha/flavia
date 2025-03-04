@@ -4,6 +4,8 @@ namespace App\Controllers;
 use App\Models\ScanHistoriesModel;
 use DateTime;
 
+use function PHPUnit\Framework\isNull;
+
 class Scan_summary extends BaseController
 {
     protected $session_user;
@@ -254,29 +256,28 @@ class Scan_summary extends BaseController
 
         // Jika request bukan AJAX, tampilkan halaman normal
         $maxUpdateDateFullUser = $scan_model->getMaxUpdateDateFullUser($user_id);
+       
+        $maxUpdateDate = date('F Y', strtotime($maxUpdateDateFullUser[0]['update_date']));
+        $displayInputDate = date('Ym', strtotime($maxUpdateDateFullUser[0]['update_date']));
 
-        if (!empty($maxUpdateDateFullUser[0]['update_date'])) {
-            $maxUpdateDate = date('F Y', strtotime($maxUpdateDateFullUser[0]['update_date']));
-            $varMaxDate = date('Y-m-', strtotime($maxUpdateDateFullUser[0]['update_date']));
-            $displayInputDate = date('Ym', strtotime($maxUpdateDateFullUser[0]['update_date']));
-        } else {
-            $maxUpdateDate = "ND 00 ";
-            $varMaxDate = "0000-00-";
-            $displayInputDate = "0000";
-        }
-        
         $startDate = date('Y-m-01', strtotime($maxUpdateDateFullUser[0]['update_date']));
         $endDate = date('Y-m-t', strtotime($maxUpdateDateFullUser[0]['update_date']));
           
         $resultArrDataTotal = $scan_model->getScanTotalOnly($user_id,$startDate,$endDate);
        
+        if(!$resultArrDataTotal){
+            return $this->response->setJSON(['error' => 'No Data Available In ' . $displayInputDate]);
+        }
+
+        $resumeScan = $scan_model->getScanSummaryCompareRealTimeUser($displayInputDate,$user_id,$startDate,$endDate);
+        
         $data = [
             'maxUpdateDate' => $maxUpdateDate,
             'resultDataByu' => $resultArrDataTotal['total_byu'],
             'resultDataPerdana' => $resultArrDataTotal['total_perdana'],
             'resultDataTotal' => $resultArrDataTotal['total_scan'],
             'displayInputDate' => $displayInputDate,
-            'resumeScan' => $scan_model->getScanSummaryCompareRealTimeUser($displayInputDate,$user_id,$startDate,$endDate)
+            'resumeScan' => $resumeScan
         ];
 
         return view('scan_summary_user_page_realtime', $data);
