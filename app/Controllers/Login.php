@@ -58,6 +58,14 @@ class Login extends BaseController
             return redirect()->to('/login');
         }
 
+         // Cek apakah user sudah aktif
+         $isUserActive = $this->user_model->where('LOWER(username)', $get_username)->where('status','1')->first();
+        
+         if (!$isUserActive) {
+             $this->session_user->setFlashdata('error', 'User anda belum aktif. Klik link pada email untuk aktivasi');
+             return redirect()->to('/login');
+         }
+
         // Debugging: Pastikan password hash tersedia
         if (!isset($isUserExists['password']) || empty($isUserExists['password'])) {
             $this->session_user->setFlashdata('error', 'Password hash not found in database');
