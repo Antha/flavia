@@ -27,10 +27,16 @@
                     <li class="nav-item">
                         <a class="nav-link <?= ($uri->getSegment(1) == 'report') ? 'active' : ''; ?>" href="<?= esc(base_url('/report')); ?>">POINT</a>
                     </li>
+                    <?php if(session()->get('user_level') == 'admin'){ ?>
+                        <li class="nav-item">
+                            <a class="nav-link <?= ($uri->getSegment(1) == 'report_np') ? 'active' : ''; ?>" href="<?= esc(base_url('/report_np/admin_report')); ?>">NEW PROGRAM</a>
+                        </li>
+                    <?php } ?>
                 </ul>
                 <a href="<?= esc(base_url('/login/logout')); ?>" class="ms-auto logout-fa">
                     <span class="pe-2">LOGOUT</span><i class="fa-solid fa-right-from-bracket"></i>
                 </a>
+                
             </div>
         </nav>
         <a class="navbar-brand position-absolute top-0 ps-md-3 pe-md-3 ps-2 pe-2 bg-white navbar-cstm" href="<?= esc(base_url('/home'));?>">

@@ -31,7 +31,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 col-12">
-                            <form id="filterForm" method="post" action="<?php echo esc(base_url('/report/admin_report')); ?>" enctype="multipart/form-data">
+                            <form id="filterForm" method="post" action="<?php echo esc(base_url('/report_np/admin_report')); ?>" enctype="multipart/form-data">
                                 <?= csrf_field() ?>
                                 <div class="row no-gutters">
                                     <div class="form-group col-md-3 col-6 pe-2">
@@ -68,7 +68,13 @@
                     </div>
                 </div>
             </div>
-            
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <span style="font-weight: bold;font-style: italic">Data dimulai dari tanggal 2025-04-21</span>
+                    </div>
+                </div>
+            </div>
             <div class="table-report-wrapper mt-3">
                 <div class="container">
                     <div class="row">
@@ -81,20 +87,25 @@
                                     <table class="table table-responsive table-bordered" id="dataTable">
                                         <thead>
                                             <tr class="header-top-wrapper">
-                                                <th>No</th>
-                                                <th>FL NAME</th>
-                                                <th>OUTLET NAME</th>
-                                                <th>DIGIPOS ID</th>
-                                                <th>SO BYU VALID</th>
-                                                <th>SO PREPAID VALID</th>
-                                                <th>SO TOTAL</th>
-                                                <th>REV AKUISISI</th>
-                                                <th>REV BONUS</th>
-                                                <th>REV BTL</th>
-                                                <th>REV CORE</th>
-                                                <th>REV ORBIT</th>
-                                                <th>REV OTHERS</th>
-                                                <th>REV VF</th>
+                                                <th rowspan = '2' class="align-middle">No</th>
+                                                <th rowspan = '2' class="align-middle">FL NAME</th>
+                                                <th rowspan = '2' class="align-middle">OUTLET NAME</th>
+                                                <th rowspan = '2' class="align-middle">DIGIPOS ID</th>
+                                                <th colspan = '3'>SO VALID</th>
+                                                <th colspan = '8'>RENEWAL</th>
+                                            </tr>
+                                            <tr class="header-top-wrapper">
+                                                <th>BYU</th>
+                                                <th>PREPAID</th>
+                                                <th>TOTAL</th>
+                                                <th>AKUISISI</th>
+                                                <th>BONUS</th>
+                                                <th>BTL</th>
+                                                <th>CORE</th>
+                                                <th>ORBIT</th>
+                                                <th>OTHERS</th>
+                                                <th>VF</th>
+                                                <th>TOTAL</th>
                                             </tr>
                                         </thead>
                                         <tbody id="dataTable_body_filter">
@@ -137,7 +148,7 @@
                 }
 
                 $.ajax({
-                    url: "<?= base_url('/report/admin_report_real_time') ?>", // Sesuaikan dengan URL controller
+                    url: "<?= base_url('/report_np/admin_report') ?>", // Sesuaikan dengan URL controller
                     type: "POST",
                     data: { periode_data: periode }, // Kirim periode ke server
                     dataType: "json",
@@ -149,7 +160,7 @@
                                 title: "Data Tidak Ditemukan",
                                 text: response.error,
                             });
-                            $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center text-danger">Data tidak ditemukan</td></tr>');
+                            $("#dataTable_body_filter").html('<tr><td colspan="15" class="text-center text-danger">Data tidak ditemukan</td></tr>');
                             return;
                         }
 
@@ -165,12 +176,13 @@
                                 <td class="text-center">${row.so_perdana_valid}</td>
                                 <td class="text-center">${row.so_total_valid}</td>
                                 <td class="text-center">${row.rev_akuisisi}</td>
-                                <td class="text-center">${row.rev_bonus}</td>
-                                <td class="text-center">${row.rev_btl}</td>
-                                <td class="text-center">${row.rev_core}</td>
-                                <td class="text-center">${row.rev_orbit}</td>
-                                <td class="text-center">${row.rev_others}</td>
-                                <td class="text-center">${row.rev_voucher_physical}</td>
+                                <td class="text-center">${nf0(row.rev_bonus)}</td>
+                                <td class="text-center">${nf0(row.rev_btl)}</td>
+                                <td class="text-center">${nf0(row.rev_core)}</td>
+                                <td class="text-center">${nf0(row.rev_orbit)}</td>
+                                <td class="text-center">${nf0(row.rev_others)}</td>
+                                <td class="text-center">${nf0(row.rev_voucher_physical)}</td>
+                                <td class="text-center">${nf0(row.rev_total)}</td>
                             </tr>`;
                             no++;
                         });
@@ -299,6 +311,10 @@
             exportTableToCSV(exported_fname);
 
         });
+
+        function nf0(num) {
+            return Number(num).toLocaleString('id-ID'); // or your preferred locale
+        }
     </script>
 </body>
 

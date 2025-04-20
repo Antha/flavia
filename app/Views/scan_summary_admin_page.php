@@ -68,7 +68,13 @@
                     </div>
                 </div>
             </div>
-            
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <span style="font-weight: bold;font-style: italic">Data cluster Bali Tengah</span>
+                    </div>
+                </div>
+            </div>
             <div class="table-report-wrapper mt-3">
                 <div class="container">
                     <div class="row">
@@ -285,6 +291,10 @@
             exportTableToCSV(exported_fname);
 
         });
+
+        function nf0(num) {
+            return Number(num).toLocaleString('id-ID'); // or your preferred locale
+        }
     </script>
 </body>
 

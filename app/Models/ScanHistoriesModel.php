@@ -149,6 +149,61 @@ class ScanHistoriesModel extends Model
                     ->select("COUNT(DISTINCT CASE WHEN LOWER(AB.card_type) = 'perdana' THEN AB.msisdn END) AS so_perdana_valid", false)
                     ->select("COUNT(DISTINCT CASE WHEN LOWER(AB.card_type) = 'byu' THEN AB.msisdn END) AS so_byu_valid", false)
                     ->select("COUNT(DISTINCT AB.msisdn) AS so_total_valid", false)
+
+                    ->groupBy('AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id')
+                    ->orderBy('so_total_valid', 'DESC'); // ORDER BY so_total DESC
+
+        $result = $query->get()->getResultArray();
+
+        return $result;
+    }
+
+    function getScanSummaryCompareRealTimeAdminNp($periode,$startDate,$endDate){
+        $db = \Config\Database::connect();
+        $tableName = "sellout_barcode_".$periode; // Adjust dynamically if needed
+        $tableName_rn = "renewal_so_".$periode;
+        // Subquery A: Users
+        $subqueryA = $db->table('users')
+                        ->select('id AS user_id, fl_name, outlet_name, digipos_id');
+
+        // Subquery B: Scan Histories (filtered by date)
+        $subqueryB = $db->table('scan_histories')
+            ->select('user_id, msisdn, card_type')
+            ->where("datetime >=", $startDate)
+            ->where("datetime <=", $endDate);
+
+        // Combining Subquery A and B (AB)
+        $subqueryAB = $db->table("({$subqueryA->getCompiledSelect()}) A")
+            ->join("({$subqueryB->getCompiledSelect()}) B", "A.user_id = B.user_id", "inner")
+            ->select('A.user_id, A.fl_name, A.outlet_name, A.digipos_id, B.msisdn, B.card_type');
+
+        // Subquery C: Sellout Barcode Table
+        $subqueryC = $db->table($tableName)
+            ->select("CONCAT('62', SUBSTRING(msisdn, 2)) AS msisdn, id_outlet");
+
+        // Subquery D: Renewal SO Table
+        $subqueryD = $db->table($tableName_rn)
+        ->select('msisdn, package_type, revenue');
+
+        // Final Query with COUNT DISTINCT
+        $query = $db->table("({$subqueryAB->getCompiledSelect()}) AB")
+                    ->join("({$subqueryC->getCompiledSelect()}) C", "AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet", "inner")
+                    ->join("({$subqueryD->getCompiledSelect(false)}) D", "AB.msisdn = D.msisdn", "left")
+                    ->select('AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id')
+                    ->select("COUNT(DISTINCT CASE WHEN LOWER(AB.card_type) = 'perdana' THEN AB.msisdn END) AS so_perdana_valid", false)
+                    ->select("COUNT(DISTINCT CASE WHEN LOWER(AB.card_type) = 'byu' THEN AB.msisdn END) AS so_byu_valid", false)
+                    ->select("COUNT(DISTINCT AB.msisdn) AS so_total_valid", false)
+
+                    // Revenue breakdown by package_type
+                    ->select("SUM(CASE WHEN D.package_type = 'akuisisi' THEN D.revenue ELSE 0 END) AS rev_akuisisi", false)
+                    ->select("SUM(CASE WHEN D.package_type = 'bonus' THEN D.revenue ELSE 0 END) AS rev_bonus", false)
+                    ->select("SUM(CASE WHEN D.package_type = 'btl' THEN D.revenue ELSE 0 END) AS rev_btl", false)
+                    ->select("SUM(CASE WHEN D.package_type = 'core' THEN D.revenue ELSE 0 END) AS rev_core", false)
+                    ->select("SUM(CASE WHEN D.package_type = 'orbit' THEN D.revenue ELSE 0 END) AS rev_orbit", false)
+                    ->select("SUM(CASE WHEN D.package_type = 'others' THEN D.revenue ELSE 0 END) AS rev_others", false)
+                    ->select("SUM(CASE WHEN D.package_type = 'voucher physical' THEN D.revenue ELSE 0 END) AS rev_voucher_physical", false)
+                    ->select("SUM(D.revenue) AS rev_total", false)
+
                     ->groupBy('AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id')
                     ->orderBy('so_total_valid', 'DESC'); // ORDER BY so_total DESC
 
