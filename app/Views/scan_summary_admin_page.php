@@ -87,13 +87,25 @@
                                     <table class="table table-responsive table-bordered" id="dataTable">
                                         <thead>
                                             <tr class="header-top-wrapper">
-                                                <th>No</th>
-                                                <th>FL NAME</th>
-                                                <th>OUTLET NAME</th>
-                                                <th>DIGIPOS ID</th>
-                                                <th>SO BYU VALID</th>
-                                                <th>SO PREPAID VALID</th>
-                                                <th>SO TOTAL</th>
+                                                <th rowspan = '2' class="align-middle">No</th>
+                                                <th rowspan = '2' class="align-middle">FL NAME</th>
+                                                <th rowspan = '2' class="align-middle">OUTLET NAME</th>
+                                                <th rowspan = '2' class="align-middle">DIGIPOS ID</th>
+                                                <th colspan = '3'>SO VALID</th>
+                                                <th colspan = '8'>RENEWAL</th>
+                                            </tr>
+                                            <tr class="header-top-wrapper">
+                                                <th>BYU</th>
+                                                <th>PREPAID</th>
+                                                <th>TOTAL</th>
+                                                <th>AKUISISI</th>
+                                                <th>BONUS</th>
+                                                <th>BTL</th>
+                                                <th>CORE</th>
+                                                <th>ORBIT</th>
+                                                <th>OTHERS</th>
+                                                <th>VF</th>
+                                                <th>TOTAL</th>
                                             </tr>
                                         </thead>
                                         <tbody id="dataTable_body_filter">
@@ -120,7 +132,7 @@
                 $("#exportCsv").prop("disabled", true);
 
                 //tampilkan keterangan loading di dalam table
-                $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center text-danger">Loading....</td></tr>');
+                $("#dataTable_body_filter").html('<tr><td colspan="15" class="text-center text-danger">Loading....</td></tr>');
 
                 if (periode !== "" && !/^\d{6}$/.test(periode)) { 
                     Swal.fire({
@@ -148,7 +160,7 @@
                                 title: "Data Tidak Ditemukan",
                                 text: response.error,
                             });
-                            $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center text-danger">Data tidak ditemukan</td></tr>');
+                            $("#dataTable_body_filter").html('<tr><td colspan="15" class="text-center text-danger">Data tidak ditemukan</td></tr>');
                             return;
                         }
 
@@ -163,6 +175,14 @@
                                 <td class="text-center">${row.so_byu_valid}</td>
                                 <td class="text-center">${row.so_perdana_valid}</td>
                                 <td class="text-center">${row.so_total_valid}</td>
+                                <td class="text-center">${row.so_akuisisi}</td>
+                                <td class="text-center">${row.so_bonus}</td>
+                                <td class="text-center">${row.so_btl}</td>
+                                <td class="text-center">${row.so_core}</td>
+                                <td class="text-center">${row.so_orbit}</td>
+                                <td class="text-center">${row.so_others}</td>
+                                <td class="text-center">${row.so_vf}</td>
+                                <td class="text-center">${row.so_pt_total}</td>
                             </tr>`;
                             no++;
                         });

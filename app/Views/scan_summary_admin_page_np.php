@@ -132,7 +132,7 @@
                 $("#exportCsv").prop("disabled", true);
 
                 //tampilkan keterangan loading di dalam table
-                $("#dataTable_body_filter").html('<tr><td colspan="7" class="text-center text-danger">Loading....</td></tr>');
+                $("#dataTable_body_filter").html('<tr><td colspan="15" class="text-center text-danger">Loading....</td></tr>');
 
                 if (periode !== "" && !/^\d{6}$/.test(periode)) { 
                     Swal.fire({
@@ -175,14 +175,14 @@
                                 <td class="text-center">${row.so_byu_valid}</td>
                                 <td class="text-center">${row.so_perdana_valid}</td>
                                 <td class="text-center">${row.so_total_valid}</td>
-                                <td class="text-center">${row.rev_akuisisi}</td>
-                                <td class="text-center">${nf0(row.rev_bonus)}</td>
-                                <td class="text-center">${nf0(row.rev_btl)}</td>
-                                <td class="text-center">${nf0(row.rev_core)}</td>
-                                <td class="text-center">${nf0(row.rev_orbit)}</td>
-                                <td class="text-center">${nf0(row.rev_others)}</td>
-                                <td class="text-center">${nf0(row.rev_voucher_physical)}</td>
-                                <td class="text-center">${nf0(row.rev_total)}</td>
+                                <td class="text-center">${row.so_akuisisi}</td>
+                                <td class="text-center">${row.so_bonus}</td>
+                                <td class="text-center">${row.so_btl}</td>
+                                <td class="text-center">${row.so_core}</td>
+                                <td class="text-center">${row.so_orbit}</td>
+                                <td class="text-center">${row.so_others}</td>
+                                <td class="text-center">${row.so_vf}</td>
+                                <td class="text-center">${row.so_pt_total}</td>
                             </tr>`;
                             no++;
                         });

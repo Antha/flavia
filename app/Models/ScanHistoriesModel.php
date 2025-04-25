@@ -119,9 +119,26 @@ class ScanHistoriesModel extends Model
         return $result;
     }
 
+    //query source sellour barcode new
+    //SO BARCODE
+    //SELECT * FROM SELLOUT_BARCODE_202504 WHERE star_status = 'PAYLOAD' AND regional LIKE 'BALI%'
+
+    //RENEWAL SO
+    //SELECT * FROM `RENEWAL_SO_202504` WHERE regional = 'BALINUSRA'
+
+    /*SELECT `area`,regional,cluster,kabupaten,kecamatan,id_outlet,A.msisdn msisdn, B.msisdn renewal_msisdn, package_type
+    FROM
+    (SELECT CONCAT('62', SUBSTRING(msisdn, 2)) AS msisdn, id_outlet,`area`,regional,cluster,kabupaten,kecamatan
+    FROM `sellout_barcode_raw`)A
+    LEFT JOIN
+    (SELECT msisdn,package_type FROM `renewal_so_202504`)B
+    ON A.msisdn = B.msisdn*/
+
     function getScanSummaryCompareRealTimeAdmin($periode,$startDate,$endDate){
         $db = \Config\Database::connect();
+
         $tableName = "sellout_barcode_".$periode; // Adjust dynamically if needed
+        //$tableName_rn = "renewal_so_".$periode;
 
         // Subquery A: Users
         $subqueryA = $db->table('users')
@@ -140,15 +157,26 @@ class ScanHistoriesModel extends Model
 
         // Subquery C: Sellout Barcode Table
         $subqueryC = $db->table($tableName)
-            ->select("CONCAT('62', SUBSTRING(msisdn, 2)) AS msisdn, id_outlet");
+            ->select("msisdn, id_outlet, package_type");
 
         // Final Query with COUNT DISTINCT
         $query = $db->table("({$subqueryAB->getCompiledSelect()}) AB")
                     ->join("({$subqueryC->getCompiledSelect()}) C", "AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet", "inner")
+                    //->join("({$subqueryD->getCompiledSelect(false)}) D", "AB.msisdn = D.msisdn", "left")                    
                     ->select('AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id')
                     ->select("COUNT(DISTINCT CASE WHEN LOWER(AB.card_type) = 'perdana' THEN AB.msisdn END) AS so_perdana_valid", false)
                     ->select("COUNT(DISTINCT CASE WHEN LOWER(AB.card_type) = 'byu' THEN AB.msisdn END) AS so_byu_valid", false)
                     ->select("COUNT(DISTINCT AB.msisdn) AS so_total_valid", false)
+
+                    // count breakdown by package_type
+                    ->select("COUNT(CASE WHEN package_type = 'akuisisi' THEN AB.msisdn END) AS so_akuisisi", false)
+                    ->select("COUNT(CASE WHEN package_type = 'bonus' THEN AB.msisdn END) AS so_bonus", false)
+                    ->select("COUNT(CASE WHEN package_type = 'btl' THEN AB.msisdn END) AS so_btl", false)
+                    ->select("COUNT(CASE WHEN package_type = 'core' THEN AB.msisdn END) AS so_core", false)
+                    ->select("COUNT(CASE WHEN package_type = 'orbit' THEN AB.msisdn END) AS so_orbit", false)
+                    ->select("COUNT(CASE WHEN package_type = 'others' THEN AB.msisdn END) AS so_others", false)
+                    ->select("COUNT(CASE WHEN package_type = 'voucher physical' THEN AB.msisdn END) AS so_vf", false)
+                    ->select("COUNT(CASE WHEN package_type IS NOT NULL THEN AB.msisdn END) AS so_pt_total", false)
 
                     ->groupBy('AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id')
                     ->orderBy('so_total_valid', 'DESC'); // ORDER BY so_total DESC

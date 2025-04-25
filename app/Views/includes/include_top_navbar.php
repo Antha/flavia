@@ -24,14 +24,18 @@
                             <a class="dropdown-item <?= ($uri->getQuery() == 'card_type=perdana') ? 'active' : ''; ?>" href="<?= esc(base_url('/qris?card_type=perdana')); ?>">PERDANA</a>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link <?= ($uri->getSegment(1) == 'report') ? 'active' : ''; ?>" href="<?= esc(base_url('/report')); ?>">POINT</a>
+                   
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle <?= ($uri->getSegment(1) == 'report' || $uri->getSegment(1) == 'report_np') ? 'active' : ''; ?>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            REPORT
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item <?= ($uri->getSegment(1) == 'report') ? 'active' : ''; ?>" href="<?= esc(base_url('/report')); ?>">FLAVIA BALI TENGAH</a>
+                            <?php if(session()->get('user_level') == 'admin'){ ?>
+                                <a class="dropdown-item <a class="nav-link <?= ($uri->getSegment(1) == 'report_np') ? 'active' : ''; ?>" href="<?= esc(base_url('/report_np/admin_report')); ?>">FLAVIA NEW PROGRAM</a>
+                            <?php } ?>
+                        </div>
                     </li>
-                    <?php if(session()->get('user_level') == 'admin'){ ?>
-                        <li class="nav-item">
-                            <a class="nav-link <?= ($uri->getSegment(1) == 'report_np') ? 'active' : ''; ?>" href="<?= esc(base_url('/report_np/admin_report')); ?>">NEW PROGRAM</a>
-                        </li>
-                    <?php } ?>
                 </ul>
                 <a href="<?= esc(base_url('/login/logout')); ?>" class="ms-auto logout-fa">
                     <span class="pe-2">LOGOUT</span><i class="fa-solid fa-right-from-bracket"></i>

@@ -99,14 +99,14 @@ class Scan_summary extends BaseController
             $displayInputDate = "202501";
         }
 
-         // Ensure $periode is in 'YYYYMM' format and convert it to 'YYYY-MM-01'
-         $periodeFormatted = substr($displayInputDate, 0, 4) . '-' . substr($displayInputDate, 4, 2) . '-01';
+        // Ensure $periode is in 'YYYYMM' format and convert it to 'YYYY-MM-01'
+        $periodeFormatted = substr($displayInputDate, 0, 4) . '-' . substr($displayInputDate, 4, 2) . '-01';
 
-         $startDate = date('Y-m-01 00:00:00', strtotime($periodeFormatted));
-         $endDate = date('Y-m-t 23:59:59', strtotime($periodeFormatted));
+        $startDate = date('Y-m-01 00:00:00', strtotime($periodeFormatted));
+        $endDate = date('Y-m-t 23:59:59', strtotime($periodeFormatted));
 
-         $resumeScan = $scan_model->getScanSummaryCompareRealTimeAdmin($displayInputDate,$startDate,$endDate);
-
+        $resumeScan = $scan_model->getScanSummaryCompareRealTimeAdmin($displayInputDate,$startDate,$endDate);
+       
         $data = [
             'maxUpdateDate' => $maxUpdateDate,
             'displayInputDate' => $displayInputDate,
@@ -165,7 +165,7 @@ class Scan_summary extends BaseController
             
             $endDate = date('Y-m-t 23:59:59', strtotime($periodeFormatted));
 
-            $resumeScan = $scan_model->getScanSummaryCompareRealTimeAdminNp($periode,$startDate,$endDate);
+            $resumeScan = $scan_model->getScanSummaryCompareRealTimeAdmin($periode,$startDate,$endDate);
 
             if (empty($resumeScan)) {
                 return $this->response->setJSON([
