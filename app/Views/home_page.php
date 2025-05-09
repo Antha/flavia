@@ -4,10 +4,19 @@
 
 <?php $this->section('content') ?>
 
+<style>
+    .modal-backdrop.show{
+        display:none !important;
+    }
+
+    #box_up_stock, #box_pen_perdana{
+        cursor: pointer !important;
+    }
+</style>
+
 <div class="modal" id="modal" style="display: none;"> 
     <div class="modal-content">
         <div class="modal-content-scroll">
-
             <p class="mt-2 mb-2 fw-bold text-center" style="font-size:18px;color:#fc4b66">Mohon Update dan Lengkapi Data Anda Terlebih Dahulu</p>
             <?php if(session()->has('error_image')): ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -64,12 +73,40 @@
     </div>
 </div>
 
+<div class="modal" id="modaljateng" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000;">
+    <div class="modal-content" style="background: white; padding: 20px; border-radius: 8px; position: relative; width: 90%;">
+        <!-- Tombol Close -->
+        <button id="closeModalJateng" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
+        <h2 class="modaljateng_title text-center"></h2>
+        <div class="modal-content-scroll" style="overflow:hidden">
+            <div class="container point-display-home mt-md-4 mb-md-5 mt-3 mb-4">
+                <div class="row justify-content-center">
+                    <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5">
+                        <div class="menu-item-wrapper">
+                            <span class="position-absolute menu-item-fa1 mx-auto"><i class="fa-solid fa-qrcode"></i></span>
+                            <span class="w-100 d-block menu-item-text1 mt-4">SCAN</span>
+                            <span class="w-100 d-block menu-item-text1">BYU</span>
+                            <span class="w-100 d-block mt-3 mb-3 menu-item-text2"><?= esc(number_format($resultDataByu)); ?></span>
+                        </div>
+                    </div>
+                    <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5">
+                        <div class="menu-item-wrapper">
+                            <span class="position-absolute menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
+                            <span class="w-100 d-block menu-item-text1 mt-4">SCAN</span>
+                            <span class="w-100 d-block menu-item-text1">PERDANA</span>
+                            <span class="w-100 d-block mt-3 mb-3 menu-item-text2"><?= esc(number_format($resultDataPerdana)); ?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <body class="body-grey">
     <?= $this->include('/includes/loading_spinner'); ?>
-
     <div id="content">
         <?= $this->include('/includes/include_top_navbar'); ?>
-
         <div class="home-content mt-md-5 mb-md-5 pt-md-3 mt-4 mb-4 pt-2">
             <div class="container greeting-wrapper">
                 <div class="greeting mb-4 text-end">
@@ -157,6 +194,27 @@
                 </div>
             </div>
         </div>
+
+        <div class="container point-display-home mt-md-4 mb-md-5 mt-3 mb-4">
+            <div class="row justify-content-center">
+                <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5" id="box_pen_perdana">
+                    <div class="menu-item-wrapper">
+                        <span class="position-absolute menu-item-fa1 mx-auto"><i class="fa-solid fa-qrcode"></i></span>
+                        <span class="w-100 d-block menu-item-text1 mt-4">PENJUALAN</span>
+                        <span class="w-100 d-block menu-item-text1">PERDANA</span>
+                        <span class="w-100 d-block mt-3 mb-3 menu-item-text2"><?= esc(number_format($resultDataByu)); ?></span>
+                    </div>
+                </div>
+                <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5" id="box_up_stock">
+                    <div class="menu-item-wrapper">
+                        <span class="position-absolute menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
+                        <span class="w-100 d-block menu-item-text1 mt-4">UPDATE</span>
+                        <span class="w-100 d-block menu-item-text1">STOCK</span>
+                        <span class="w-100 d-block mt-3 mb-3 menu-item-text2"><?= esc(number_format($resultDataPerdana)); ?></span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <?= $this->include('/includes/include_footer'); ?>
     </div>
 </body>
@@ -238,17 +296,33 @@
         e.preventDefault();
     });
 
-    document.onkeydown = function(e) {
-         if (e.keyCode == 123) { // F12
-             return false;
-         } else if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
-             return false;
-         } else if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
-             return false;
-         }
-    };
+    // document.onkeydown = function(e) {
+    //      if (e.keyCode == 123) { // F12
+    //          return false;
+    //      } else if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+    //          return false;
+    //      } else if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
+    //          return false;
+    //      }
+    // };
 
+    $("#box_up_stock,#box_pen_perdana").click(function(){
+        $("#modaljateng").show();
 
+        switch (this.id) {
+            case "box_up_stock":
+                $(".modaljateng_title").html("Update Stock")
+                break;
+        
+            case "box_pen_perdana":
+                $(".modaljateng_title").html("Penjualan Perdana")
+                break;
+        }
+    })
+
+    $("#closeModalJateng").click(function () {
+        $("#modaljateng").hide();
+    });
 </script>
 
 <?php $this->endSection() ?>
