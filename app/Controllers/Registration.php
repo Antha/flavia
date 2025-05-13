@@ -45,13 +45,7 @@ class Registration extends BaseController
             'email' => 'required|valid_email|is_unique[users.email]',
             'outlet_name' => 'required',
             'digipos_id' => 'required',
-            'link_aja' => 'required',
-            'imageData' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Anda Harus Photo Dulu!'
-                ]
-            ]
+            'link_aja' => 'required'
         ];
 
         if (!$this->validate($rules)) {
@@ -62,13 +56,12 @@ class Registration extends BaseController
         $userModel = new UserModel();
         $token = bin2hex(random_bytes(32)); // Generate token unik
 
-        $idcard = $this->saveBase64Image($this->request->getPost("imageData"), "./uploads/idcard");
+        //$idcard = $this->saveBase64Image($this->request->getPost("imageData"), "./uploads/idcard");
 
         //$idcard = 0;
-
-        if( $idcard === false || $idcard == 0){
-            return redirect()->to('/registration')->withInput()->with('error_image', 'Gagal mengupload gambar, silakan coba lagi.');
-        }
+        // if( $idcard === false || $idcard == 0){
+        //     return redirect()->to('/registration')->withInput()->with('error_image', 'Gagal mengupload gambar, silakan coba lagi.');
+        // }
 
         $data = [
             'fl_name' => $this->request->getPost('fl_name'),
@@ -78,7 +71,7 @@ class Registration extends BaseController
             'outlet_name' => $this->request->getPost('outlet_name'),
             'digipos_id' => $this->request->getPost('digipos_id'),
             'level' => 'user',
-            'idcard' => $idcard,
+            'idcard' => "",
             'token' => $token,
             'link_aja' => "62".$this->request->getPost('link_aja'),
             'status' => 0 // Belum aktif
