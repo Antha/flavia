@@ -274,7 +274,7 @@ class ScanHistoriesModel extends Model
                         JOIN {$subqueryB} B ON A.user_id = B.user_id)";
 
         // Subquery C: Sellout Barcode
-        $subqueryC = "(SELECT CONCAT('62', SUBSTRING(msisdn, 2)) AS msisdn, id_outlet 
+        $subqueryC = "(SELECT msisdn, id_outlet,package_type 
                     FROM {$tableName})";
 
         // Query Final
