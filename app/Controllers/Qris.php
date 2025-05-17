@@ -3,15 +3,21 @@
 namespace App\Controllers;
 
 use App\Models\ScanHistoriesModel;
+use App\Models\ScanHistoriesJatengModel;
+use App\Models\UpdateStocksJatengModel;
 
 class Qris extends BaseController
 {
     protected $scanHistoriesModel;
+    protected $scanHistoriesJatengModel;
+    protected $updateStocksJatengModel;
     protected $session_user;
 
     public function __construct()
     {
         $this->scanHistoriesModel = new ScanHistoriesModel();
+        $this->scanHistoriesJatengModel = new ScanHistoriesJatengModel();
+        $this->updateStocksJatengModel = new UpdateStocksJatengModel();
         $this->session_user = session();
     }
 
@@ -74,6 +80,16 @@ class Qris extends BaseController
         try {
             $msisdn = $this->request->getPost('msisdn');
             $cardType = $this->request->getPost('cardType');
+            $action = $this->request->getPost('action');
+            $themodel =  $this->scanHistoriesModel;
+
+            if( $this->session_user->get("region") && $this->session_user->get("region") == "JATENG-DIY"){
+                if(!is_null($action) && $action == "update_stock"){
+                    $themodel = $this->updateStocksJatengModel;
+                }else{
+                    $themodel = $this->scanHistoriesJatengModel;
+                }
+            }
 
             // Validasi jika msisdn kosong
             if (empty($msisdn)) {
@@ -83,22 +99,36 @@ class Qris extends BaseController
                 ])->setStatusCode(400);
             }
 
-            $data = $this->scanHistoriesModel->getOneByMsisdn($msisdn);
+            $data = $themodel->getOneByMsisdn($msisdn);
 
             if (!empty($data)) {
                 return $this->response->setJSON(['error'=>'Msisdn berikut sudah ada: ' . $msisdn])
                     ->setStatusCode(400);;
             }
 
-            $this->scanHistoriesModel->insert([
-                "card_type" => $cardType,
-                "msisdn" => $msisdn,
-                "status" => "valid",
-                "user_id" => $this->session_user->get("user_id"),
-                //"fl_name" => $this->session_user->get("fl_name"),
-                //"digipos_id" => $this->session_user->get("digipos_id"),
-                //"outlet_name" => $this->session_user->get("outlet_name")
-            ]);
+            if(!is_null($action) && $action == "update_stock"){
+                $themodel->insert([
+                    "id_outlet" => $this->session_user->get("digipos_id"),
+                    "nama_outlet" => $this->session_user->get("outlet_name"),
+                    "city" => $this->session_user->get("city"),
+                    "cluster" => $this->session_user->get("cluster"),
+                    "branch" => $this->session_user->get("branch"),
+                    "regional" => $this->session_user->get("region"),
+                    "msisdn" => $msisdn,
+                    "card_type" => $cardType
+                ]);
+            }
+            else{
+                $themodel->insert([
+                    "card_type" => $cardType,
+                    "msisdn" => $msisdn,
+                    "status" => "valid",
+                    "user_id" => $this->session_user->get("user_id"),
+                    //"fl_name" => $this->session_user->get("fl_name"),
+                    //"digipos_id" => $this->session_user->get("digipos_id"),
+                    //"outlet_name" => $this->session_user->get("outlet_name")
+                ]);
+            }
 
             return $this->response->setJSON([
                 "status" => "success",

@@ -82,20 +82,24 @@
             <div class="container point-display-home mt-md-4 mb-md-5 mt-3 mb-4">
                 <div class="row justify-content-center">
                     <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5">
-                        <div class="menu-item-wrapper">
-                            <span class="position-absolute menu-item-fa1 mx-auto"><i class="fa-solid fa-qrcode"></i></span>
-                            <span class="w-100 d-block menu-item-text1 mt-4">SCAN</span>
-                            <span class="w-100 d-block menu-item-text1">BYU</span>
-                            <span class="w-100 d-block mt-3 mb-3 menu-item-text2"><?= esc(number_format($resultDataByu)); ?></span>
-                        </div>
+                        <a id="linkQris_u" href="">
+                            <div class="menu-item-wrapper">
+                                <span class="position-absolute menu-item-fa1 mx-auto"><i class="fa-solid fa-qrcode"></i></span>
+                                <span class="w-100 d-block menu-item-text1 mt-4">SCAN</span>
+                                <span class="w-100 d-block menu-item-text1">BYU</span>
+                                <span class="w-100 d-block mt-3 mb-3 menu-item-text2"><?= esc(number_format($resultDataByu)); ?></span>
+                            </div>
+                        </a>
                     </div>
                     <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5">
-                        <div class="menu-item-wrapper">
-                            <span class="position-absolute menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
-                            <span class="w-100 d-block menu-item-text1 mt-4">SCAN</span>
-                            <span class="w-100 d-block menu-item-text1">PERDANA</span>
-                            <span class="w-100 d-block mt-3 mb-3 menu-item-text2"><?= esc(number_format($resultDataPerdana)); ?></span>
-                        </div>
+                        <a id="linkQris_p" href="">
+                            <div class="menu-item-wrapper">
+                                <span class="position-absolute menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
+                                <span class="w-100 d-block menu-item-text1 mt-4">SCAN</span>
+                                <span class="w-100 d-block menu-item-text1">PERDANA</span>
+                                <span class="w-100 d-block mt-3 mb-3 menu-item-text2"><?= esc(number_format($resultDataPerdana)); ?></span>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -135,7 +139,7 @@
                     </div>
                 </div>
             </div>
-
+            <?php if(session("region") != "JATENG-DIY") : ?>
             <div class="container point-display-home mt-md-4 mb-md-5 mt-3 mb-4">
                 <div class="row justify-content-center">
                     <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5">
@@ -194,7 +198,7 @@
                 </div>
             </div>
         </div>
-
+        <?php else : ?>
         <div class="container point-display-home mt-md-4 mb-md-5 mt-3 mb-4">
             <div class="row justify-content-center">
                 <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5" id="box_pen_perdana">
@@ -215,6 +219,7 @@
                 </div>
             </div>
         </div>
+        <?php endif;?>
         <?= $this->include('/includes/include_footer'); ?>
     </div>
 </body>
@@ -312,10 +317,14 @@
         switch (this.id) {
             case "box_up_stock":
                 $(".modaljateng_title").html("Update Stock")
+                $("#linkQris_u").attr('href', '/qris?card_type=byU&&action=update_stock');
+                $("#linkQris_p").attr('href', '/qris?card_type=byU&&action=update_stock');
                 break;
         
             case "box_pen_perdana":
                 $(".modaljateng_title").html("Penjualan Perdana")
+                $("#linkQris_u").attr('href', '/qris?card_type=byU');
+                $("#linkQris_p").attr('href', '/qris?card_type=perdana');
                 break;
         }
     })

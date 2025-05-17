@@ -4,6 +4,7 @@ namespace App\Controllers;
 !defined('BASEPATH') OR exit('No direct script access aloowed');
 
 use App\Controllers\BaseController;
+use App\Models\OutletModel;
 use App\Models\UserModel;
 use App\Models\UserHistoriesModel;
 
@@ -12,12 +13,14 @@ helper('form');
 class Login extends BaseController
 {
     protected $user_model;
+    protected $outlet_model;
     protected $userHistoriesModel;
     protected $session_user;
 
     public function __construct()
     {
         $this->user_model = new UserModel();
+        $this->outlet_model = new OutletModel();
         $this->userHistoriesModel = new UserHistoriesModel();
         $this->session_user = session();
     } 
@@ -96,6 +99,23 @@ class Login extends BaseController
                 'isLoggedIn' => true,
             ]);
 
+            $outlet_get = $this->outlet_model
+            ->where('id_outlet', strtolower($isUserExists["digipos_id"]))
+            ->first();
+        
+            if ($outlet_get) {
+                $this->session_user->set('region', $outlet_get['Regional']);
+                $this->session_user->set('branch', $outlet_get['Branch']);
+                $this->session_user->set('cluster', $outlet_get['Cluster']);
+                $this->session_user->set('city', $outlet_get['Kabupaten']);
+            } else {
+                $this->write_custom_log('DEALER_CODE not found in outlet_get');
+            }
+
+            $this->write_custom_log("username :".$this->session_user->get("username"));
+            $this->write_custom_log("region :".$this->session_user->get("region"));
+
+
             // Insert ke log history
             $this->userHistoriesModel->insert([
                 "id_user" => $isUserExists['id']
@@ -108,5 +128,14 @@ class Login extends BaseController
     public function logout(){
         $this->session_user->destroy();
         return redirect()->to(base_url('/login'));
+    }
+
+    function write_custom_log($message, $filename = 'custom-log.txt')
+    {
+        $filePath = WRITEPATH . 'logs/' . $filename;
+        $time = date('Y-m-d H:i:s');
+        $log = "[{$time}] {$message}" . PHP_EOL;
+
+        file_put_contents($filePath, $log, FILE_APPEND);
     }
 }

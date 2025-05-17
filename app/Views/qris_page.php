@@ -172,11 +172,12 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const cardType = urlParams.get('card_type');
+        const action = urlParams.get('action');
 
         $.ajax({
             url: '/qris/insert', // Ganti dengan URL API Anda
             method: 'POST',
-            data: { msisdn:phoneNumber, cardType},
+            data: { msisdn:phoneNumber, cardType, action},
             beforeSend : function(){
                 Swal.fire({
                     title: 'Please wait...',
