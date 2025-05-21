@@ -134,6 +134,51 @@ class ScanHistoriesModel extends Model
     (SELECT msisdn,package_type FROM `renewal_so_202504`)B
     ON A.msisdn = B.msisdn*/
 
+    //get data all flavia
+    /*SELECT DISTINCT user_id,fl_name,outlet_name,digipos_id,AB.msisdn,scan_time,card_type,package_type
+        FROM
+        (SELECT A.id user_id,fl_name,outlet_name,digipos_id,msisdn,scan_time,card_type
+        FROM
+        (SELECT id,fl_name,outlet_name,digipos_id
+        FROM users)A
+        RIGHT JOIN
+        (SELECT user_id,msisdn,card_type,`datetime` scan_time 
+        FROM `scan_histories`
+        WHERE (`datetime` >= '2025-05-01 00:00:00' AND `datetime` <= '2025-05-31 23:59:59'))B
+        ON A.id = B.user_id)AB
+        LEFT JOIN
+        (SELECT CONCAT('62', SUBSTRING(msisdn, 2))msisdn,id_outlet,package_type FROM `sellout_barcode_202505`)C
+        ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet*/
+
+    //new get all data
+    /*
+        SELECT 
+            AB.user_id, 
+            AB.fl_name, 
+            AB.outlet_name, 
+            AB.digipos_id,
+            AB.msisdn,
+            AB.card_type,
+            C.package_type
+        FROM (
+            SELECT 
+                U.id AS user_id, 
+                U.fl_name, 
+                U.outlet_name, 
+                U.digipos_id, 
+                SH.msisdn, 
+                SH.card_type
+            FROM users U
+            INNER JOIN scan_histories SH 
+                ON U.id = SH.user_id
+            WHERE SH.datetime >= '2025-05-01 00:00:00' AND SH.datetime <= '2025-05-31 23:59:59'
+        ) AS AB
+
+        INNER JOIN sellout_barcode_202505 C 
+            ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet
+    */
+
+
     function getScanSummaryCompareRealTimeAdmin($periode,$startDate,$endDate){
         $db = \Config\Database::connect();
 
