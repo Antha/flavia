@@ -30,8 +30,9 @@
                             REPORT
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item <?= ($uri->getSegment(1) == 'report') ? 'active' : ''; ?>" href="<?= esc(base_url('/report')); ?>">FLAVIA BALI TENGAH</a>
+                            <a class="dropdown-item <?= ($uri->getSegment(1) == 'report') ? 'active' : ''; ?>" href="<?= esc(base_url('/report')); ?>">SCAN RESULT</a>
                             <?php if(session()->get('user_level') == 'admin'){ ?>
+                                <a class="dropdown-item <?= ($uri->getSegment(1) == 'report') ? 'active' : ''; ?>" href="<?= esc(base_url('/report')); ?>">FLAVIA BALI TENGAH</a>
                                 <a class="dropdown-item <a class="nav-link <?= ($uri->getSegment(1) == 'report_np') ? 'active' : ''; ?>" href="<?= esc(base_url('/report_np/admin_report')); ?>">FLAVIA NEW PROGRAM</a>
                             <?php } ?>
                         </div>
