@@ -201,7 +201,7 @@
         <?php else : ?>
         <div class="container point-display-home mt-md-4 mb-md-5 mt-3 mb-4">
             <div class="row justify-content-center">
-                <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5" id="box_pen_perdana">
+                <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5" id="box_pen_perdana" data-region="<?= esc(session()->get('region')) ?>" data-level="<?= esc(session()->get('user_level')) ?>">
                     <div class="menu-item-wrapper">
                         <span class="position-absolute menu-item-fa1 mx-auto"><i class="fa-solid fa-qrcode"></i></span>
                         <span class="w-100 d-block menu-item-text1 mt-4">PENJUALAN</span>
@@ -209,7 +209,7 @@
                         <span class="w-100 d-block mt-3 mb-3 menu-item-text2"><?= esc(number_format($resultDataByu)); ?></span>
                     </div>
                 </div>
-                <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5" id="box_up_stock">
+                <div class="col-3 text-center position-relative menu-item ps-1 pe-1 ps-md-5 pe-md-5" id="box_up_stock" data-level="<?= esc(session()->get('user_level')) ?>">
                     <div class="menu-item-wrapper">
                         <span class="position-absolute menu-item-fa1"><i class="fa-solid fa-qrcode"></i></span>
                         <span class="w-100 d-block menu-item-text1 mt-4">UPDATE</span>
@@ -312,20 +312,32 @@
     // };
 
     $("#box_up_stock,#box_pen_perdana").click(function(){
-        $("#modaljateng").show();
-
-        switch (this.id) {
-            case "box_up_stock":
-                $(".modaljateng_title").html("Update Stock")
-                $("#linkQris_u").attr('href', '/qris?card_type=byU&&action=update_stock');
-                $("#linkQris_p").attr('href', '/qris?card_type=byU&&action=update_stock');
+        if($(this).data("level") == "admin"){
+            switch (this.id) {
+                case "box_up_stock":
+                    window.location.href = "/report/admin_report?act=update-stock"
                 break;
-        
-            case "box_pen_perdana":
-                $(".modaljateng_title").html("Penjualan Perdana")
-                $("#linkQris_u").attr('href', '/qris?card_type=byU');
-                $("#linkQris_p").attr('href', '/qris?card_type=perdana');
+            
+                case "box_pen_perdana":
+                    window.location.href = "/report/admin_report?act=perdana"
                 break;
+            }
+        }else{
+            $("#modaljateng").show();
+            console.log("region :"+$(this).data("region"));
+            switch (this.id) {
+                case "box_up_stock":
+                    $(".modaljateng_title").html("Update Stock")
+                    $("#linkQris_u").attr('href', '/qris?card_type=byU&&action=update_stock');
+                    $("#linkQris_p").attr('href', '/qris?card_type=byU&&action=update_stock');
+                break;
+            
+                case "box_pen_perdana":
+                    $(".modaljateng_title").html("Penjualan Perdana")
+                    $("#linkQris_u").attr('href', '/qris?card_type=byU');
+                    $("#linkQris_p").attr('href', '/qris?card_type=perdana');
+                break;
+            }
         }
     })
 

@@ -99,6 +99,8 @@ class Login extends BaseController
                 'isLoggedIn' => true,
             ]);
 
+            //$this->write_custom_log("level of user : ". $isUserExists["level"]);
+
             $outlet_get = $this->outlet_model
             ->where('id_outlet', strtolower($isUserExists["digipos_id"]))
             ->first();
@@ -109,13 +111,9 @@ class Login extends BaseController
                 $this->session_user->set('cluster', $outlet_get['Cluster']);
                 $this->session_user->set('city', $outlet_get['Kabupaten']);
             } else {
-                $this->write_custom_log('DEALER_CODE not found in outlet_get');
+                //$this->write_custom_log('DEALER_CODE not found in outlet_get');
             }
-
-            $this->write_custom_log("username :".$this->session_user->get("username"));
-            $this->write_custom_log("region :".$this->session_user->get("region"));
-
-
+            
             // Insert ke log history
             $this->userHistoriesModel->insert([
                 "id_user" => $isUserExists['id']
@@ -130,12 +128,12 @@ class Login extends BaseController
         return redirect()->to(base_url('/login'));
     }
 
-    function write_custom_log($message, $filename = 'custom-log.txt')
-    {
-        $filePath = WRITEPATH . 'logs/' . $filename;
-        $time = date('Y-m-d H:i:s');
-        $log = "[{$time}] {$message}" . PHP_EOL;
+    // function write_custom_log($message, $filename = 'custom-log.txt')
+    // {
+    //     $filePath = WRITEPATH . 'logs/' . $filename;
+    //     $time = date('Y-m-d H:i:s');
+    //     $log = "[{$time}] {$message}" . PHP_EOL;
 
-        file_put_contents($filePath, $log, FILE_APPEND);
-    }
+    //     file_put_contents($filePath, $log, FILE_APPEND);
+    // }
 }

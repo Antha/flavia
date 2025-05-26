@@ -71,7 +71,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <span style="font-weight: bold;font-style: italic">Data cluster Bali Tengah</span>
+                        <span style="font-weight: bold;font-style: italic">
+                            Data cluster <?= esc(session()->get("region") ?? 'Bali Tengah') ?>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -146,11 +148,14 @@
                     $("#exportCsv").prop("disabled", false);
                     return;
                 }
-
+                
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                const action = urlParams.get('act');
                 $.ajax({
                     url: "<?= base_url('/report/admin_report') ?>", // Sesuaikan dengan URL controller
                     type: "POST",
-                    data: { periode_data: periode }, // Kirim periode ke server
+                    data: { periode_data: periode, action }, // Kirim periode ke server
                     dataType: "json",
                     success: function(response) {
                         $("#dataTable_body_filter").html();

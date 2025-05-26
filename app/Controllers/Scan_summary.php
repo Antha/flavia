@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Controllers;
+
+use App\Models\ScanHistoriesJatengModel;
 use App\Models\ScanHistoriesModel;
+use App\Models\UpdateStocksJatengModel;
 use DateTime;
 
 use function PHPUnit\Framework\isNull;
@@ -33,8 +36,22 @@ class Scan_summary extends BaseController
         }
 
         $scan_model = new ScanHistoriesModel();
+
         // Jika request berasal dari AJAX
         if ($this->request->isAJAX()) {
+            if($this->session_user->get("region") && $this->session_user->get("region") == "JATENG-DIY"){
+                if($this->request->getPost('action') == "perdana"){
+                    $scan_model = new ScanHistoriesJatengModel();
+                }
+    
+                if($this->request->getPost('action') == "update-stock"){
+                    $scan_model = new UpdateStocksJatengModel();
+                    //$this->write_custom_log("Jateng Update Stock");
+                }
+            }else{
+                $scan_model = new ScanHistoriesModel();
+            }
+
             // Jika request bukan AJAX, tampilkan halaman normal
             $maxUpdateDateFull = $scan_model->getMaxUpdateDateFull();
             
@@ -68,7 +85,7 @@ class Scan_summary extends BaseController
 
             $startDate = date('Y-m-01 00:00:00', strtotime($periodeFormatted));
             $endDate = date('Y-m-t 23:59:59', strtotime($periodeFormatted));
-
+            
             $resumeScan = $scan_model->getScanSummaryCompareRealTimeAdmin($periode,$startDate,$endDate);
 
             if (empty($resumeScan)) {
@@ -77,8 +94,9 @@ class Scan_summary extends BaseController
                     'error' => 'No data found',
                     'data'    => []
                 ]);
+                //$this->write_custom_log("kosong");
             }
-
+            
             // Kirim response dalam format JSON
             return $this->response->setJSON([
                 'maxUpdateDate' => $maxUpdateDate,
@@ -251,13 +269,15 @@ class Scan_summary extends BaseController
             $varMaxDate = DateTime::createFromFormat('Ym', $periode)->format('Y-m-');
             $displayInputDate = $periode;
             $resumeScan = $scan_model->getScanSummaryCompareAdmin($varMaxDate);
-
-            if (empty($resumeScan)) {
-                return $this->response->setJSON([
-                    'status'  => 'error',
-                    'error' => 'No data found',
-                    'data'    => []
-                ]);
+            
+            if(!$this->session_user->get("region") || !$this->session_user->get("region") == "JATENG-DIY"){
+                if (empty($resumeScan)) {
+                    return $this->response->setJSON([
+                        'status'  => 'error',
+                        'error' => 'No data found',
+                        'data'    => []
+                    ]);
+                }
             }
 
             // Kirim response dalam format JSON
@@ -470,6 +490,4 @@ class Scan_summary extends BaseController
 
         return view('scan_summary_user_page', $data);
     }
-
-
 }

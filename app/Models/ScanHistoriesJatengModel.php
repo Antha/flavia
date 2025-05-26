@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class ScanHistoriesJatengModel extends Model
 {
-    protected $table = 'scan_histories_jateng';
+    protected $table = 'scan_histories_jateng_jateng';
     protected $primaryKey = 'id';
     protected $allowedFields = ['fl_name','digipos_id','outlet_name','datetime', 'msisdn', 'status','user_id','card_type'];
     
@@ -18,7 +18,7 @@ class ScanHistoriesJatengModel extends Model
     function isTableExists($periode){
         $db = \Config\Database::connect();
 
-        if ($db->tableExists('sellout_barcode_'.$periode)) {
+        if ($db->tableExists('sellout_barcode_jateng_'.$periode)) {
             $result = "1";
         } else {
             $result = "0";
@@ -29,13 +29,13 @@ class ScanHistoriesJatengModel extends Model
 
     function getMaxUpdateDateFull(){
         $db = \Config\Database::connect();
-        $builder = $db->table('scan_histories');
+        $builder = $db->table('scan_histories_jateng');
         return $builder->selectMax('datetime','update_date')->get()->getResultArray();
     }
 
     function getMaxUpdateDateFullUser($user_id){
         $db = \Config\Database::connect();
-        $builder = $db->table('scan_histories');
+        $builder = $db->table('scan_histories_jateng');
 
        $builder->select("COALESCE(MAX(datetime), '2025-01-01') AS update_date", false)
         ->where('user_id', $user_id);
@@ -58,7 +58,7 @@ class ScanHistoriesJatengModel extends Model
         $builder = $db->table('INFORMATION_SCHEMA.TABLES')
             ->selectMax('TABLE_NAME')
             ->where('TABLE_SCHEMA', $targetDatabase) // Filter berdasarkan database
-            ->like('TABLE_NAME', 'sellout_barcode_%', 'after'); // Filter tabel yang diawali 'sellout_barcode_'
+            ->like('TABLE_NAME', 'sellout_barcode_jateng_%', 'after'); // Filter tabel yang diawali 'sellout_barcode_jateng_'
 
         $query = $builder->get();
         $results = $query->getRowArray(); // Mengambil hasil sebagai array
@@ -69,7 +69,7 @@ class ScanHistoriesJatengModel extends Model
     function getScanTotalOnly($user_id,$startDate,$endDate){
         $db = \Config\Database::connect();
 
-        $builder = $db->table('scan_histories')
+        $builder = $db->table('scan_histories_jateng')
             ->select('user_id')
             ->select("COALESCE(COUNT(DISTINCT IF(card_type = 'byu', msisdn, NULL)), 0) AS total_byu", false)
             ->select("COALESCE(COUNT(DISTINCT IF(card_type = 'perdana', msisdn, NULL)), 0) AS total_perdana", false)
@@ -100,11 +100,11 @@ class ScanHistoriesJatengModel extends Model
         FROM users)A
         JOIN
         (SELECT user_id,msisdn,card_type 
-        FROM `scan_histories`
+        FROM `scan_histories_jateng`
         WHERE (`datetime` >= '2025-02-01 00:00:00' AND `datetime` <= '2025-02-28 23:59:59'))B
         ON A.id = B.user_id)AB
         JOIN
-        (SELECT CONCAT('62', SUBSTRING(msisdn, 2))msisdn,id_outlet FROM `sellout_barcode_202502`)C
+        (SELECT CONCAT('62', SUBSTRING(msisdn, 2))msisdn,id_outlet FROM `sellout_barcode_jateng_202502`)C
         ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet
         GROUP BY user_id,fl_name,outlet_name,digipos_id
         */
@@ -115,13 +115,13 @@ class ScanHistoriesJatengModel extends Model
     
         $query = $builder->get();
         $result = $query->getResultArray(); // Fetch as an array
-
+       
         return $result;
     }
 
     //query source sellour barcode new
     //SO BARCODE
-    //SELECT * FROM SELLOUT_BARCODE_202504 WHERE star_status = 'PAYLOAD' AND regional LIKE 'BALI%'
+    //SELECT * FROM sellout_barcode_jateng_202504 WHERE star_status = 'PAYLOAD' AND regional LIKE 'BALI%'
 
     //RENEWAL SO
     //SELECT * FROM `RENEWAL_SO_202504` WHERE regional = 'BALINUSRA'
@@ -129,7 +129,7 @@ class ScanHistoriesJatengModel extends Model
     /*SELECT `area`,regional,cluster,kabupaten,kecamatan,id_outlet,A.msisdn msisdn, B.msisdn renewal_msisdn, package_type
     FROM
     (SELECT CONCAT('62', SUBSTRING(msisdn, 2)) AS msisdn, id_outlet,`area`,regional,cluster,kabupaten,kecamatan
-    FROM `sellout_barcode_raw`)A
+    FROM `sellout_barcode_jateng_raw`)A
     LEFT JOIN
     (SELECT msisdn,package_type FROM `renewal_so_202504`)B
     ON A.msisdn = B.msisdn*/
@@ -137,7 +137,7 @@ class ScanHistoriesJatengModel extends Model
     function getScanSummaryCompareRealTimeAdmin($periode,$startDate,$endDate){
         $db = \Config\Database::connect();
 
-        $tableName = "sellout_barcode_".$periode; // Adjust dynamically if needed
+        $tableName = "sellout_barcode_jateng_".$periode; // Adjust dynamically if needed
         //$tableName_rn = "renewal_so_".$periode;
 
         // Subquery A: Users
@@ -145,7 +145,7 @@ class ScanHistoriesJatengModel extends Model
                         ->select('id AS user_id, fl_name, outlet_name, digipos_id');
 
         // Subquery B: Scan Histories (filtered by date)
-        $subqueryB = $db->table('scan_histories')
+        $subqueryB = $db->table('scan_histories_jateng')
             ->select('user_id, msisdn, card_type')
             ->where("datetime >=", $startDate)
             ->where("datetime <=", $endDate);
@@ -177,25 +177,24 @@ class ScanHistoriesJatengModel extends Model
                     ->select("COUNT(CASE WHEN package_type = 'others' THEN AB.msisdn END) AS so_others", false)
                     ->select("COUNT(CASE WHEN package_type = 'voucher physical' THEN AB.msisdn END) AS so_vf", false)
                     ->select("COUNT(CASE WHEN package_type IS NOT NULL THEN AB.msisdn END) AS so_pt_total", false)
-
                     ->groupBy('AB.user_id, AB.fl_name, AB.outlet_name, AB.digipos_id')
                     ->orderBy('so_total_valid', 'DESC'); // ORDER BY so_total DESC
 
         $result = $query->get()->getResultArray();
-
+        $this->write_custom_log($db->getLastQuery());
         return $result;
     }
 
     function getScanSummaryCompareRealTimeAdminNp($periode,$startDate,$endDate){
         $db = \Config\Database::connect();
-        $tableName = "sellout_barcode_".$periode; // Adjust dynamically if needed
+        $tableName = "sellout_barcode_jateng_".$periode; // Adjust dynamically if needed
         $tableName_rn = "renewal_so_".$periode;
         // Subquery A: Users
         $subqueryA = $db->table('users')
                         ->select('id AS user_id, fl_name, outlet_name, digipos_id');
 
         // Subquery B: Scan Histories (filtered by date)
-        $subqueryB = $db->table('scan_histories')
+        $subqueryB = $db->table('scan_histories_jateng')
             ->select('user_id, msisdn, card_type')
             ->where("datetime >=", $startDate)
             ->where("datetime <=", $endDate);
@@ -256,14 +255,14 @@ class ScanHistoriesJatengModel extends Model
 
     function getScanSummaryCompareRealTimeUser($periode,$user_id,$startDate,$endDate){
         $db = \Config\Database::connect();
-        $tableName = 'sellout_barcode_'.$periode;
+        $tableName = 'sellout_barcode_jateng_'.$periode;
 
         // Subquery A: Users
         $subqueryA = "(SELECT id AS user_id, fl_name, outlet_name, digipos_id FROM users WHERE id = '{$user_id}')";
 
         // Subquery B: Scan Histories
         $subqueryB = "(SELECT user_id, msisdn, card_type 
-                    FROM scan_histories 
+                    FROM scan_histories_jateng 
                     WHERE datetime >= '{$startDate}' 
                     AND datetime <= '{$endDate}' 
                     AND user_id = '{$user_id}')";
@@ -289,5 +288,14 @@ class ScanHistoriesJatengModel extends Model
         // Eksekusi Query
         $query = $db->query($queryStr);
         return $query->getResultArray();
+    }
+
+    function write_custom_log($message, $filename = 'custom-log.txt')
+    {
+        $filePath = WRITEPATH . 'logs/' . $filename;
+        $time = date('Y-m-d H:i:s');
+        $log = "[{$time}] {$message}" . PHP_EOL;
+
+        file_put_contents($filePath, $log, FILE_APPEND);
     }
 }

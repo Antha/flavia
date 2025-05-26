@@ -111,6 +111,7 @@ class Qris extends BaseController
                     "id_outlet" => $this->session_user->get("digipos_id"),
                     "nama_outlet" => $this->session_user->get("outlet_name"),
                     "city" => $this->session_user->get("city"),
+                    "user_id" => $this->session_user->get("user_id"),
                     "cluster" => $this->session_user->get("cluster"),
                     "branch" => $this->session_user->get("branch"),
                     "regional" => $this->session_user->get("region"),
