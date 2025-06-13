@@ -12,9 +12,7 @@ class CheckSession implements FilterInterface
         // Check if session values are set and valid
         if (!session()->get("outlet_name") || 
             !session()->get("link_aja") || 
-            !session()->get("digipos_id") || 
-            !session()->get("idcard") || 
-            session()->get("idcard") == 0) {
+            !session()->get("digipos_id")) {
             return redirect()->to('/login');
         }
     }

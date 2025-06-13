@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class ScanHistoriesJatengModel extends Model
 {
-    protected $table = 'scan_histories_jateng_jateng';
+    protected $table = 'scan_histories_jateng';
     protected $primaryKey = 'id';
     protected $allowedFields = ['fl_name','digipos_id','outlet_name','datetime', 'msisdn', 'status','user_id','card_type'];
     

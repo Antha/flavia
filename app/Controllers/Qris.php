@@ -78,6 +78,37 @@ class Qris extends BaseController
 
     public function insertData(){
         try {
+            // Cek apakah session 'time_last_insert' sudah ada
+            if (!$this->session_user->get("time_last_insert")) {
+                // Jika belum ada, set waktu sekarang
+                $this->session_user->set("time_last_insert", time());
+                write_custom_log("time now first ".time());
+            } else {
+                // Jika sudah ada, hitung selisih waktu
+                $time_now = time();
+                $time_old = $this->session_user->get("time_last_insert");
+                $diff = $time_now - $time_old;
+                $time_to_wait = 10 - $diff;
+
+                write_custom_log("time old :". $this->session_user->get("time_last_insert"));
+                write_custom_log("time now :". time());
+                write_custom_log("diff :". $diff);
+                write_custom_log("time to wait :".$time_to_wait);
+
+                if($diff < 10){
+                    return $this->response->setJSON(['error'=>"Please wait for ".$time_to_wait." seconds again"])
+                    ->setStatusCode(400);;
+
+                    write_custom_log("Please wait for ".$time_to_wait." seconds again");
+                }else{
+                    $this->session_user->set("time_last_insert", time());
+                    write_custom_log("Sukses Insert");
+                }
+                
+                // Update waktu terakhir insert kalau mau
+                //$this->session_user->set("time_diff_insert", $diff);
+            }
+
             $msisdn = $this->request->getPost('msisdn');
             $cardType = $this->request->getPost('cardType');
             $action = $this->request->getPost('action');
@@ -93,10 +124,8 @@ class Qris extends BaseController
 
             // Validasi jika msisdn kosong
             if (empty($msisdn)) {
-                return $this->response->setJSON([
-                    "status" => "error",
-                    "message" => "MSISDN is required"
-                ])->setStatusCode(400);
+                return $this->response->setJSON(['error'=>"Msisdn Is Required"])
+                ->setStatusCode(400);;
             }
 
             $data = $themodel->getOneByMsisdn($msisdn);

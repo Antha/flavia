@@ -106,7 +106,7 @@ class Registration extends BaseController
             $userModel->update($user['id'], ['status' => 1, 'token' => null]);
             return redirect()->to('/login')->with('message', 'Account verified! You can now login.');
         } else {
-            return redirect()->to('/register')->with('error', 'Invalid token!');
+            return redirect()->to('/login')->with('error', 'Invalid token!');
         }
     }
 
@@ -138,13 +138,13 @@ class Registration extends BaseController
                     'not_space_only' => 'ID Digipos tidak boleh hanya berisi spasi!',
                     'min_length' => 'ID Digipos harus terdiri dari minimal 10 digit!'
                 ]
-            ],
+            ]/*,
             'imageData' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Anda Harus Photo Dulu!'
                 ]
-            ]
+            ]*/
         ];
 
         if (!$this->validate($rules)) {
@@ -154,11 +154,13 @@ class Registration extends BaseController
         
         $id = $this->request->getPost('id'); // Pastikan ID dikirim dari form
 
-        $idcard = $this->saveBase64Image($this->request->getPost("imageData"), "./uploads/idcard");
+        $idcard = 0;
+        
+        //$idcard = $this->saveBase64Image($this->request->getPost("imageData"), "./uploads/idcard");
 
-        if( $idcard === false || $idcard == 0){
-            return redirect()->to('/home')->withInput()->with('error_image', 'Gagal mengupload gambar, silakan coba lagi.');
-        }
+        // if( $idcard === false || $idcard == 0){
+        //     return redirect()->to('/home')->withInput()->with('error_image', 'Gagal mengupload gambar, silakan coba lagi.');
+        // }
 
         $data = [
             'outlet_name' => $this->request->getPost('outlet_name'),

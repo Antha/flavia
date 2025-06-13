@@ -54,7 +54,7 @@
                     <label style="color: #9ea9b2;" for="digipos_id">ID Digipos Outlet</label>
                     <input type="text" id="digipos_id" name="digipos_id"  value="<?php echo session()->get("digipos_id") ?>" required placeholder="minimal 10 digit">
                 </div>
-                <div class="form-group mt-4">
+                <!-- <div class="form-group mt-4">
                     <input type="hidden" name="imageData" id="imageData">
                     <h6 class="card-title" style="color: #9ea9b2;">Ambil Foto KTP</h6>
                     <div class="d-flex justify-content-center align-items-center">
@@ -64,7 +64,7 @@
                         <button id="capture" type="button" class="btn btn-primary submit_btn mt-2 mb-3 float-end" style="font-size: 12px;">Ambil Foto</button>
                     </div>
                     <canvas id="canvas" class="mt-3 border rounded" style="max-width: 100%; display: none;"></canvas>
-                </div>
+                </div> -->
                 <div class="col-12 d-inline-block text-center">
                     <button type="submit" class="btn btn-secondary btn-submit">Submit</button>
                 </div>
@@ -235,7 +235,7 @@
 
     const modal = document.getElementById("modal");
     
-    <?php if ((session()->get("user_level") != 'admin') && (!session()->get("outlet_name") || !session()->get("link_aja") || !session()->get("digipos_id") || !session()->get("idcard") || session()->get("idcard") == 0)): ?>
+    <?php if ((session()->get("user_level") != 'admin') && (!session()->get("outlet_name") || !session()->get("link_aja") || !session()->get("digipos_id") )): ?>
         modal.style.display = "flex";
     <?php endif?>
 
@@ -254,12 +254,12 @@
         }
     });
 
-    <?php if ((session()->get("user_level") != 'admin') && (!session()->get("outlet_name") || !session()->get("link_aja") || !session()->get("digipos_id") || !session()->get("idcard") || session()->get("idcard") == 0)): ?>
+    <?php if ((session()->get("user_level") != 'admin') && (!session()->get("outlet_name") || !session()->get("link_aja") || !session()->get("digipos_id") )): ?>
    
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const captureButton = document.getElementById('capture');
-    const imageDataInput = document.getElementById('imageData');
+    //const imageDataInput = document.getElementById('imageData');
 
     // Akses kamera
     navigator.mediaDevices.getUserMedia({ video:{ facingMode: "environment" }})
@@ -282,7 +282,7 @@
 
         // Ambil data gambar sebagai base64
         const imageData = canvas.toDataURL('image/png');
-        imageDataInput.value = imageData;
+        //imageDataInput.value = imageData;
         //saveButton.disabled = false;
 
         const scrollHeight = document.body.scrollHeight;
