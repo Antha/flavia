@@ -106,7 +106,7 @@ class Registration extends BaseController
             $userModel->update($user['id'], ['status' => 1, 'token' => null]);
             return redirect()->to('/login')->with('message', 'Account verified! You can now login.');
         } else {
-            return redirect()->to('/register')->with('error', 'Invalid token!');
+            return redirect()->to('/registration')->with('error', 'Invalid token!');
         }
     }
 

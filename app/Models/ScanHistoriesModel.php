@@ -126,12 +126,12 @@ class ScanHistoriesModel extends Model
     //RENEWAL SO
     //SELECT * FROM `RENEWAL_SO_202504` WHERE regional = 'BALINUSRA'
 
-    /*SELECT `area`,regional,cluster,kabupaten,kecamatan,id_outlet,A.msisdn msisdn, B.msisdn renewal_msisdn, package_type
+    /*SELECT `area`,regional,cluster,kabupaten,kecamatan,id_outlet,A.msisdn msisdn, B.msisdn renewal_msisdn, package_type,revenue
     FROM
     (SELECT CONCAT('62', SUBSTRING(msisdn, 2)) AS msisdn, id_outlet,`area`,regional,cluster,kabupaten,kecamatan
     FROM `sellout_barcode_raw`)A
     LEFT JOIN
-    (SELECT msisdn,package_type FROM `renewal_so_202504`)B
+    (SELECT msisdn,package_type,revenue FROM `renewal_so_202504`)B
     ON A.msisdn = B.msisdn*/
 
     //get data all flavia
@@ -159,7 +159,8 @@ class ScanHistoriesModel extends Model
             AB.digipos_id,
             AB.msisdn,
             AB.card_type,
-            C.package_type
+            C.package_type,
+            C.revenue
         FROM (
             SELECT 
                 U.id AS user_id, 
@@ -178,6 +179,77 @@ class ScanHistoriesModel extends Model
             ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet
     */
 
+    /*SELECT user_id, 
+    fl_name, 
+    outlet_name, 
+    digipos_id,
+    AX.msisdn,
+    card_type,
+    package_type,
+    `revenue`,
+    flag_nsr_mtd,
+    rev_nsr_mtd
+FROM 
+(SELECT 
+    AB.user_id, 
+    AB.fl_name, 
+    AB.outlet_name, 
+    AB.digipos_id,
+    AB.msisdn,
+    AB.card_type,
+    C.package_type,
+    C.`revenue`
+FROM (
+    SELECT 
+	U.id AS user_id, 
+	U.fl_name, 
+	U.outlet_name, 
+	U.digipos_id, 
+	SH.msisdn, 
+	SH.card_type
+    FROM users U
+    INNER JOIN scan_histories SH 
+	ON U.id = SH.user_id
+    WHERE SH.datetime >= '2025-05-01 00:00:00' AND SH.datetime <= '2025-05-31 23:59:59'
+) AS AB
+
+INNER JOIN sellout_barcode_202505 C 
+    ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet)AX
+    LEFT JOIN
+(SELECT msisdn,flag_nsr_mtd,rev_nsr_mtd FROM `nsr_merge_202505`)BX
+ON AX.msisdn = BX.msisdn */
+
+//scan history complete
+/*SELECT
+    AB.user_id, 
+    AB.fl_name, 
+    AB.outlet_name, 
+    AB.digipos_id,
+    AB.msisdn,
+    C.msisdn msisdn_so_barcode_compare,
+    AB.card_type,
+    C.package_type,
+    C.revenue,
+    CASE WHEN C.msisdn IS NULL THEN "Not Valid" ELSE "Valid" END status_valid,
+    AB.scan_date
+FROM (
+    SELECT 
+	U.id AS user_id, 
+	U.fl_name, 
+	U.outlet_name, 
+	U.digipos_id, 
+	SH.msisdn, 
+	SH.card_type,
+	SH.datetime scan_date
+    FROM users U
+    INNER JOIN scan_histories_jateng SH 
+	ON U.id = SH.user_id
+    WHERE SH.datetime >= '2025-06-01 00:00:00' AND SH.datetime <= '2025-06-31 23:59:59'
+) AS AB
+
+LEFT JOIN (SELECT DISTINCT msisdn,id_outlet,package_type,revenue FROM sellout_barcode_202506) C 
+    ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet
+    */
 
     function getScanSummaryCompareRealTimeAdmin($periode,$startDate,$endDate){
         $db = \Config\Database::connect();
