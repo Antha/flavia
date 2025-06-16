@@ -117,8 +117,6 @@ class Qris extends BaseController
             if( $this->session_user->get("region") && $this->session_user->get("region") == "JATENG-DIY"){
                 if(!is_null($action) && $action == "update_stock"){
                     $themodel = $this->updateStocksJatengModel;
-                }else{
-                    $themodel = $this->scanHistoriesJatengModel;
                 }
             }
 

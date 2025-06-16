@@ -41,7 +41,7 @@ class Scan_summary extends BaseController
         if ($this->request->isAJAX()) {
             if($this->session_user->get("region") && $this->session_user->get("region") == "JATENG-DIY"){
                 if($this->request->getPost('action') == "perdana"){
-                    $scan_model = new ScanHistoriesJatengModel();
+                    $scan_model = new ScanHistoriesModel();
                 }
     
                 if($this->request->getPost('action') == "update-stock"){
