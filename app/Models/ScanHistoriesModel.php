@@ -121,7 +121,7 @@ class ScanHistoriesModel extends Model
 
     //query source sellour barcode new
     //SO BARCODE
-    //SELECT * FROM SELLOUT_BARCODE_202504 WHERE star_status = 'PAYLOAD' AND regional LIKE 'BALI%'
+    //SELECT * FROM SELLOUT_BARCODE_202505 WHERE star_status = 'PAYLOAD' AND regional LIKE 'BALI%'
 
     //RENEWAL SO
     //SELECT * FROM `RENEWAL_SO_202504` WHERE regional = 'BALINUSRA'
@@ -219,37 +219,76 @@ INNER JOIN sellout_barcode_202505 C
 (SELECT msisdn,flag_nsr_mtd,rev_nsr_mtd FROM `nsr_merge_202505`)BX
 ON AX.msisdn = BX.msisdn */
 
-//scan history complete
+//scan history balnus complete
 /*SELECT
-    AB.user_id, 
-    AB.fl_name, 
-    AB.outlet_name, 
-    AB.digipos_id,
-    AB.msisdn,
-    C.msisdn msisdn_so_barcode_compare,
-    AB.card_type,
-    C.package_type,
-    C.revenue,
-    CASE WHEN C.msisdn IS NULL THEN "Not Valid" ELSE "Valid" END status_valid,
-    AB.scan_date
-FROM (
-    SELECT 
-	U.id AS user_id, 
-	U.fl_name, 
-	U.outlet_name, 
-	U.digipos_id, 
-	SH.msisdn, 
-	SH.card_type,
-	SH.datetime scan_date
-    FROM users U
-    INNER JOIN scan_histories_jateng SH 
-	ON U.id = SH.user_id
-    WHERE SH.datetime >= '2025-06-01 00:00:00' AND SH.datetime <= '2025-06-31 23:59:59'
-) AS AB
+        AB.user_id, 
+        AB.fl_name, 
+        AB.outlet_name, 
+        AB.digipos_id,
+        AB.msisdn,
+        AB.card_type,
+        AB.scan_date,
+        AB.BRANCH branch,
+        AB.CLUSTER cluster,
+	CASE WHEN C.msisdn IS NULL THEN "Not Valid" ELSE "Valid" END status_valid
+    FROM (
+        SELECT 
+        U.id AS user_id, 
+        U.fl_name, 
+        U.outlet_name, 
+        U.digipos_id, 
+        SH.msisdn, 
+        SH.card_type,
+        SH.datetime scan_date,
+        OP.BRANCH,
+        OP.CLUSTER
+        FROM users U
+        INNER JOIN scan_histories SH 
+        ON U.id = SH.user_id
+        LEFT JOIN `outlet_pjp_area_2025` OP
+        ON U.digipos_id = OP.ID_OUTLET
+        WHERE SH.datetime >= '2025-07-01 00:00:00' AND SH.datetime <= '2025-07-31 23:59:59'
+    ) AS AB
 
-LEFT JOIN (SELECT DISTINCT msisdn,id_outlet,package_type,revenue FROM sellout_barcode_202506) C 
-    ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet
+    LEFT JOIN (SELECT DISTINCT msisdn,id_outlet,package_type,revenue FROM sellout_barcode_202507) C 
+        ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet
     */
+
+    /*get flavia area
+        SELECT
+        AB.user_id, 
+        AB.fl_name, 
+        AB.outlet_name, 
+        AB.digipos_id,
+        AB.CLUSTER cluster,
+        AB.msisdn,
+        C.msisdn msisdn_so_barcode_compare,
+        AB.card_type,
+        C.package_type package_type_renewal,
+        C.revenue revenue_renewal,
+        CASE WHEN C.msisdn IS NULL THEN "Not Valid" ELSE "Valid" END status_valid,
+        AB.scan_date
+    FROM (
+        SELECT 
+        U.id AS user_id, 
+        U.fl_name, 
+        U.outlet_name, 
+        U.digipos_id, 
+        SH.msisdn, 
+        SH.card_type,
+        SH.datetime scan_date,
+        OP.CLUSTER
+        FROM users U
+        INNER JOIN scan_histories SH 
+        ON U.id = SH.user_id
+        LEFT JOIN `outlet_pjp_area_2025` OP
+        ON U.digipos_id = OP.ID_OUTLET
+        WHERE SH.datetime >= '2025-06-01 00:00:00' AND SH.datetime <= '2025-06-31 23:59:59'
+    ) AS AB
+
+    LEFT JOIN (SELECT DISTINCT msisdn,id_outlet,package_type,revenue FROM sellout_barcode_202506) C 
+        ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet
+     */
 
     function getScanSummaryCompareRealTimeAdmin($periode,$startDate,$endDate){
         $db = \Config\Database::connect();
@@ -406,5 +445,255 @@ LEFT JOIN (SELECT DISTINCT msisdn,id_outlet,package_type,revenue FROM sellout_ba
         // Eksekusi Query
         $query = $db->query($queryStr);
         return $query->getResultArray();
+    }
+
+    function getScanSummaryAdminFlaviaAreaCluster($periode,$startDate,$endDate){
+        $db = \Config\Database::connect();
+        // Final Query with COUNT DISTINCT
+        $sql = "SELECT regional,AA.CLUSTER cluster,fl_register,
+                    COUNT(fl_scan) fl_scan,
+                    ROUND((COUNT(fl_scan)/fl_register)*100,1) fl_scan_to_register,
+                    COUNT(CASE WHEN fl_scan > 1 THEN fl_scan END) fl_aktif,
+                    IFNULL(ROUND((COUNT(CASE WHEN fl_scan > 1 THEN fl_scan END)/COUNT(fl_scan))*100,1),0) fl_aktif_to_register,
+                    SUM(msisdn_scan) msisdn_scan,
+                    SUM(fl_scan) msisdn_aktif_so,
+                    SUM(renewal) renewal,
+                    IFNULL(ROUND((SUM(renewal)/SUM(fl_scan))*100,1),0) renewal_to_so,
+                    SUM(rev_renewal) rev_renewal
+                    FROM
+                    (SELECT REGIONAL regional,CLUSTER, COUNT(DISTINCT id) fl_register 
+                    FROM `users` A
+                    LEFT JOIN outlet_pjp_area_2025 B
+                    ON A.digipos_id = B.`ID_OUTLET`
+                    WHERE username NOT IN('admin','dewa','bagus01') AND `status` = '1' AND CLUSTER IS NOT NULL
+                    GROUP BY CLUSTER)AA
+                    LEFT JOIN
+                    (SELECT cluster,fl_name,
+                    COUNT(CASE WHEN status_valid = 'valid' THEN msisdn END) fl_scan,
+                    COUNT(msisdn) msisdn_scan,
+                    COUNT(package_type_renewal) renewal,
+                    SUM(revenue_renewal) rev_renewal
+                    FROM
+                    (SELECT
+                    AB.user_id, 
+                    AB.fl_name, 
+                    AB.outlet_name, 
+                    AB.digipos_id,
+                    AB.CLUSTER cluster,
+                    AB.msisdn,
+                    C.msisdn msisdn_so_barcode_compare,
+                    AB.card_type,
+                    C.package_type package_type_renewal,
+                    C.revenue revenue_renewal,
+                    CASE WHEN C.msisdn IS NULL THEN 'Not Valid' ELSE 'Valid' END status_valid,
+                    AB.scan_date
+                    FROM (
+                    SELECT DISTINCT
+                    U.id AS user_id, 
+                    U.fl_name, 
+                    U.outlet_name, 
+                    U.digipos_id, 
+                    SH.msisdn, 
+                    SH.card_type,
+                    SH.datetime scan_date,
+                    OP.CLUSTER
+                    FROM users U
+                    INNER JOIN scan_histories SH 
+                    ON U.id = SH.user_id
+                    LEFT JOIN `outlet_pjp_area_2025` OP
+                    ON U.digipos_id = OP.ID_OUTLET
+                    WHERE SH.datetime >= '{$startDate}' AND SH.datetime <= '{$endDate}' 
+                    ) AS AB
+                    LEFT JOIN (SELECT DISTINCT msisdn,id_outlet,package_type,revenue FROM sellout_barcode_{$periode}) C 
+                    ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet)BBSC
+                    WHERE cluster IS NOT NULL 
+                    GROUP BY cluster,fl_name)BB
+                    ON AA.cluster = BB.cluster
+                    GROUP BY AA.cluster
+                    ORDER BY regional, AA.cluster";
+
+        $query = $db->query($sql);
+        if($query)return $query->getResultArray();
+    }
+
+    function getScanSummaryAdminFlaviaAreaRegional($periode,$startDate,$endDate){
+        $db = \Config\Database::connect();
+        // Final Query with COUNT DISTINCT
+        $sql = "SELECT AA.regional regional,fl_register,
+                    COUNT(fl_scan) fl_scan,
+                    ROUND((COUNT(fl_scan)/fl_register)*100,1) fl_scan_to_register,
+                    COUNT(CASE WHEN fl_scan > 1 THEN fl_scan END) fl_aktif,
+                    IFNULL(ROUND((COUNT(CASE WHEN fl_scan > 1 THEN fl_scan END)/COUNT(fl_scan))*100,1),0) fl_aktif_to_register,
+                    SUM(msisdn_scan) msisdn_scan,
+                    SUM(fl_scan) msisdn_aktif_so,
+                    SUM(renewal) renewal,
+                    IFNULL(ROUND((SUM(renewal)/SUM(fl_scan))*100,1),0) renewal_to_so,
+                    SUM(rev_renewal) rev_renewal
+                    FROM
+                    (SELECT REGIONAL regional,CLUSTER, COUNT(DISTINCT CASE WHEN CLUSTER IN('BALI BARAT','BALI TIMUR','LOMBOK') OR REGIONAL IN('JATENG-DIY','JATIM') THEN id END) fl_register
+                    FROM `users` A
+                    LEFT JOIN outlet_pjp_area_2025 B
+                    ON A.digipos_id = B.`ID_OUTLET`
+                    WHERE username NOT IN('admin','dewa','bagus01') AND `status` = '1' AND CLUSTER IS NOT NULL
+                    GROUP BY REGIONAL)AA
+                    LEFT JOIN
+                    (SELECT regional,fl_name,
+                    COUNT(CASE WHEN status_valid = 'valid' AND (CLUSTER IN('BALI BARAT','BALI TIMUR','LOMBOK') OR REGIONAL IN('JATENG-DIY','JATIM'))THEN msisdn END) fl_scan,
+                    COUNT(CASE WHEN CLUSTER IN('BALI BARAT','BALI TIMUR','LOMBOK') OR REGIONAL IN('JATENG-DIY','JATIM') THEN msisdn END) msisdn_scan,
+                    COUNT(CASE WHEN CLUSTER IN('BALI BARAT','BALI TIMUR','LOMBOK') OR REGIONAL IN('JATENG-DIY','JATIM') THEN package_type_renewal END) renewal,
+                    SUM(CASE WHEN CLUSTER IN('BALI BARAT','BALI TIMUR','LOMBOK') OR REGIONAL IN('JATENG-DIY','JATIM') THEN revenue_renewal END) rev_renewal
+                    FROM
+                    (SELECT
+                    AB.user_id, 
+                    AB.fl_name, 
+                    AB.outlet_name, 
+                    AB.digipos_id,
+                    AB.REGIONAL regional,
+                    AB.CLUSTER cluster,
+                    AB.msisdn,
+                    C.msisdn msisdn_so_barcode_compare,
+                    AB.card_type,
+                    C.package_type package_type_renewal,
+                    C.revenue revenue_renewal,
+                    CASE WHEN C.msisdn IS NULL THEN 'Not Valid' ELSE 'Valid' END status_valid,
+                    AB.scan_date
+                    FROM (
+                    SELECT DISTINCT
+                    U.id AS user_id, 
+                    U.fl_name, 
+                    U.outlet_name, 
+                    U.digipos_id, 
+                    SH.msisdn, 
+                    SH.card_type,
+                    SH.datetime scan_date,
+                    OP.REGIONAL,
+                    OP.CLUSTER
+                    FROM users U
+                    INNER JOIN scan_histories SH 
+                    ON U.id = SH.user_id
+                    LEFT JOIN `outlet_pjp_area_2025` OP
+                    ON U.digipos_id = OP.ID_OUTLET
+                    WHERE SH.datetime >= '{$startDate}' AND SH.datetime <= '{$endDate}' 
+                    ) AS AB
+                    LEFT JOIN (SELECT DISTINCT msisdn,id_outlet,package_type,revenue FROM sellout_barcode_{$periode}) C 
+                    ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet)BBSC
+                    WHERE cluster IS NOT NULL 
+                    GROUP BY regional,fl_name)BB
+                    ON AA.regional = BB.regional
+                    GROUP BY regional
+                    ORDER BY regional";
+
+        $query = $db->query($sql);
+        if($query)return $query->getResultArray();
+    }
+
+    function getScanSummaryAdminFlaviaAreaAll($periode,$startDate,$endDate){
+        $db = \Config\Database::connect();
+        // Final Query with COUNT DISTINCT
+        $sql = "SELECT AA.areas areas,fl_register,
+                COUNT(fl_scan) fl_scan,
+                ROUND((COUNT(fl_scan)/fl_register)*100,1) fl_scan_to_register,
+                COUNT(CASE WHEN fl_scan > 1 THEN fl_scan END) fl_aktif,
+                IFNULL(ROUND((COUNT(CASE WHEN fl_scan > 1 THEN fl_scan END)/COUNT(fl_scan))*100,1),0) fl_aktif_to_register,
+                SUM(msisdn_scan) msisdn_scan,
+                SUM(fl_scan) msisdn_aktif_so,
+                SUM(renewal) renewal,
+                IFNULL(ROUND((SUM(renewal)/SUM(fl_scan))*100,1),0) renewal_to_so,
+                SUM(rev_renewal) rev_renewal
+                FROM
+                (SELECT 'AREA 3' areas, COUNT(DISTINCT CASE WHEN CLUSTER IN('BALI BARAT','BALI TIMUR','LOMBOK') OR REGIONAL IN('JATENG-DIY','JATIM') THEN id END) fl_register
+                FROM `users` A
+                LEFT JOIN outlet_pjp_area_2025 B
+                ON A.digipos_id = B.`ID_OUTLET`
+                WHERE username NOT IN('admin','dewa','bagus01') AND `status` = '1' AND CLUSTER IS NOT NULL
+                GROUP BY areas)AA
+                LEFT JOIN
+                (SELECT 'AREA 3' areas,fl_name,
+                COUNT(CASE WHEN status_valid = 'valid' AND (CLUSTER IN('BALI BARAT','BALI TIMUR','LOMBOK') OR REGIONAL IN('JATENG-DIY','JATIM'))THEN msisdn END) fl_scan,
+                COUNT(CASE WHEN CLUSTER IN('BALI BARAT','BALI TIMUR','LOMBOK') OR REGIONAL IN('JATENG-DIY','JATIM') THEN msisdn END) msisdn_scan,
+                COUNT(CASE WHEN CLUSTER IN('BALI BARAT','BALI TIMUR','LOMBOK') OR REGIONAL IN('JATENG-DIY','JATIM') THEN package_type_renewal END) renewal,
+                SUM(CASE WHEN CLUSTER IN('BALI BARAT','BALI TIMUR','LOMBOK') OR REGIONAL IN('JATENG-DIY','JATIM') THEN revenue_renewal END) rev_renewal
+                FROM
+                (SELECT
+                AB.user_id, 
+                AB.fl_name, 
+                AB.outlet_name, 
+                AB.digipos_id,
+                AB.REGIONAL regional,
+                AB.CLUSTER cluster,
+                AB.msisdn,
+                C.msisdn msisdn_so_barcode_compare,
+                AB.card_type,
+                C.package_type package_type_renewal,
+                C.revenue revenue_renewal,
+                CASE WHEN C.msisdn IS NULL THEN 'Not Valid' ELSE 'Valid' END status_valid,
+                AB.scan_date
+                FROM (
+                SELECT 
+                U.id AS user_id, 
+                U.fl_name, 
+                U.outlet_name, 
+                U.digipos_id, 
+                SH.msisdn, 
+                SH.card_type,
+                SH.datetime scan_date,
+                OP.REGIONAL,
+                OP.CLUSTER
+                FROM users U
+                INNER JOIN scan_histories SH 
+                ON U.id = SH.user_id
+                LEFT JOIN `outlet_pjp_area_2025` OP
+                ON U.digipos_id = OP.ID_OUTLET
+                WHERE SH.datetime >= '{$startDate}' AND SH.datetime <= '{$endDate}'  
+                ) AS AB
+                LEFT JOIN (SELECT DISTINCT msisdn,id_outlet,package_type,revenue FROM sellout_barcode_202506) C 
+                ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet)BBSC
+                WHERE cluster IS NOT NULL 
+                GROUP BY areas,fl_name)BB
+                ON AA.areas = BB.areas
+                GROUP BY AA.areas";
+
+        $query = $db->query($sql);
+        if($query)return $query->getResultArray();
+    }
+
+    function getScanSummaryAdminFlaviaAreaFl($periode,$startDate,$endDate){
+        $db = \Config\Database::connect();
+        // Final Query with COUNT DISTINCT
+        $sql = "SELECT
+                    AB.user_id, 
+                    AB.fl_name, 
+                    AB.outlet_name, 
+                    AB.CLUSTER cluster,
+                    COUNT(AB.msisdn) msisdn_scan,
+                    COUNT(CASE WHEN C.msisdn IS NOT NULL THEN AB.msisdn END) msisdn_aktif_so,
+                    COUNT(CASE WHEN C.msisdn IS NOT NULL THEN C.package_type END) renewal,
+                    IFNULL(SUM(CASE WHEN C.msisdn IS NOT NULL THEN C.revenue END),0) revenue_renewal
+                FROM (
+                    SELECT DISTINCT
+                    U.id AS user_id, 
+                    U.fl_name, 
+                    U.outlet_name, 
+                    U.digipos_id, 
+                    SH.msisdn, 
+                    SH.card_type,
+                    SH.datetime scan_date,
+                    OP.CLUSTER
+                    FROM users U
+                    INNER JOIN scan_histories SH 
+                    ON U.id = SH.user_id
+                    LEFT JOIN `outlet_pjp_area_2025` OP
+                    ON U.digipos_id = OP.ID_OUTLET
+                    WHERE SH.datetime >= '{$startDate}' AND SH.datetime <= '{$endDate}'
+                ) AS AB
+
+                LEFT JOIN (SELECT DISTINCT msisdn,id_outlet,package_type,revenue 
+                FROM sellout_barcode_{$periode}) C 
+                    ON AB.msisdn = C.msisdn AND AB.digipos_id = C.id_outlet
+                GROUP BY 1,2,3
+                ORDER BY COUNT(AB.msisdn) DESC";
+
+        $query = $db->query($sql);
+        if($query)return $query->getResultArray();
     }
 }

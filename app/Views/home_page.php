@@ -106,7 +106,7 @@
 <body class="body-grey">
     <?= $this->include('/includes/loading_spinner'); ?>
     <div id="content">
-        <?= $this->include('/includes/include_top_navbar'); ?>
+        <?= $this->include('/includes/include_top_navbar_area'); ?>
         <div class="home-content mt-md-5 mb-md-5 pt-md-3 mt-4 mb-4 pt-2">
             <div class="container greeting-wrapper">
                 <div class="greeting mb-4 text-end">

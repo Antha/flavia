@@ -35,6 +35,9 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->get('/report/admin_report', 'Scan_summary::admin_report_real_time');
     $routes->post('/report/admin_report', 'Scan_summary::admin_report_real_time');
 
+    $routes->get('/report/admin_report_area', 'Scan_summary::admin_report_real_time_area');
+    $routes->post('/report/admin_report_area', 'Scan_summary::admin_report_real_time_area');
+
     $routes->get('/report_np/admin_report', 'Scan_summary::admin_report_real_time_new_program');
     $routes->post('/report_np/admin_report', 'Scan_summary::admin_report_real_time_new_program');
 
